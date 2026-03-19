@@ -39,7 +39,7 @@
                         text="Solo lectura"
                         state="Warning"
                         icon="sap-icon://locked"
-                        visible="{viewModel>/readOnly}"/>
+                        visible="{= ${viewModel>/readOnly} &amp;&amp; !${viewModel>/isPhone}}"/>
                     <Button
                         text="{i18n>cancelar}"
                         icon="sap-icon://decline"
