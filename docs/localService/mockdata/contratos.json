@@ -23,7 +23,7 @@
                                            "cuentaBancaria":  "193-2156789-0-12",
                                            "banco":  "BCP"
                                        },
-                          "condicionesPago":  "30 dÃ­as fecha factura",
+                          "condicionesPago":  "30 dÍ­as fecha factura",
                           "condicionesPagoCodigo":  "Z030",
                           "periodicidadPago":  "MENSUAL",
                           "periodicidadPagoCodigo":  "M",
@@ -50,7 +50,7 @@
                                                 "id":  "CONC-002",
                                                 "codigo":  "GC",
                                                 "concepto":  "Gastos Comunes",
-                                                "descripcion":  "Gastos comunes Ã¡rea comÃºn",
+                                                "descripcion":  "Gastos comunes área comÍºn",
                                                 "frecuenciaPago":  "MENSUAL",
                                                 "frecuenciaPagoCodigo":  "M",
                                                 "valorTotal":  24000.00,
@@ -95,7 +95,7 @@
                                            "cuentaBancaria":  "193-2156789-0-12",
                                            "banco":  "BCP"
                                        },
-                          "condicionesPago":  "15 dÃ­as fecha factura",
+                          "condicionesPago":  "15 dÍ­as fecha factura",
                           "condicionesPagoCodigo":  "Z015",
                           "periodicidadPago":  "MENSUAL",
                           "periodicidadPagoCodigo":  "M",
