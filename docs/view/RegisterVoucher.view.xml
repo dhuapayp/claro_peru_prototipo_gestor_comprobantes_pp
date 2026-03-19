@@ -977,7 +977,7 @@
 
                                     <!-- Comparación de Importes (Mobile) -->
                                     <Panel headerText="{i18n>comparacionImportes}" visible="{viewModel>/isPhone}">
-                                        <VBox items="{viewModel>/comparacion}" class="sapUiSmallMarginBeginEnd sapUiTinyMarginTopBottom">
+                                        <VBox items="{viewModel>/comparacion}" class="sapUiTinyMarginTopBottom">
                                             <VBox class="claro-comp-card">
                                                 <!-- Cabecera: Concepto + Estado -->
                                                 <HBox alignItems="Center" justifyContent="SpaceBetween" class="claro-comp-card-header">
