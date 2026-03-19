@@ -1,0 +1,14 @@
+{
+  "cuentasContables": [
+    { "id": "CC-001", "codigo": "6311010100", "descripcion": "Alquileres de terrenos" },
+    { "id": "CC-002", "codigo": "6311010200", "descripcion": "Gastos comunes inmuebles" },
+    { "id": "CC-003", "codigo": "6311020100", "descripcion": "Alquileres de edificios" },
+    { "id": "CC-004", "codigo": "6311020200", "descripcion": "Gastos de mantenimiento edificios" },
+    { "id": "CC-005", "codigo": "6312010100", "descripcion": "Arrendamiento financiero - locales" },
+    { "id": "CC-006", "codigo": "6350010100", "descripcion": "Seguros de inmuebles" },
+    { "id": "CC-007", "codigo": "6411010100", "descripcion": "Servicios de limpieza" },
+    { "id": "CC-008", "codigo": "6411010200", "descripcion": "Servicios de seguridad y vigilancia" },
+    { "id": "CC-009", "codigo": "6550010100", "descripcion": "Suministros - electricidad" },
+    { "id": "CC-010", "codigo": "6550010200", "descripcion": "Suministros - agua" }
+  ]
+}

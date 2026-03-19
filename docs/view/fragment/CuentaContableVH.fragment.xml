@@ -1,0 +1,46 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Dialog
+        id="cuentaContableVHDialog"
+        title="Selección de Cuenta Contable"
+        contentWidth="520px"
+        draggable="true"
+        resizable="true">
+        <customHeader>
+            <Bar>
+                <contentLeft>
+                    <core:Icon src="sap-icon://accounting-document-verification" size="1rem" class="sapUiSmallMarginEnd"/>
+                    <Title text="Selección de Cuenta Contable" level="H3"/>
+                </contentLeft>
+                <contentRight>
+                    <Button icon="sap-icon://decline" press=".onCuentaContableVHClose" type="Transparent" tooltip="Cerrar"/>
+                </contentRight>
+            </Bar>
+        </customHeader>
+        <content>
+            <SearchField
+                id="cuentaContableSearchField"
+                placeholder="Buscar por código o descripción..."
+                search=".onCuentaContableVHSearch"
+                liveChange=".onCuentaContableVHSearch"
+                class="sapUiSmallMarginTopBottom sapUiSmallMarginBeginEnd"
+                width="calc(100% - 2rem)"/>
+            <List
+                id="cuentaContableList"
+                items="{cuentasContables>/}"
+                mode="SingleSelectMaster"
+                selectionChange=".onCuentaContableVHSelect"
+                noDataText="No se encontraron cuentas contables">
+                <StandardListItem
+                    title="{cuentasContables>codigo}"
+                    description="{cuentasContables>descripcion}"
+                    info="{cuentasContables>codigo}"
+                    type="Active"/>
+            </List>
+        </content>
+        <buttons>
+            <Button text="Cancelar" press=".onCuentaContableVHClose" type="Transparent"/>
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,185 @@
+<mvc:View 
+    controllerName="claro.com.clarocomprobantes.controller.VoucherList"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    
+    <Page 
+        id="voucherListPage" 
+        title="{i18n>misComprobantes}"
+        showNavButton="true"
+        navButtonPress=".onNavBack">
+        
+        <headerContent>
+            <Button 
+                id="btnRefreshVouchers"
+                icon="sap-icon://refresh"
+                tooltip="{i18n>refresh}"
+                press=".onRefresh"/>
+        </headerContent>
+        
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <!-- Panel de Filtros -->
+                <Panel 
+                    id="filterPanelVouchers"
+                    headerText="{i18n>filters}"
+                    expandable="true"
+                    expanded="true"
+                    class="sapUiSmallMarginBottom">
+                    <content>
+                        <HBox alignItems="End" wrap="Wrap" class="sapUiSmallMargin">
+                            <VBox class="sapUiSmallMarginEnd">
+                                <Label text="{i18n>estado}" labelFor="selectEstado"/>
+                                <Select 
+                                    id="selectEstado"
+                                    width="200px"
+                                    selectedKey="{viewModel>/filters/estado}"
+                                    change=".onFilterChange">
+                                    <core:Item key="" text="{i18n>todos}"/>
+                                    <core:Item key="REGISTRADO" text="{i18n>registrado}"/>
+                                    <core:Item key="ENVIADO" text="{i18n>enviado}"/>
+                                    <core:Item key="PENDIENTE" text="{i18n>pendiente}"/>
+                                </Select>
+                            </VBox>
+                            <VBox class="sapUiSmallMarginEnd">
+                                <Label text="{i18n>serieNumero}" labelFor="inputSerieNum"/>
+                                <Input 
+                                    id="inputSerieNum"
+                                    width="200px"
+                                    placeholder="{i18n>ingresarSerieNumero}"
+                                    value="{viewModel>/filters/serieNumero}"
+                                    liveChange=".onFilterChange"/>
+                            </VBox>
+                            <VBox class="sapUiSmallMarginEnd">
+                                <Label text="{i18n>fechaDesde}" labelFor="dpFechaDesdeV"/>
+                                <DatePicker 
+                                    id="dpFechaDesdeV"
+                                    width="150px"
+                                    value="{viewModel>/filters/fechaDesde}"
+                                    valueFormat="yyyy-MM-dd"
+                                    displayFormat="dd/MM/yyyy"
+                                    change=".onFilterChange"/>
+                            </VBox>
+                            <VBox class="sapUiSmallMarginEnd">
+                                <Label text="{i18n>fechaHasta}" labelFor="dpFechaHastaV"/>
+                                <DatePicker 
+                                    id="dpFechaHastaV"
+                                    width="150px"
+                                    value="{viewModel>/filters/fechaHasta}"
+                                    valueFormat="yyyy-MM-dd"
+                                    displayFormat="dd/MM/yyyy"
+                                    change=".onFilterChange"/>
+                            </VBox>
+                            <VBox>
+                                <Label text="" />
+                                <Button 
+                                    id="btnClearFiltersV"
+                                    text="{i18n>limpiar}"
+                                    type="Transparent"
+                                    press=".onClearFilters"/>
+                            </VBox>
+                        </HBox>
+                    </content>
+                </Panel>
+                
+                <!-- Tabla de Comprobantes -->
+                <Panel id="vouchersPanel">
+                    <headerToolbar>
+                        <Toolbar>
+                            <Title text="{i18n>comprobantesRegistrados}"/>
+                            <ToolbarSpacer/>
+                            <Label text="{i18n>totalRegistros}:"/>
+                            <ObjectNumber 
+                                number="{viewModel>/voucherCount}" 
+                                emphasized="true"/>
+                        </Toolbar>
+                    </headerToolbar>
+                    <content>
+                        <Table 
+                            id="vouchersTable"
+                            items="{comprobantes>/}"
+                            mode="SingleSelectMaster"
+                            selectionChange=".onVoucherSelect"
+                            growing="true"
+                            growingThreshold="20"
+                            alternateRowColors="true"
+                            showSeparators="All"
+                            sticky="ColumnHeaders,HeaderToolbar"
+                            class="claro-grid-table"
+                            noDataText="{i18n>sinComprobantes}">
+                            <columns>
+                                <Column width="12%">
+                                    <Text text="{i18n>serieNumero}"/>
+                                </Column>
+                                <Column width="10%">
+                                    <Text text="{i18n>tipoDocumento}"/>
+                                </Column>
+                                <Column width="10%">
+                                    <Text text="{i18n>fechaEmision}"/>
+                                </Column>
+                                <Column width="12%" hAlign="Right">
+                                    <Text text="{i18n>montoTotal}"/>
+                                </Column>
+                                <Column width="8%">
+                                    <Text text="{i18n>moneda}"/>
+                                </Column>
+                                <Column width="10%">
+                                    <Text text="{i18n>estado}"/>
+                                </Column>
+                                <Column width="15%">
+                                    <Text text="{i18n>documentoOrigen}"/>
+                                </Column>
+                                <Column width="12%">
+                                    <Text text="{i18n>fechaRegistro}"/>
+                                </Column>
+                                <Column width="11%">
+                                    <Text text="{i18n>acciones}"/>
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem type="Navigation" press=".onVoucherPress">
+                                    <cells>
+                                        <ObjectIdentifier 
+                                            title="{= ${comprobantes>serieDocumento} + '-' + ${comprobantes>numeroDocumento} }"/>
+                                        <Text text="{= ${comprobantes>tipoDocumento} === '01' ? 'Factura' : (${comprobantes>tipoDocumento} === '07' ? 'N. Crédito' : 'N. Débito') }"/>
+                                        <Text text="{path: 'comprobantes>fechaEmision', formatter: '.formatter.formatDate'}"/>
+                                        <ObjectNumber 
+                                            number="{path: 'comprobantes>montoTotal', formatter: '.formatter.formatCurrency'}"
+                                            unit="{comprobantes>moneda}"/>
+                                        <Text text="{comprobantes>moneda}"/>
+                                        <ObjectStatus 
+                                            text="{comprobantes>estadoDesc}"
+                                            state="{= ${comprobantes>estado} === 'ENVIADO' ? 'Success' : (${comprobantes>estado} === 'REGISTRADO' ? 'Warning' : 'Information') }"
+                                            icon="{= ${comprobantes>estado} === 'ENVIADO' ? 'sap-icon://accept' : (${comprobantes>estado} === 'REGISTRADO' ? 'sap-icon://pending' : 'sap-icon://status-in-process') }"/>
+                                        <Text text="{= ${comprobantes>documentoOrigen/tipo} + ' ' + ${comprobantes>documentoOrigen/numero} }"/>
+                                        <Text text="{path: 'comprobantes>fechaCreacion', formatter: '.formatter.formatDateTime'}"/>
+                                        <HBox>
+                                            <Button 
+                                                icon="sap-icon://display"
+                                                tooltip="{i18n>verDetalle}"
+                                                type="Transparent"
+                                                press=".onViewVoucher"/>
+                                            <Button 
+                                                icon="sap-icon://edit"
+                                                tooltip="{i18n>editar}"
+                                                type="Transparent"
+                                                enabled="{= ${comprobantes>estado} === 'REGISTRADO' }"
+                                                press=".onEditVoucher"/>
+                                            <Button 
+                                                icon="sap-icon://paper-plane"
+                                                tooltip="{i18n>enviar}"
+                                                type="Transparent"
+                                                enabled="{= ${comprobantes>estado} === 'REGISTRADO' }"
+                                                press=".onSendVoucher"/>
+                                        </HBox>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </content>
+                </Panel>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

@@ -1,0 +1,75 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form">
+    <Dialog
+        id="programacionMobileDialog"
+        title="Detalle de Programación"
+        contentWidth="92%"
+        draggable="false"
+        resizable="false"
+        verticalScrolling="true">
+        <content>
+            <form:SimpleForm
+                editable="false"
+                layout="ResponsiveGridLayout"
+                labelSpanXL="5" labelSpanL="5" labelSpanM="5" labelSpanS="12"
+                adjustLabelSpan="false"
+                emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0"
+                columnsXL="1" columnsL="1" columnsM="1"
+                class="sapUiSmallMarginTopBottom">
+
+                <form:title>
+                    <core:Title text="Identificación"/>
+                </form:title>
+                <Label text="Concepto Pago"/>
+                <Text text="{programacionMobileDetail>/conceptoPago}"/>
+
+                <Label text="Tipo Und. Negocio"/>
+                <Text text="{programacionMobileDetail>/tipoUndNegocio}"/>
+
+                <Label text="Frecuencia"/>
+                <Text text="{programacionMobileDetail>/frecuencia}"/>
+
+                <form:title>
+                    <core:Title text="Período"/>
+                </form:title>
+                <Label text="Fecha Inicio"/>
+                <Text text="{programacionMobileDetail>/fechaInicio}"/>
+
+                <Label text="Fecha Fin"/>
+                <Text text="{programacionMobileDetail>/fechaFin}"/>
+
+                <form:title>
+                    <core:Title text="Importes"/>
+                </form:title>
+                <Label text="Moneda Programada"/>
+                <Text text="{programacionMobileDetail>/monedaProg}"/>
+
+                <Label text="Importe Programado"/>
+                <ObjectNumber
+                    number="{path: 'programacionMobileDetail>/importeProgramado', formatter: '.formatter.formatCurrency'}"
+                    unit="{programacionMobileDetail>/monedaProg}"
+                    emphasized="true"
+                    class="claro-amount-value"/>
+
+                <Label text="Moneda Pago"/>
+                <Text text="{= ${programacionMobileDetail>/monedaPago} || '—'}"/>
+
+                <Label text="Importe Pagado"/>
+                <ObjectNumber
+                    number="{path: 'programacionMobileDetail>/importePagado', formatter: '.formatter.formatCurrencyNullable'}"
+                    unit="{programacionMobileDetail>/monedaPago}"
+                    state="{parts: [{path: 'programacionMobileDetail>/importeProgramado'}, {path: 'programacionMobileDetail>/importePagado'}], formatter: '.formatter.formatProgramacionHighlightFull'}"
+                    class="claro-amount-value"/>
+
+            </form:SimpleForm>
+        </content>
+        <endButton>
+            <Button
+                text="Cerrar"
+                icon="sap-icon://decline"
+                press=".onCloseProgramacionMobileDialog"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

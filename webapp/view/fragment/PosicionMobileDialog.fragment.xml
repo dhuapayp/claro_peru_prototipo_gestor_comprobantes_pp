@@ -1,0 +1,76 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form">
+    <Dialog
+        id="posicionMobileDialog"
+        title="Detalle de Posición"
+        contentWidth="92%"
+        draggable="false"
+        resizable="false"
+        verticalScrolling="true">
+        <content>
+            <form:SimpleForm
+                editable="false"
+                layout="ResponsiveGridLayout"
+                labelSpanXL="5" labelSpanL="5" labelSpanM="5" labelSpanS="5"
+                adjustLabelSpan="false"
+                emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0"
+                columnsXL="1" columnsL="1" columnsM="1"
+                class="sapUiSmallMarginTopBottom">
+
+                <form:title>
+                    <core:Title text="Identificación"/>
+                </form:title>
+                <Label text="Posición"/>
+                <Text text="{posicionMobileDetail>/posicion}"/>
+
+                <Label text="Código"/>
+                <Text text="{posicionMobileDetail>/codigoServicio}"/>
+
+                <Label text="Descripción"/>
+                <Text text="{posicionMobileDetail>/descripcion}"/>
+
+                <form:title>
+                    <core:Title text="Cantidades"/>
+                </form:title>
+                <Label text="Cantidad"/>
+                <Text text="{posicionMobileDetail>/cantidad}"/>
+
+                <Label text="Unidad de Medida"/>
+                <Text text="{posicionMobileDetail>/unidadMedida}"/>
+
+                <form:title>
+                    <core:Title text="Importes"/>
+                </form:title>
+                <Label text="Moneda"/>
+                <Text text="{posicionMobileDetail>/moneda}"/>
+
+                <Label text="Importe"/>
+                <ObjectNumber
+                    number="{path: 'posicionMobileDetail>/importe', formatter: '.formatter.formatCurrency'}"
+                    unit="{posicionMobileDetail>/moneda}"
+                    emphasized="true"
+                    class="claro-amount-value"/>
+
+                <form:title>
+                    <core:Title text="Estado"/>
+                </form:title>
+                <Label text="Estado"/>
+                <ObjectStatus
+                    text="{posicionMobileDetail>/estadoDesc}"
+                    state="{= ${posicionMobileDetail>/estado} === 'PENDIENTE' ? 'Warning' : 'Success'}"
+                    icon="{= ${posicionMobileDetail>/estado} === 'PENDIENTE' ? 'sap-icon://pending' : 'sap-icon://sys-enter-2'}"/>
+
+                <Label text="Asignado"/>
+                <ObjectStatus
+                    text="{= ${posicionMobileDetail>/asignado} ? 'Sí' : 'No'}"
+                    state="{= ${posicionMobileDetail>/asignado} ? 'Success' : 'None'}"/>
+
+            </form:SimpleForm>
+        </content>
+        <beginButton>
+            <Button text="Cerrar" press=".onClosePosicionMobileDialog" type="Emphasized"/>
+        </beginButton>
+    </Dialog>
+</core:FragmentDefinition>

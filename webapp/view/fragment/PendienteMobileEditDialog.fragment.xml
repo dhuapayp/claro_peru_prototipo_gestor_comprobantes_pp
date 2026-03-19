@@ -1,0 +1,104 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form">
+    <Dialog
+        id="pendienteMobileEditDialog"
+        title="Detalle de Pendiente"
+        contentWidth="92%"
+        draggable="false"
+        resizable="false"
+        verticalScrolling="true">
+        <content>
+            <form:SimpleForm
+                editable="true"
+                layout="ResponsiveGridLayout"
+                labelSpanXL="5" labelSpanL="5" labelSpanM="5" labelSpanS="12"
+                adjustLabelSpan="false"
+                emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0"
+                columnsXL="1" columnsL="1" columnsM="1"
+                class="sapUiSmallMarginTopBottom">
+
+                <!-- Datos de identificación (solo lectura) -->
+                <form:title>
+                    <core:Title text="Identificación"/>
+                </form:title>
+                <Label text="Concepto Pago"/>
+                <Text text="{pendienteMobileEdit>/conceptoPago}"/>
+
+                <Label text="Mes Pago"/>
+                <Text text="{pendienteMobileEdit>/mesPago}"/>
+
+                <Label text="Período"/>
+                <Text text="{= ${pendienteMobileEdit>/fechaInicio} + '  —  ' + ${pendienteMobileEdit>/fechaFin}}"/>
+
+                <Label text="Moneda"/>
+                <Text text="{pendienteMobileEdit>/moneda}"/>
+
+                <Label text="Glosa Pago"/>
+                <Text text="{pendienteMobileEdit>/glosaPago}"/>
+
+                <Label text="Consumo"/>
+                <Text text="{pendienteMobileEdit>/consumo}"/>
+
+                <Label text="Nro. Factura"/>
+                <Text text="{= ${pendienteMobileEdit>/nroFactura} || '—'}"/>
+
+                <!-- Importes editables -->
+                <form:title>
+                    <core:Title text="Importes"/>
+                </form:title>
+                <Label text="Valor Venta" required="true"/>
+                <Input
+                    value="{pendienteMobileEdit>/valorVenta}"
+                    textAlign="End"
+                    liveChange=".onPendienteMobileImporteChange"/>
+
+                <Label text="IGV" required="true"/>
+                <Input
+                    value="{pendienteMobileEdit>/igv}"
+                    textAlign="End"
+                    liveChange=".onPendienteMobileImporteChange"/>
+
+                <Label text="Inafecto"/>
+                <Input
+                    value="{pendienteMobileEdit>/inafecto}"
+                    textAlign="End"/>
+
+                <Label text="Total"/>
+                <ObjectNumber
+                    number="{path: 'pendienteMobileEdit>/total', formatter: '.formatter.formatCurrency'}"
+                    unit="{pendienteMobileEdit>/moneda}"
+                    emphasized="true"
+                    class="claro-amount-value"/>
+
+                <!-- Cuenta contable editable -->
+                <form:title>
+                    <core:Title text="Contabilización"/>
+                </form:title>
+                <Label text="Cuenta Contable"/>
+                <Input
+                    value="{pendienteMobileEdit>/cuentaContable}"
+                    showValueHelp="true"
+                    valueHelpRequest=".onCuentaContableValueHelpRequest"/>
+
+                <Label text="Descripción Cuenta"/>
+                <Text text="{pendienteMobileEdit>/descripcionCtaContable}"/>
+
+            </form:SimpleForm>
+        </content>
+        <beginButton>
+            <Button
+                text="Confirmar"
+                type="Emphasized"
+                icon="sap-icon://accept"
+                press=".onConfirmPendienteMobileDialog"/>
+        </beginButton>
+        <endButton>
+            <Button
+                text="Cancelar"
+                icon="sap-icon://decline"
+                press=".onCancelPendienteMobileDialog"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

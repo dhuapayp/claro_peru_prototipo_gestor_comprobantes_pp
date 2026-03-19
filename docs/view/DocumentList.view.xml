@@ -1,0 +1,253 @@
+﻿<mvc:View 
+    controllerName="claro.com.clarocomprobantes.controller.DocumentList"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core">
+
+    <f:DynamicPage id="docListPage" headerExpanded="true" class="claro-dynamic-page">
+
+        <!-- ═══════════════════════  TITLE BAR  ═══════════════════════ -->
+        <f:title>
+            <f:DynamicPageTitle>
+
+                <f:heading>
+                    <HBox alignItems="Center">
+                        <Avatar initials="IP" backgroundColor="Accent6" displayShape="Square"
+                            displaySize="M" class="sapUiSmallMarginEnd claro-company-avatar"/>
+                        <VBox justifyContent="Center">
+                            <Title text="{usuario>/usuario/razonSocial}" titleStyle="H4" wrapping="false"
+                                class="claro-title-text"/>
+                            <ObjectStatus text="{= 'RUC: ' + ${usuario>/usuario/ruc}}"
+                                class="claro-subtitle-text"/>
+                        </VBox>
+                    </HBox>
+                </f:heading>
+
+                <f:snappedHeading>
+                    <HBox alignItems="Center">
+                        <Avatar initials="IP" backgroundColor="Accent6" displayShape="Square"
+                            displaySize="XS" class="sapUiTinyMarginEnd claro-company-avatar"/>
+                        <Title text="{usuario>/usuario/razonSocial}" titleStyle="H5" class="claro-title-text"/>
+                    </HBox>
+                </f:snappedHeading>
+
+                <!-- KPI Chips (solo escritorio) -->
+                <f:content>
+                    <HBox alignItems="Center" wrap="Wrap" class="sapUiTinyMarginTop"
+                        visible="{= !${viewModel>/isPhone}}">
+                        <GenericTag text="Total Docs" status="None" class="sapUiTinyMarginEnd">
+                            <value>
+                                <ObjectNumber number="{viewModel>/documentCount}" emphasized="false"
+                                    class="claro-kpi-number"/>
+                            </value>
+                        </GenericTag>
+                        <GenericTag text="Valor PEN" status="Success" class="sapUiTinyMarginEnd">
+                            <value>
+                                <ObjectNumber number="{path:'viewModel>/totalMontoPEN', formatter:'.formatter.formatCurrency'}"
+                                    unit="PEN" emphasized="false" class="claro-kpi-number"/>
+                            </value>
+                        </GenericTag>
+                        <GenericTag text="Valor USD" status="Information" class="sapUiTinyMarginEnd">
+                            <value>
+                                <ObjectNumber number="{path:'viewModel>/totalMontoUSD', formatter:'.formatter.formatCurrency'}"
+                                    unit="USD" emphasized="false" class="claro-kpi-number"/>
+                            </value>
+                        </GenericTag>
+                    </HBox>
+                </f:content>
+
+                <!-- Acciones -->
+                <f:actions>
+                    <Button text="Mis Comprobantes" icon="sap-icon://documents"
+                        type="Transparent" press=".onNavigateToVouchers" visible="false"/>
+                    <Select id="selectRol" width="155px" selectedKey="{viewModel>/selectedRol}"
+                        change=".onRolChange" class="sapUiTinyMarginBegin">
+                        <core:Item key="proveedor" text="Proveedor"/>
+                        <core:Item key="administrador" text="Administrador"/>
+                    </Select>
+                    <Button icon="sap-icon://refresh" tooltip="{i18n>refresh}"
+                        press=".onRefresh" class="sapUiTinyMarginBegin"/>
+                </f:actions>
+
+            </f:DynamicPageTitle>
+        </f:title>
+
+        
+        <!-- ═══════════════════════  CONTENT  ═══════════════════════ -->
+        <f:content>
+            <VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom">
+
+                <!-- FILTROS -->
+                <Panel id="filterPanel" headerText="{i18n>filters}" expandable="true" expanded="true"
+                    class="sapUiSmallMarginBottom">
+                    <content>
+                        <HBox alignItems="End" wrap="Wrap" class="sapUiSmallMargin">
+                            <VBox class="sapUiSmallMarginEnd claro-filter-field">
+                                <Label text="{i18n>tipoDocumento}" labelFor="selectTipoDoc"/>
+                                <Select id="selectTipoDoc" width="100%"
+                                    selectedKey="{viewModel>/filters/tipoDocumento}" change=".onFilterChange">
+                                    <core:Item key="" text="{i18n>todos}"/>
+                                    <core:Item key="CONTRATO" text="{i18n>contrato}"/>
+                                    <core:Item key="OC" text="{i18n>ordenCompra}"/>
+                                    <core:Item key="Póliza" text="{i18n>poliza}"/>
+                                </Select>
+                            </VBox>
+                            <VBox class="sapUiSmallMarginEnd claro-filter-field">
+                                <Label text="{i18n>numeroDocumento}" labelFor="inputNumDoc"/>
+                                <Input id="inputNumDoc" width="100%"
+                                    placeholder="{i18n>ingresarNumero}"
+                                    value="{viewModel>/filters/numeroDocumento}"/>
+                            </VBox>
+                            <VBox class="sapUiSmallMarginEnd claro-filter-field">
+                                <Label text="F. Documento desde" labelFor="dpFechaDesde"/>
+                                <DatePicker id="dpFechaDesde" width="100%"
+                                    value="{viewModel>/filters/fechaDesde}"
+                                    valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy"
+                                    change=".onFilterChange"/>
+                            </VBox>
+                            <VBox class="sapUiSmallMarginEnd claro-filter-field">
+                                <Label text="F. Documento hasta" labelFor="dpFechaHasta"/>
+                                <DatePicker id="dpFechaHasta" width="100%"
+                                    value="{viewModel>/filters/fechaHasta}"
+                                    valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy"
+                                    change=".onFilterChange"/>
+                            </VBox>
+                            <VBox justifyContent="End">
+                                <Label text=" "/>
+                                <HBox>
+                                    <Button id="btnSearch" text="{i18n>buscar}" type="Emphasized"
+                                        icon="sap-icon://search" press=".onBuscar"
+                                        class="sapUiTinyMarginEnd"/>
+                                    <Button id="btnClearFilters" text="{i18n>limpiar}"
+                                        type="Transparent" press=".onClearFilters"/>
+                                </HBox>
+                            </VBox>
+                        </HBox>
+                    </content>
+                </Panel>
+
+                <!-- ─── TABLA DESKTOP ─── -->
+                <Panel id="documentsPanel" visible="{= !${viewModel>/isPhone}}">
+                    <headerToolbar>
+                        <Toolbar>
+                            <core:Icon src="sap-icon://table-view" color="Default"
+                                class="sapUiTinyMarginEnd"/>
+                            <Title text="{= 'Documentos Vigentes (' + ${viewModel>/documentCount} + ')'}"/>
+                            <ToolbarSpacer/>
+                        </Toolbar>
+                    </headerToolbar>
+                    <content>
+                        <VBox class="claro-table-scroll-wrapper">
+                            <Table id="documentsTable" items="{documentos>/}" mode="None"
+                                alternateRowColors="true" showSeparators="All"
+                                class="claro-grid-table" fixedLayout="true">
+                                <columns>
+                                    <Column width="13%"><Text text="{i18n>tipoDocumento}"/></Column>
+                                    <Column width="12%"><Text text="{i18n>numeroDocumento}"/></Column>
+                                    <Column width="12%" hAlign="Right"><Text text="{i18n>valorDocumento}"/></Column>
+                                    <Column width="10%"><Text text="{i18n>fechaDocumento}"/></Column>
+                                    <Column width="10%"><Text text="{i18n>fechaInicioVigencia}"/></Column>
+                                    <Column width="6%"><Text text="{i18n>moneda}"/></Column>
+                                    <Column width="12%" hAlign="Right"><Text text="{i18n>montoFacturado}"/></Column>
+                                    <Column width="13%"><Text text="{i18n>estado}"/></Column>
+                                    <Column width="12%"><Text text="{i18n>unidadNegocio}"/></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem type="Navigation" press=".onDocumentPress">
+                                        <cells>
+                                            <HBox alignItems="Center">
+                                                <core:Icon src="{path:'documentos>tipoDocumento', formatter:'.formatter.formatTipoDocumentoIcon'}" size="1rem" class="sapUiTinyMarginEnd" color="Default"/>
+                                                <Text text="{documentos>tipoDocumentoDesc}"/>
+                                            </HBox>
+                                            <Text text="{documentos>numeroDocumento}"/>
+                                            <ObjectNumber
+                                                number="{path:'documentos>valorDocumento', formatter:'.formatter.formatCurrency'}"
+                                                unit="{documentos>moneda}"/>
+                                            <Text text="{path:'documentos>fechaDocumento', formatter:'.formatter.formatDate'}"/>
+                                            <Text text="{path:'documentos>fechaInicioVigencia', formatter:'.formatter.formatDate'}"/>
+                                            <Text text="{documentos>moneda}"/>
+                                            <ObjectNumber
+                                                number="{path:'documentos>montoFacturado', formatter:'.formatter.formatCurrency'}"
+                                                unit="{documentos>moneda}"
+                                                state="{= ${documentos>montoFacturado} > 0 ? 'Success' : 'None'}"/>
+                                            <ObjectStatus
+                                                text="{documentos>estadoDocumentoDesc}"
+                                                icon="{path:'documentos>estadoDocumento', formatter:'.formatter.formatEstadoIcon'}"
+                                                state="{= ${documentos>estadoDocumento} === 'VIGENTE' ? 'Success' : (${documentos>estadoDocumento} === 'PARCIAL' ? 'Warning' : 'None')}"/>
+                                            <Text text="{documentos>unidadNegocio}"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </VBox>
+                        <!-- Barra de Paginación -->
+                        <Toolbar class="claro-pagination-bar">
+                            <Button text="«" tooltip="Primera página"
+                                press=".onFirstPage" enabled="{viewModel>/firstEnabled}" class="claro-pagination-btn"/>
+                            <Button icon="sap-icon://navigation-left-arrow" tooltip="Anterior"
+                                press=".onPrevPage" enabled="{viewModel>/prevEnabled}" class="claro-pagination-btn"/>
+                            <ToolbarSpacer/>
+                            <Text text="{viewModel>/pageInfo}" class="claro-page-info"/>
+                            <ToolbarSpacer/>
+                            <Button icon="sap-icon://navigation-right-arrow" tooltip="Siguiente"
+                                press=".onNextPage" enabled="{viewModel>/nextEnabled}" class="claro-pagination-btn"/>
+                            <Button text="»" tooltip="Última página"
+                                press=".onLastPage" enabled="{viewModel>/lastEnabled}" class="claro-pagination-btn"/>
+                        </Toolbar>
+                    </content>
+                </Panel>
+
+                <!-- ─── LISTA MÓVIL ─── -->
+                <Panel id="documentsPanelMobile" visible="{viewModel>/isPhone}">
+                    <headerToolbar>
+                        <Toolbar>
+                            <Title text="{= 'Documentos (' + ${viewModel>/documentCount} + ')'}"/>
+                        </Toolbar>
+                    </headerToolbar>
+                    <content>
+                        <List id="documentsMobileList" items="{documentos>/}" mode="None"
+                            noDataText="No hay documentos disponibles">
+                            <ObjectListItem
+                                type="Navigation"
+                                press=".onDocumentPress"
+                                intro="{documentos>tipoDocumentoDesc}"
+                                title="{documentos>numeroDocumento}"
+                                number="{path:'documentos>valorDocumento', formatter:'.formatter.formatCurrency'}"
+                                numberUnit="{documentos>moneda}"
+                                numberState="{= ${documentos>estadoDocumento} === 'VIGENTE' ? 'Success' : (${documentos>estadoDocumento} === 'PARCIAL' ? 'Warning' : 'None')}"
+                                highlight="{= ${documentos>estadoDocumento} === 'VIGENTE' ? 'Success' : (${documentos>estadoDocumento} === 'PARCIAL' ? 'Warning' : (${documentos>estadoDocumento} === 'PENDIENTE' ? 'Error' : 'None'))}">
+                                <firstStatus>
+                                    <ObjectStatus
+                                        text="{documentos>estadoDocumentoDesc}"
+                                        icon="{path:'documentos>estadoDocumento', formatter:'.formatter.formatEstadoIcon'}"
+                                        state="{= ${documentos>estadoDocumento} === 'VIGENTE' ? 'Success' : (${documentos>estadoDocumento} === 'PARCIAL' ? 'Warning' : 'None')}"/>
+                                </firstStatus>
+                                <attributes>
+                                    <ObjectAttribute title="Fecha"
+                                        text="{path:'documentos>fechaDocumento', formatter:'.formatter.formatDate'}"/>
+                                </attributes>
+                            </ObjectListItem>
+                        </List>
+                        <!-- Paginación Móvil -->
+                        <Toolbar class="claro-pagination-bar">
+                            <Button text="«" tooltip="Primera página"
+                                press=".onFirstPage" enabled="{viewModel>/firstEnabled}" class="claro-pagination-btn"/>
+                            <Button icon="sap-icon://navigation-left-arrow"
+                                press=".onPrevPage" enabled="{viewModel>/prevEnabled}" class="claro-pagination-btn"/>
+                            <ToolbarSpacer/>
+                            <Text text="{viewModel>/pageInfo}" class="claro-page-info"/>
+                            <ToolbarSpacer/>
+                            <Button icon="sap-icon://navigation-right-arrow"
+                                press=".onNextPage" enabled="{viewModel>/nextEnabled}" class="claro-pagination-btn"/>
+                            <Button text="»" tooltip="Última página"
+                                press=".onLastPage" enabled="{viewModel>/lastEnabled}" class="claro-pagination-btn"/>
+                        </Toolbar>
+                    </content>
+                </Panel>
+
+            </VBox>
+        </f:content>
+
+    </f:DynamicPage>
+</mvc:View>

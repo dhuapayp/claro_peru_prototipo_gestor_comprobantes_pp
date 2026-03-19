@@ -1,0 +1,521 @@
+﻿<mvc:View 
+    controllerName="claro.com.clarocomprobantes.controller.DocumentDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:uxap="sap.uxap"
+    xmlns:core="sap.ui.core">
+
+    <uxap:ObjectPageLayout id="documentDetailPage"
+        showTitleInHeaderContent="false"
+        class="claro-detail-page">
+
+        <!--   HEADER TITLE   -->
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:breadcrumbs>
+                    <Breadcrumbs currentLocationText="{detalle>/tipoDocumentoDesc}">
+                        <Link text="Listado de Documentos" press=".onNavBack"/>
+                    </Breadcrumbs>
+                </uxap:breadcrumbs>
+                <uxap:heading>
+                    <HBox alignItems="Center" class="claro-detail-header-row">
+                        <Avatar
+                            src="{= ${detalle>/tipoDocumento} === 'CONTRATO' ? 'sap-icon://document-text' : (${detalle>/tipoDocumento} === 'OC' ? 'sap-icon://cart' : 'sap-icon://shield')}"
+                            displaySize="L"
+                            displayShape="Square"
+                            class="claro-doc-avatar claro-doc-avatar-main"/>
+                        <VBox class="sapUiSmallMarginBegin claro-detail-header-text">
+                            <Title
+                                text="{= ${detalle>/tipoDocumentoDesc} + '  ' + ${detalle>/numeroDocumento}}"
+                                titleStyle="H3"
+                                wrapping="true"
+                                class="claro-detail-header-title"/>
+                            <HBox alignItems="Center" class="claro-comprobantes-line sapUiTinyMarginTop">
+                                <core:Icon src="sap-icon://receipt" size="0.95rem" class="sapUiTinyMarginEnd"/>
+                                <Text text="Comprobantes registrados:" class="claro-comprobantes-label"/>
+                                <ObjectNumber number="{viewModel>/comprobantesCount}"
+                                    emphasized="false" class="claro-comprobantes-count sapUiTinyMarginBegin"/>
+                            </HBox>
+                        </VBox>
+                    </HBox>
+                </uxap:heading>
+                <uxap:snappedHeading>
+                    <HBox alignItems="Center">
+                        <Avatar
+                            src="{= ${detalle>/tipoDocumento} === 'CONTRATO' ? 'sap-icon://document-text' : (${detalle>/tipoDocumento} === 'OC' ? 'sap-icon://cart' : 'sap-icon://shield')}"
+                            displaySize="S"
+                            displayShape="Square"
+                            class="claro-doc-avatar"/>
+                        <VBox class="sapUiSmallMarginBegin">
+                            <Title
+                                text="{= ${detalle>/tipoDocumentoDesc} + '  ' + ${detalle>/numeroDocumento}}"
+                                titleStyle="H5"
+                                wrapping="true"
+                                class="claro-detail-header-title-snapped"/>
+                            <Text text="{= 'Comprobantes registrados: ' + ${viewModel>/comprobantesCount}}"
+                                class="claro-comprobantes-label"/>
+                        </VBox>
+                    </HBox>
+                </uxap:snappedHeading>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+
+        <!--   SECTIONS   -->
+        <uxap:sections>
+
+            <!-- SECCIÓN 1: Información del Documento -->
+            <uxap:ObjectPageSection id="sectionGeneral" title="Información del Documento">
+                <uxap:subSections>
+
+                    <!-- Datos del Documento -->
+                    <uxap:ObjectPageSubSection id="subSecDocumento" title="Datos del Documento">
+                        <uxap:blocks>
+                            <VBox class="claro-section-block sapUiSmallMarginBottom">
+                                <HBox wrap="Wrap" class="claro-form-grid">
+                                    <VBox class="claro-form-field">
+                                        <Label text="Tipo de Documento" class="claro-detail-label"/>
+                                        <Text text="{detalle>/tipoDocumentoDesc}" class="claro-detail-value"/>
+                                    </VBox>
+                                    <VBox class="claro-form-field">
+                                        <Label text="Número de Documento" class="claro-detail-label"/>
+                                        <Text text="{detalle>/numeroDocumento}" class="claro-detail-value"/>
+                                    </VBox>
+                                    <VBox class="claro-form-field">
+                                        <Label text="Fecha de Documento" class="claro-detail-label"/>
+                                        <Text text="{path:'detalle>/fechaDocumento', formatter:'.formatter.formatDate'}" class="claro-detail-value"/>
+                                    </VBox>
+                                    <VBox class="claro-form-field">
+                                        <Label text="Inicio de Vigencia" class="claro-detail-label"/>
+                                        <Text text="{path:'detalle>/fechaInicioVigencia', formatter:'.formatter.formatDate'}" class="claro-detail-value"/>
+                                    </VBox>
+                                    <VBox class="claro-form-field">
+                                        <Label text="Fin de Vigencia" class="claro-detail-label"/>
+                                        <Text text="{path:'detalle>/fechaFinVigencia', formatter:'.formatter.formatDate'}" class="claro-detail-value"/>
+                                    </VBox>
+                                    <VBox class="claro-form-field">
+                                        <Label text="Moneda" class="claro-detail-label"/>
+                                        <Text text="{detalle>/moneda}" class="claro-detail-value"/>
+                                    </VBox>
+                                    <VBox class="claro-form-field">
+                                        <Label text="Valor del Documento" class="claro-detail-label"/>
+                                        <ObjectNumber
+                                            number="{path:'detalle>/valorDocumento', formatter:'.formatter.formatCurrency'}"
+                                            unit="{detalle>/moneda}"/>
+                                    </VBox>
+                                    <VBox class="claro-form-field">
+                                        <Label text="Monto Facturado" class="claro-detail-label"/>
+                                        <ObjectNumber
+                                            number="{path:'detalle>/montoFacturado', formatter:'.formatter.formatCurrency'}"
+                                            unit="{detalle>/moneda}" state="Success"/>
+                                    </VBox>
+                                    <VBox class="claro-form-field">
+                                        <Label text="Estado" class="claro-detail-label"/>
+                                        <ObjectStatus
+                                            icon="{= ${detalle>/estadoDocumento} === 'VIGENTE' ? 'sap-icon://sys-enter-2' : (${detalle>/estadoDocumento} === 'PARCIAL' ? 'sap-icon://warning2' : 'sap-icon://status-inactive')}"
+                                            text="{detalle>/estadoDocumentoDesc}"
+                                            state="{= ${detalle>/estadoDocumento} === 'VIGENTE' ? 'Success' : (${detalle>/estadoDocumento} === 'PARCIAL' ? 'Warning' : 'None')}"/>
+                                    </VBox>
+                                    <VBox class="claro-form-field">
+                                        <Label text="Unidad de Negocio" class="claro-detail-label"/>
+                                        <Text text="{detalle>/unidadNegocio}" class="claro-detail-value"/>
+                                    </VBox>
+                                    <VBox class="claro-form-field claro-form-field-wide">
+                                        <Label text="Descripción" class="claro-detail-label"/>
+                                        <Text text="{detalle>/descripcion}" class="claro-detail-value" wrapping="true"/>
+                                    </VBox>
+                                    <VBox class="claro-form-field"
+                                        visible="{= ${detalle>/tipoDocumento} !== 'CONTRATO'}">
+                                        <Label text="Proveedor" class="claro-detail-label"/>
+                                        <Text text="{contrato>/interlocutor/razonSocial}" class="claro-detail-value"/>
+                                    </VBox>
+                                    <VBox class="claro-form-field"
+                                        visible="{= ${detalle>/tipoDocumento} !== 'CONTRATO'}">
+                                        <Label text="RUC" class="claro-detail-label"/>
+                                        <Text text="{contrato>/interlocutor/ruc}" class="claro-detail-value"/>
+                                    </VBox>
+                                    <VBox class="claro-form-field"
+                                        visible="{= ${detalle>/tipoDocumento} !== 'CONTRATO'}">
+                                        <Label text="Condiciones de Pago" class="claro-detail-label"/>
+                                        <Text text="{contrato>/condicionesPago}" class="claro-detail-value"/>
+                                    </VBox>
+                                    <VBox class="claro-form-field"
+                                        visible="{= ${detalle>/tipoDocumento} !== 'CONTRATO'}">
+                                        <Label text="Centro de Coste" class="claro-detail-label"/>
+                                        <Text text="{contrato>/datosContables/centroCoste}" class="claro-detail-value"/>
+                                    </VBox>
+                                    <VBox class="claro-form-field"
+                                        visible="{= ${detalle>/tipoDocumento} !== 'CONTRATO'}">
+                                        <Label text="Cuenta Contable" class="claro-detail-label"/>
+                                        <Text text="{contrato>/datosContables/cuentaContable}" class="claro-detail-value"/>
+                                    </VBox>
+                                </HBox>
+                            </VBox>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+
+                    <!-- Datos del Contrato (solo CONTRATO) -->
+                    <uxap:ObjectPageSubSection id="subSecContrato" title="Datos del Contrato"
+                        visible="{= ${detalle>/tipoDocumento} === 'CONTRATO'}">
+                        <uxap:blocks>
+                            <VBox class="claro-section-block sapUiSmallMarginBottom">
+                                <HBox wrap="Wrap" class="claro-form-grid">
+                                    <VBox class="claro-form-field">
+                                        <Label text="Interlocutor" class="claro-detail-label"/>
+                                        <Text text="{contrato>/interlocutor/razonSocial}" class="claro-detail-value"/>
+                                    </VBox>
+                                    <VBox class="claro-form-field">
+                                        <Label text="RUC Interlocutor" class="claro-detail-label"/>
+                                        <Text text="{contrato>/interlocutor/ruc}" class="claro-detail-value"/>
+                                    </VBox>
+                                    <VBox class="claro-form-field claro-form-field-wide">
+                                        <Label text="Dirección" class="claro-detail-label"/>
+                                        <Text text="{contrato>/interlocutor/direccion}" class="claro-detail-value" wrapping="true"/>
+                                    </VBox>
+                                    <VBox class="claro-form-field">
+                                        <Label text="Condiciones de Pago" class="claro-detail-label"/>
+                                        <Text text="{contrato>/condicionesPago}" class="claro-detail-value"/>
+                                    </VBox>
+                                    <VBox class="claro-form-field">
+                                        <Label text="Periodicidad de Pago" class="claro-detail-label"/>
+                                        <Text text="{contrato>/periodicidadPago}" class="claro-detail-value"/>
+                                    </VBox>
+                                    <VBox class="claro-form-field">
+                                        <Label text="Centro de Coste" class="claro-detail-label"/>
+                                        <Text text="{contrato>/datosContables/centroCoste}" class="claro-detail-value"/>
+                                    </VBox>
+                                    <VBox class="claro-form-field">
+                                        <Label text="Cuenta Contable" class="claro-detail-label"/>
+                                        <Text text="{contrato>/datosContables/cuentaContable}" class="claro-detail-value"/>
+                                    </VBox>
+                                </HBox>
+                            </VBox>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+
+
+
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- SECCIÓN 2: Conceptos (solo CONTRATO) -->
+            <uxap:ObjectPageSection id="sectionConceptos" title="Conceptos del Contrato"
+                visible="{= ${detalle>/tipoDocumento} === 'CONTRATO'}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Conceptos">
+                        <uxap:blocks>
+                            <!-- Desktop -->
+                            <Table id="conceptosTable" items="{contrato>/conceptos}"
+                                mode="None" alternateRowColors="true" showSeparators="All"
+                                class="claro-grid-table claro-full-width"
+                                noDataText="Sin conceptos"
+                                visible="{= !${viewModel>/isPhone}}">
+                                <columns>
+                                    <Column width="12%"><Text text="Código"/></Column>
+                                    <Column width="22%"><Text text="Concepto"/></Column>
+                                    <Column width="32%"><Text text="Descripción"/></Column>
+                                    <Column width="16%"><Text text="Frecuencia"/></Column>
+                                    <Column width="18%" hAlign="Right"><Text text="Valor Total"/></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem
+                                        highlight="{path:'contrato>codigo', formatter:'.formatter.formatConceptoTipo'}">
+                                        <cells>
+                                            <ObjectStatus
+                                                class="claro-conceptos-status"
+                                                icon="{path:'contrato>codigo', formatter:'.formatter.formatConceptoIcon'}"
+                                                text="{contrato>codigo}"
+                                                state="{path:'contrato>codigo', formatter:'.formatter.formatConceptoValueState'}"/>
+                                            <Text text="{contrato>concepto}"/>
+                                            <Text text="{contrato>descripcion}"/>
+                                            <Text text="{contrato>frecuenciaPago}"/>
+                                            <ObjectNumber
+                                                number="{path:'contrato>valorTotal', formatter:'.formatter.formatCurrency'}"
+                                                unit="{contrato>moneda}"
+                                                emphasized="true"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                            <!-- Móvil -->
+                            <List items="{contrato>/conceptos}" mode="None"
+                                visible="{viewModel>/isPhone}" noDataText="Sin conceptos">
+                                <ObjectListItem
+                                    highlight="{path:'contrato>codigo', formatter:'.formatter.formatConceptoTipo'}"
+                                    title="{contrato>concepto}"
+                                    number="{path:'contrato>valorTotal', formatter:'.formatter.formatCurrency'}"
+                                    numberUnit="{contrato>moneda}"
+                                    numberState="{path:'contrato>codigo', formatter:'.formatter.formatConceptoValueState'}">
+                                    <firstStatus>
+                                        <ObjectStatus
+                                            class="claro-conceptos-status"
+                                            icon="{path:'contrato>codigo', formatter:'.formatter.formatConceptoIcon'}"
+                                            text="{contrato>codigo}"
+                                            state="{path:'contrato>codigo', formatter:'.formatter.formatConceptoValueState'}"/>
+                                    </firstStatus>
+                                    <attributes>
+                                        <ObjectAttribute title="Cód." text="{contrato>codigo}"/>
+                                        <ObjectAttribute title="Frecuencia" text="{contrato>frecuenciaPago}"/>
+                                    </attributes>
+                                </ObjectListItem>
+                            </List>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- SECCIÓN 3: Posiciones (OC y Póliza) -->
+            <uxap:ObjectPageSection id="sectionPosiciones" title="Posiciones del Documento"
+                visible="{= ${detalle>/tipoDocumento} !== 'CONTRATO'}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Detalle de Posiciones">
+                        <uxap:blocks>
+                            <VBox class="claro-full-width">
+                            <!-- Desktop: título + tabla + paginación -->
+                            <OverflowToolbar class="claro-section-header-toolbar" visible="{= !${viewModel>/isPhone}}">
+                                <core:Icon src="sap-icon://detail-view" color="var(--claro-red, #DA291C)" class="sapUiTinyMarginEnd"/>
+                                <Title text="{= 'Posiciones (' + ${viewModel>/posicionesTotal} + ' registros)'}" level="H5"/>
+                            </OverflowToolbar>
+                            <VBox class="claro-table-scroll-wrapper claro-table-scroll-8" visible="{= !${viewModel>/isPhone}}">
+                                <Table id="posicionesTable" items="{posiciones>/}"
+                                    mode="None" alternateRowColors="true" showSeparators="All"
+                                    class="claro-grid-table claro-full-width"
+                                    noDataText="Sin posiciones">
+                                    <columns>
+                                        <Column width="6%" hAlign="Center"><Text text="Pos."/></Column>
+                                        <Column width="10%"><Text text="Código"/></Column>
+                                        <Column width="34%"><Text text="Descripción"/></Column>
+                                        <Column width="9%" hAlign="End"><Text text="Cant."/></Column>
+                                        <Column width="6%" hAlign="Center"><Text text="UM"/></Column>
+                                        <Column width="16%" hAlign="End"><Text text="Importe"/></Column>
+                                        <Column width="19%"><Text text="Estado"/></Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem
+                                            highlight="{= ${posiciones>estado} === 'PENDIENTE' ? 'Warning' : 'Success'}">
+                                            <cells>
+                                                <Text text="{posiciones>posicion}" textAlign="Center"/>
+                                                <Text text="{posiciones>codigoServicio}"/>
+                                                <Text text="{posiciones>descripcion}"/>
+                                                <Text text="{posiciones>cantidad}" textAlign="End"/>
+                                                <Text text="{posiciones>unidadMedida}" textAlign="Center"/>
+                                                <ObjectNumber
+                                                    number="{path:'posiciones>importe', formatter:'.formatter.formatCurrency'}"
+                                                    unit="{posiciones>moneda}"/>
+                                                <ObjectStatus
+                                                    icon="{= ${posiciones>estado} === 'PENDIENTE' ? 'sap-icon://pending' : 'sap-icon://sys-enter-2'}"
+                                                    text="{posiciones>estadoDesc}"
+                                                    state="{= ${posiciones>estado} === 'PENDIENTE' ? 'Warning' : 'Success'}"/>
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </VBox>
+                            <Toolbar class="claro-pagination-bar" visible="{= !${viewModel>/isPhone} &amp;&amp; ${viewModel>/posicionesTotal} > 0}">
+                                <Button text="«" tooltip="Primera página" press=".onPosicionesFirstPage"
+                                    enabled="{viewModel>/posicionesFirstEnabled}" class="claro-pagination-btn"/>
+                                <Button icon="sap-icon://navigation-left-arrow" tooltip="Anterior"
+                                    press=".onPosicionesPrevPage" enabled="{viewModel>/posicionesPrevEnabled}" class="claro-pagination-btn"/>
+                                <ToolbarSpacer/>
+                                <Text text="{viewModel>/posicionesPageInfo}" class="claro-page-info"/>
+                                <ToolbarSpacer/>
+                                <Button icon="sap-icon://navigation-right-arrow" tooltip="Siguiente"
+                                    press=".onPosicionesNextPage" enabled="{viewModel>/posicionesNextEnabled}" class="claro-pagination-btn"/>
+                                <Button text="»" tooltip="Última página" press=".onPosicionesLastPage"
+                                    enabled="{viewModel>/posicionesLastEnabled}" class="claro-pagination-btn"/>
+                            </Toolbar>
+                            <!-- Móvil: lista con título + paginación -->
+                            <List id="posicionesMobileList" items="{posiciones>/}" mode="None"
+                                visible="{viewModel>/isPhone}" noDataText="Sin posiciones">
+                                <headerToolbar>
+                                    <Toolbar>
+                                        <core:Icon src="sap-icon://detail-view" color="var(--claro-red, #DA291C)" class="sapUiTinyMarginEnd"/>
+                                        <Title text="{= 'Posiciones (' + ${viewModel>/posicionesTotal} + ' registros)'}" level="H5"/>
+                                    </Toolbar>
+                                </headerToolbar>
+                                <ObjectListItem
+                                    highlight="{= ${posiciones>estado} === 'PENDIENTE' ? 'Warning' : 'Success'}"
+                                    intro="{= 'Pos. ' + ${posiciones>posicion} + '  ·  ' + ${posiciones>codigoServicio}}"
+                                    title="{posiciones>descripcion}"
+                                    number="{path:'posiciones>importe', formatter:'.formatter.formatCurrency'}"
+                                    numberUnit="{posiciones>moneda}"
+                                    numberState="{= ${posiciones>estado} === 'PENDIENTE' ? 'Warning' : 'Success'}">
+                                    <firstStatus>
+                                        <ObjectStatus
+                                            icon="{= ${posiciones>estado} === 'PENDIENTE' ? 'sap-icon://pending' : 'sap-icon://sys-enter-2'}"
+                                            text="{posiciones>estadoDesc}"
+                                            state="{= ${posiciones>estado} === 'PENDIENTE' ? 'Warning' : 'Success'}"/>
+                                    </firstStatus>
+                                    <attributes>
+                                        <ObjectAttribute title="Cant." text="{= ${posiciones>cantidad} + ' ' + ${posiciones>unidadMedida}}"/>
+                                        <ObjectAttribute title="P. Unit." text="{path:'posiciones>precioUnitario', formatter:'.formatter.formatCurrency'}"/>
+                                    </attributes>
+                                </ObjectListItem>
+                            </List>
+                            <Toolbar class="claro-pagination-bar" visible="{= ${viewModel>/isPhone} &amp;&amp; ${viewModel>/posicionesTotal} > 0}">
+                                <Button text="«" tooltip="Primera página" press=".onPosicionesFirstPage"
+                                    enabled="{viewModel>/posicionesFirstEnabled}" class="claro-pagination-btn"/>
+                                <Button icon="sap-icon://navigation-left-arrow" tooltip="Anterior"
+                                    press=".onPosicionesPrevPage" enabled="{viewModel>/posicionesPrevEnabled}" class="claro-pagination-btn"/>
+                                <ToolbarSpacer/>
+                                <Text text="{viewModel>/posicionesPageInfo}" class="claro-page-info"/>
+                                <ToolbarSpacer/>
+                                <Button icon="sap-icon://navigation-right-arrow" tooltip="Siguiente"
+                                    press=".onPosicionesNextPage" enabled="{viewModel>/posicionesNextEnabled}" class="claro-pagination-btn"/>
+                                <Button text="»" tooltip="Última página" press=".onPosicionesLastPage"
+                                    enabled="{viewModel>/posicionesLastEnabled}" class="claro-pagination-btn"/>
+                            </Toolbar>
+                            </VBox>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- SECCIÓN 4: Comprobantes Registrados -->
+            <uxap:ObjectPageSection id="sectionComprobantes" title="Comprobantes Registrados">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                            <VBox class="claro-full-width">
+                            <!-- Desktop -->
+                            <OverflowToolbar class="claro-section-header-toolbar" visible="{= !${viewModel>/isPhone}}">
+                                <Title text="Historial de Comprobantes" level="H5"/>
+                                <ToolbarSpacer/>
+                                <Button text="Registrar Comprobante" type="Emphasized"
+                                    icon="sap-icon://add-document" press=".onRegisterVoucher"/>
+                            </OverflowToolbar>
+                            <VBox class="claro-table-scroll-wrapper" visible="{= !${viewModel>/isPhone}}">
+                            <Table id="comprobantesTable" items="{comprobantes>/}"
+                                mode="None"
+                                alternateRowColors="true" showSeparators="All"
+                                class="claro-grid-table claro-full-width"
+                                noDataText="No hay comprobantes registrados">
+                                <columns>
+                                    <Column width="17%"><Text text="Serie-Número"/></Column>
+                                    <Column width="12%"><Text text="F. Emisión"/></Column>
+                                    <Column width="15%" hAlign="Right"><Text text="Monto Total"/></Column>
+                                    <Column width="11%"><Text text="Estado"/></Column>
+                                    <Column width="17%"><Text text="F. Registro"/></Column>
+                                    <Column width="25%" hAlign="Center"><Text text="Acciones"/></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem
+                                        highlight="{= ${comprobantes>estado} === 'ENVIADO' ? 'Success' : (${comprobantes>estado} === 'REGISTRADO' ? 'Warning' : 'Information')}">
+                                        <cells>
+                                            <Text text="{= ${comprobantes>serieDocumento} + '-' + ${comprobantes>numeroDocumento}}"/>
+                                            <Text text="{path:'comprobantes>fechaEmision', formatter:'.formatter.formatDate'}"/>
+                                            <ObjectNumber
+                                                number="{path:'comprobantes>montoTotal', formatter:'.formatter.formatCurrency'}"
+                                                unit="{comprobantes>moneda}"/>
+                                            <ObjectStatus
+                                                icon="{= ${comprobantes>estado} === 'ENVIADO' ? 'sap-icon://paper-plane' : (${comprobantes>estado} === 'REGISTRADO' ? 'sap-icon://create' : 'sap-icon://pending')}"
+                                                text="{comprobantes>estadoDesc}"
+                                                state="{= ${comprobantes>estado} === 'ENVIADO' ? 'Success' : (${comprobantes>estado} === 'REGISTRADO' ? 'Warning' : 'Information')}"/>
+                                            <Text text="{path:'comprobantes>fechaCreacion', formatter:'.formatter.formatDateTime'}"/>
+                                            <HBox justifyContent="Center" alignItems="Center">
+                                                <Button icon="sap-icon://display" tooltip="Ver Detalle"
+                                                    type="Transparent" press=".onViewComprobante"/>
+                                                <Button icon="sap-icon://edit" tooltip="Editar"
+                                                    type="Transparent"
+                                                    enabled="{= ${comprobantes>estado} === 'REGISTRADO'}"
+                                                    press=".onEditComprobante"/>
+                                                <Button icon="sap-icon://delete" tooltip="Eliminar"
+                                                    type="Transparent"
+                                                    enabled="{= ${comprobantes>estado} === 'REGISTRADO'}"
+                                                    press=".onDeleteComprobante"/>
+                                            </HBox>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                            </VBox>
+                            <!-- Paginación comprobantes (desktop) -->
+                            <Toolbar class="claro-pagination-bar" visible="{= !${viewModel>/isPhone} &amp;&amp; ${viewModel>/comprobantesTotal} > 0}">
+                                <Button text="«" tooltip="Primera página" press=".onComprobantesFirstPage"
+                                    enabled="{viewModel>/comprobantesFirstEnabled}" class="claro-pagination-btn"/>
+                                <Button icon="sap-icon://navigation-left-arrow" tooltip="Anterior"
+                                    press=".onComprobantesPrevPage" enabled="{viewModel>/comprobantesPrevEnabled}" class="claro-pagination-btn"/>
+                                <ToolbarSpacer/>
+                                <Text text="{viewModel>/comprobantesPageInfo}" class="claro-page-info"/>
+                                <ToolbarSpacer/>
+                                <Button icon="sap-icon://navigation-right-arrow" tooltip="Siguiente"
+                                    press=".onComprobantesNextPage" enabled="{viewModel>/comprobantesNextEnabled}" class="claro-pagination-btn"/>
+                                <Button text="»" tooltip="Última página" press=".onComprobantesLastPage"
+                                    enabled="{viewModel>/comprobantesLastEnabled}" class="claro-pagination-btn"/>
+                            </Toolbar>
+                            <!-- Móvil: lista con strip de color + acciones -->
+                            <List items="{comprobantes>/}" mode="None"
+                                visible="{viewModel>/isPhone}"
+                                noDataText="No hay comprobantes registrados">
+                                <headerToolbar>
+                                    <Toolbar>
+                                        <core:Icon src="sap-icon://receipt" color="var(--claro-red, #DA291C)" class="sapUiTinyMarginEnd"/>
+                                        <Title text="Historial de Comprobantes" level="H5"/>
+                                        <ToolbarSpacer/>
+                                        <Button text="Registrar" type="Emphasized"
+                                            icon="sap-icon://add-document" press=".onRegisterVoucher"/>
+                                    </Toolbar>
+                                </headerToolbar>
+                                <CustomListItem class="claro-comp-list-item"
+                                    highlight="{= ${comprobantes>estado} === 'ENVIADO' ? 'Success' : (${comprobantes>estado} === 'REGISTRADO' ? 'Warning' : 'Information')}">
+                                    <HBox alignItems="Stretch" class="claro-comp-mobile-row">
+                                        <!-- Datos -->
+                                        <VBox class="claro-comp-mobile-data">
+                                            <Text text="{= ${comprobantes>serieDocumento} + '-' + ${comprobantes>numeroDocumento}}" class="claro-comp-mobile-title"/>
+                                            <ObjectStatus
+                                                icon="{= ${comprobantes>estado} === 'ENVIADO' ? 'sap-icon://paper-plane' : (${comprobantes>estado} === 'REGISTRADO' ? 'sap-icon://create' : 'sap-icon://pending')}"
+                                                text="{comprobantes>estadoDesc}"
+                                                state="{= ${comprobantes>estado} === 'ENVIADO' ? 'Success' : (${comprobantes>estado} === 'REGISTRADO' ? 'Warning' : 'Information')}"
+                                                class="sapUiTinyMarginTopBottom"/>
+                                            <ObjectNumber
+                                                number="{path:'comprobantes>montoTotal', formatter:'.formatter.formatCurrency'}"
+                                                unit="{comprobantes>moneda}"
+                                                emphasized="false"
+                                                class="claro-comp-mobile-amount"/>
+                                            <ObjectAttribute title="Emisión"
+                                                text="{path:'comprobantes>fechaEmision', formatter:'.formatter.formatDate'}"
+                                                class="sapUiTinyMarginTop"/>
+                                        </VBox>
+                                        <!-- Divisor vertical -->
+                                        <VBox class="claro-comp-divider"/>
+                                        <!-- Acciones verticales -->
+                                        <VBox justifyContent="Center" alignItems="Center" class="claro-comp-mobile-actions">
+                                            <Button icon="sap-icon://display" tooltip="Ver Detalle"
+                                                type="Transparent" press=".onViewComprobante"
+                                                class="claro-comp-action-btn"/>
+                                            <Button icon="sap-icon://edit" tooltip="Editar"
+                                                type="Transparent"
+                                                enabled="{= ${comprobantes>estado} === 'REGISTRADO'}"
+                                                press=".onEditComprobante"
+                                                class="claro-comp-action-btn"/>
+                                            <Button icon="sap-icon://delete" tooltip="Eliminar"
+                                                type="Transparent"
+                                                enabled="{= ${comprobantes>estado} === 'REGISTRADO'}"
+                                                press=".onDeleteComprobante"
+                                                class="claro-comp-action-btn"/>
+                                        </VBox>
+                                    </HBox>
+                                </CustomListItem>
+                            </List>
+                            <Toolbar class="claro-pagination-bar" visible="{= ${viewModel>/isPhone} &amp;&amp; ${viewModel>/comprobantesTotal} > 0}">
+                                <Button text="«" tooltip="Primera página" press=".onComprobantesFirstPage"
+                                    enabled="{viewModel>/comprobantesFirstEnabled}" class="claro-pagination-btn"/>
+                                <Button icon="sap-icon://navigation-left-arrow" tooltip="Anterior"
+                                    press=".onComprobantesPrevPage" enabled="{viewModel>/comprobantesPrevEnabled}" class="claro-pagination-btn"/>
+                                <ToolbarSpacer/>
+                                <Text text="{viewModel>/comprobantesPageInfo}" class="claro-page-info"/>
+                                <ToolbarSpacer/>
+                                <Button icon="sap-icon://navigation-right-arrow" tooltip="Siguiente"
+                                    press=".onComprobantesNextPage" enabled="{viewModel>/comprobantesNextEnabled}" class="claro-pagination-btn"/>
+                                <Button text="»" tooltip="Última página" press=".onComprobantesLastPage"
+                                    enabled="{viewModel>/comprobantesLastEnabled}" class="claro-pagination-btn"/>
+                            </Toolbar>
+                            </VBox>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>

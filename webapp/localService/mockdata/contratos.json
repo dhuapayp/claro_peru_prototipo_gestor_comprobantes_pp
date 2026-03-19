@@ -1,0 +1,2621 @@
+﻿{
+    "contratos":  [
+                      {
+                          "id":  "CONT-001",
+                          "numeroContrato":  "4500012345",
+                          "fechaInicioVigencia":  "2025-02-01",
+                          "fechaFinVigencia":  "2027-01-31",
+                          "valorTotal":  150000.00,
+                          "moneda":  "PEN",
+                          "descripcion":  "Arrendamiento local comercial - Centro Comercial Plaza Norte",
+                          "unidadNegocio":  "Lima Norte",
+                          "unidadNegocioCodigo":  "UN001",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariapersu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 dÃ­as fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC1001",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2025-001"
+                                             },
+                          "estado":  "VIGENTE",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-001",
+                                                "codigo":  "ALQ",
+                                                "concepto":  "Alquiler",
+                                                "descripcion":  "Alquiler mensual local comercial",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  120000.00,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6311010100",
+                                                "descripcionCuenta":  "Alquileres de terrenos"
+                                            },
+                                            {
+                                                "id":  "CONC-002",
+                                                "codigo":  "GC",
+                                                "concepto":  "Gastos Comunes",
+                                                "descripcion":  "Gastos comunes Ã¡rea comÃºn",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  24000.00,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6311010200",
+                                                "descripcionCuenta":  "Gastos comunes inmuebles"
+                                            },
+                                            {
+                                                "id":  "CONC-003",
+                                                "codigo":  "SRV",
+                                                "concepto":  "Servicios",
+                                                "descripcion":  "Servicios adicionales",
+                                                "frecuenciaPago":  "TRIMESTRAL",
+                                                "frecuenciaPagoCodigo":  "T",
+                                                "valorTotal":  6000.00,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6311010300",
+                                                "descripcionCuenta":  "Servicios inmobiliarios"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-002",
+                          "numeroContrato":  "4500012346",
+                          "fechaInicioVigencia":  "2025-03-15",
+                          "fechaFinVigencia":  "2026-03-14",
+                          "valorTotal":  85000.00,
+                          "moneda":  "PEN",
+                          "descripcion":  "Arrendamiento oficina administrativa - Edificio Arequipa Center",
+                          "unidadNegocio":  "Arequipa Centro",
+                          "unidadNegocioCodigo":  "UN002",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Calle Mercaderes 212, Arequipa",
+                                               "telefono":  "054-215000",
+                                               "email":  "facturacion@inmobiliariapersu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "15 dÃ­as fecha factura",
+                          "condicionesPagoCodigo":  "Z015",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC2001",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2025-002"
+                                             },
+                          "estado":  "VIGENTE",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-004",
+                                                "codigo":  "ALQ",
+                                                "concepto":  "Alquiler",
+                                                "descripcion":  "Alquiler mensual oficina administrativa",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  72000.00,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6311010100",
+                                                "descripcionCuenta":  "Alquileres de terrenos"
+                                            },
+                                            {
+                                                "id":  "CONC-005",
+                                                "codigo":  "GC",
+                                                "concepto":  "Gastos Comunes",
+                                                "descripcion":  "Gastos comunes edificio",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  13000.00,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6311010200",
+                                                "descripcionCuenta":  "Gastos comunes inmuebles"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-006",
+                          "numeroContrato":  "4500012347",
+                          "fechaInicioVigencia":  "2024-01-25",
+                          "fechaFinVigencia":  "2026-01-25",
+                          "valorTotal":  50000,
+                          "moneda":  "USD",
+                          "descripcion":  "Contrato de Arrendamiento - Lima Norte",
+                          "unidadNegocio":  "Lima Norte",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0060",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-006"
+                                             },
+                          "estado":  "VIGENTE",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-006",
+                                                "codigo":  "ALQ",
+                                                "concepto":  "Alquiler",
+                                                "descripcion":  "Alquiler mensual del inmueble",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  35000,
+                                                "moneda":  "USD",
+                                                "cuentaContable":  "6311010100",
+                                                "descripcionCuenta":  "Alquileres de terrenos"
+                                            },
+                                            {
+                                                "id":  "CONC-007",
+                                                "codigo":  "GC",
+                                                "concepto":  "Gastos Comunes",
+                                                "descripcion":  "Gastos comunes de áreas compartidas",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  10000,
+                                                "moneda":  "USD",
+                                                "cuentaContable":  "6311010200",
+                                                "descripcionCuenta":  "Gastos comunes inmuebles"
+                                            },
+                                            {
+                                                "id":  "CONC-008",
+                                                "codigo":  "SRV",
+                                                "concepto":  "Servicios Adicionales",
+                                                "descripcion":  "Servicios complementarios del inmueble",
+                                                "frecuenciaPago":  "TRIMESTRAL",
+                                                "frecuenciaPagoCodigo":  "T",
+                                                "valorTotal":  5000,
+                                                "moneda":  "USD",
+                                                "cuentaContable":  "6311010300",
+                                                "descripcionCuenta":  "Servicios inmobiliarios"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-007",
+                          "numeroContrato":  "4500012348",
+                          "fechaInicioVigencia":  "2024-02-03",
+                          "fechaFinVigencia":  "2026-02-03",
+                          "valorTotal":  75000,
+                          "moneda":  "PEN",
+                          "descripcion":  "Contrato de Servicios de Seguridad - Lima Sur",
+                          "unidadNegocio":  "Lima Sur",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0070",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-007"
+                                             },
+                          "estado":  "VIGENTE",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-009",
+                                                "codigo":  "VIG",
+                                                "concepto":  "Vigilancia",
+                                                "descripcion":  "Servicio de vigilancia y control de acceso",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  45000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6352010100",
+                                                "descripcionCuenta":  "Servicios de seguridad"
+                                            },
+                                            {
+                                                "id":  "CONC-010",
+                                                "codigo":  "MON",
+                                                "concepto":  "Monitoreo CCTV",
+                                                "descripcion":  "Monitoreo remoto de cámaras de seguridad",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  18750,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6352010200",
+                                                "descripcionCuenta":  "Monitoreo electrónico"
+                                            },
+                                            {
+                                                "id":  "CONC-011",
+                                                "codigo":  "EQP",
+                                                "concepto":  "Equipamiento",
+                                                "descripcion":  "Mantenimiento de equipos de seguridad",
+                                                "frecuenciaPago":  "TRIMESTRAL",
+                                                "frecuenciaPagoCodigo":  "T",
+                                                "valorTotal":  11250,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6352010300",
+                                                "descripcionCuenta":  "Equipos de seguridad"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-008",
+                          "numeroContrato":  "4500012349",
+                          "fechaInicioVigencia":  "2024-02-12",
+                          "fechaFinVigencia":  "2026-02-12",
+                          "valorTotal":  120000,
+                          "moneda":  "PEN",
+                          "descripcion":  "Contrato de Limpieza - Lima Este",
+                          "unidadNegocio":  "Lima Este",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0080",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-008"
+                                             },
+                          "estado":  "VIGENTE",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-012",
+                                                "codigo":  "LMP",
+                                                "concepto":  "Limpieza General",
+                                                "descripcion":  "Servicio de limpieza de oficinas y áreas comunes",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  78000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6353010100",
+                                                "descripcionCuenta":  "Servicios de limpieza"
+                                            },
+                                            {
+                                                "id":  "CONC-013",
+                                                "codigo":  "DES",
+                                                "concepto":  "Desinfección",
+                                                "descripcion":  "Desinfección y sanitización de ambientes",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  24000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6353010200",
+                                                "descripcionCuenta":  "Desinfección ambiental"
+                                            },
+                                            {
+                                                "id":  "CONC-014",
+                                                "codigo":  "INS",
+                                                "concepto":  "Insumos de Limpieza",
+                                                "descripcion":  "Provisión de insumos y materiales de limpieza",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  18000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6353010300",
+                                                "descripcionCuenta":  "Insumos de mantenimiento"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-009",
+                          "numeroContrato":  "4500012350",
+                          "fechaInicioVigencia":  "2024-02-21",
+                          "fechaFinVigencia":  "2026-02-21",
+                          "valorTotal":  95000,
+                          "moneda":  "PEN",
+                          "descripcion":  "Contrato de Consultoría TI - Lima Centro",
+                          "unidadNegocio":  "Lima Centro",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0090",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-009"
+                                             },
+                          "estado":  "VIGENTE",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-015",
+                                                "codigo":  "CON",
+                                                "concepto":  "Consultoría Especializada",
+                                                "descripcion":  "Horas de consultoría técnica especializada",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  52250,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6354010100",
+                                                "descripcionCuenta":  "Consultoría profesional"
+                                            },
+                                            {
+                                                "id":  "CONC-016",
+                                                "codigo":  "IMP",
+                                                "concepto":  "Implementación",
+                                                "descripcion":  "Servicios de implementación y configuración",
+                                                "frecuenciaPago":  "TRIMESTRAL",
+                                                "frecuenciaPagoCodigo":  "T",
+                                                "valorTotal":  28500,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6354010200",
+                                                "descripcionCuenta":  "Implementación de sistemas"
+                                            },
+                                            {
+                                                "id":  "CONC-017",
+                                                "codigo":  "CAP",
+                                                "concepto":  "Capacitación",
+                                                "descripcion":  "Capacitación y transferencia de conocimiento",
+                                                "frecuenciaPago":  "SEMESTRAL",
+                                                "frecuenciaPagoCodigo":  "S",
+                                                "valorTotal":  14250,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6354010300",
+                                                "descripcionCuenta":  "Capacitación técnica"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-010",
+                          "numeroContrato":  "4500012351",
+                          "fechaInicioVigencia":  "2024-03-01",
+                          "fechaFinVigencia":  "2026-03-01",
+                          "valorTotal":  65000,
+                          "moneda":  "PEN",
+                          "descripcion":  "Contrato de Mantenimiento de Equipos - Lima Oeste",
+                          "unidadNegocio":  "Lima Oeste",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0100",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-010"
+                                             },
+                          "estado":  "VIGENTE",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-018",
+                                                "codigo":  "MPR",
+                                                "concepto":  "Mantenimiento Preventivo",
+                                                "descripcion":  "Mantenimiento preventivo programado de equipos",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  32500,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6355010100",
+                                                "descripcionCuenta":  "Mantenimiento preventivo"
+                                            },
+                                            {
+                                                "id":  "CONC-019",
+                                                "codigo":  "MCO",
+                                                "concepto":  "Mantenimiento Correctivo",
+                                                "descripcion":  "Reparaciones y mantenimiento correctivo",
+                                                "frecuenciaPago":  "TRIMESTRAL",
+                                                "frecuenciaPagoCodigo":  "T",
+                                                "valorTotal":  19500,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6355010200",
+                                                "descripcionCuenta":  "Mantenimiento correctivo"
+                                            },
+                                            {
+                                                "id":  "CONC-020",
+                                                "codigo":  "REP",
+                                                "concepto":  "Repuestos",
+                                                "descripcion":  "Provisión de repuestos y componentes",
+                                                "frecuenciaPago":  "TRIMESTRAL",
+                                                "frecuenciaPagoCodigo":  "T",
+                                                "valorTotal":  13000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6355010300",
+                                                "descripcionCuenta":  "Repuestos y accesorios"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-011",
+                          "numeroContrato":  "4500012352",
+                          "fechaInicioVigencia":  "2024-03-10",
+                          "fechaFinVigencia":  "2026-03-10",
+                          "valorTotal":  200000,
+                          "moneda":  "USD",
+                          "descripcion":  "Contrato de Vigilancia - Arequipa",
+                          "unidadNegocio":  "Arequipa",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0110",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-011"
+                                             },
+                          "estado":  "VIGENTE",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-021",
+                                                "codigo":  "VIG",
+                                                "concepto":  "Vigilancia Presencial",
+                                                "descripcion":  "Personal de vigilancia en sitio 24/7",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  130000,
+                                                "moneda":  "USD",
+                                                "cuentaContable":  "6352020100",
+                                                "descripcionCuenta":  "Vigilancia presencial"
+                                            },
+                                            {
+                                                "id":  "CONC-022",
+                                                "codigo":  "RON",
+                                                "concepto":  "Rondas de Seguridad",
+                                                "descripcion":  "Rondas de inspección perimetral",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  40000,
+                                                "moneda":  "USD",
+                                                "cuentaContable":  "6352020200",
+                                                "descripcionCuenta":  "Rondas de seguridad"
+                                            },
+                                            {
+                                                "id":  "CONC-023",
+                                                "codigo":  "INF",
+                                                "concepto":  "Informes de Seguridad",
+                                                "descripcion":  "Elaboración de informes de incidencias",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  30000,
+                                                "moneda":  "USD",
+                                                "cuentaContable":  "6352020300",
+                                                "descripcionCuenta":  "Informes y reportes"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-012",
+                          "numeroContrato":  "4500012353",
+                          "fechaInicioVigencia":  "2024-03-19",
+                          "fechaFinVigencia":  "2026-03-19",
+                          "valorTotal":  45000,
+                          "moneda":  "PEN",
+                          "descripcion":  "Contrato de Gestión Documental - Trujillo",
+                          "unidadNegocio":  "Trujillo",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0120",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-012"
+                                             },
+                          "estado":  "PARCIAL",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-024",
+                                                "codigo":  "DIG",
+                                                "concepto":  "Digitalización",
+                                                "descripcion":  "Digitalización de documentos y archivos",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  20250,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6356010100",
+                                                "descripcionCuenta":  "Digitalización documental"
+                                            },
+                                            {
+                                                "id":  "CONC-025",
+                                                "codigo":  "CUS",
+                                                "concepto":  "Custodia",
+                                                "descripcion":  "Custodia y almacenamiento de documentos físicos",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  15750,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6356010200",
+                                                "descripcionCuenta":  "Custodia documental"
+                                            },
+                                            {
+                                                "id":  "CONC-026",
+                                                "codigo":  "IND",
+                                                "concepto":  "Indexación",
+                                                "descripcion":  "Indexación y clasificación de documentos",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  9000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6356010300",
+                                                "descripcionCuenta":  "Indexación documental"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-013",
+                          "numeroContrato":  "4500012354",
+                          "fechaInicioVigencia":  "2024-03-28",
+                          "fechaFinVigencia":  "2026-03-28",
+                          "valorTotal":  180000,
+                          "moneda":  "PEN",
+                          "descripcion":  "Contrato de Transporte - Piura",
+                          "unidadNegocio":  "Piura",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0130",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-013"
+                                             },
+                          "estado":  "PARCIAL",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-027",
+                                                "codigo":  "FLE",
+                                                "concepto":  "Flete Terrestre",
+                                                "descripcion":  "Servicio de transporte terrestre de carga",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  108000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6357010100",
+                                                "descripcionCuenta":  "Transporte terrestre"
+                                            },
+                                            {
+                                                "id":  "CONC-028",
+                                                "codigo":  "SEG",
+                                                "concepto":  "Seguro de Carga",
+                                                "descripcion":  "Cobertura de seguro para mercancía en tránsito",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  45000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6357010200",
+                                                "descripcionCuenta":  "Seguros de transporte"
+                                            },
+                                            {
+                                                "id":  "CONC-029",
+                                                "codigo":  "ALM",
+                                                "concepto":  "Almacenaje Temporal",
+                                                "descripcion":  "Almacenaje en depósito temporal",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  27000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6357010300",
+                                                "descripcionCuenta":  "Almacenaje"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-014",
+                          "numeroContrato":  "4500012355",
+                          "fechaInicioVigencia":  "2024-04-06",
+                          "fechaFinVigencia":  "2026-04-06",
+                          "valorTotal":  85000,
+                          "moneda":  "PEN",
+                          "descripcion":  "Contrato de Suministro Eléctrico - Cusco",
+                          "unidadNegocio":  "Cusco",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0140",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-014"
+                                             },
+                          "estado":  "PARCIAL",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-030",
+                                                "codigo":  "SUM",
+                                                "concepto":  "Suministro Eléctrico",
+                                                "descripcion":  "Provisión de energía eléctrica",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  59500,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6358010100",
+                                                "descripcionCuenta":  "Energía eléctrica"
+                                            },
+                                            {
+                                                "id":  "CONC-031",
+                                                "codigo":  "MAN",
+                                                "concepto":  "Mantenimiento de Red",
+                                                "descripcion":  "Mantenimiento de infraestructura eléctrica",
+                                                "frecuenciaPago":  "TRIMESTRAL",
+                                                "frecuenciaPagoCodigo":  "T",
+                                                "valorTotal":  17000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6358010200",
+                                                "descripcionCuenta":  "Mantenimiento eléctrico"
+                                            },
+                                            {
+                                                "id":  "CONC-032",
+                                                "codigo":  "EME",
+                                                "concepto":  "Emergencias",
+                                                "descripcion":  "Atención de emergencias eléctricas",
+                                                "frecuenciaPago":  "SEMESTRAL",
+                                                "frecuenciaPagoCodigo":  "S",
+                                                "valorTotal":  8500,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6358010300",
+                                                "descripcionCuenta":  "Emergencias eléctricas"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-015",
+                          "numeroContrato":  "4500012356",
+                          "fechaInicioVigencia":  "2024-04-15",
+                          "fechaFinVigencia":  "2026-04-15",
+                          "valorTotal":  150000,
+                          "moneda":  "PEN",
+                          "descripcion":  "Contrato de Soporte Técnico - Ica",
+                          "unidadNegocio":  "Ica",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0150",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-015"
+                                             },
+                          "estado":  "PENDIENTE",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-033",
+                                                "codigo":  "SOP",
+                                                "concepto":  "Soporte Nivel 1 y 2",
+                                                "descripcion":  "Atención de tickets de soporte técnico",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  75000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6359010100",
+                                                "descripcionCuenta":  "Soporte técnico"
+                                            },
+                                            {
+                                                "id":  "CONC-034",
+                                                "codigo":  "ADM",
+                                                "concepto":  "Administración de Sistemas",
+                                                "descripcion":  "Administración y monitoreo de servidores",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  45000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6359010200",
+                                                "descripcionCuenta":  "Administración TI"
+                                            },
+                                            {
+                                                "id":  "CONC-035",
+                                                "codigo":  "LIC",
+                                                "concepto":  "Licencias",
+                                                "descripcion":  "Gestión y renovación de licencias de software",
+                                                "frecuenciaPago":  "ANUAL",
+                                                "frecuenciaPagoCodigo":  "A",
+                                                "valorTotal":  30000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6359010300",
+                                                "descripcionCuenta":  "Licencias de software"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-016",
+                          "numeroContrato":  "4500012357",
+                          "fechaInicioVigencia":  "2024-04-24",
+                          "fechaFinVigencia":  "2026-04-24",
+                          "valorTotal":  60000,
+                          "moneda":  "USD",
+                          "descripcion":  "Contrato de Arrendamiento - Chiclayo",
+                          "unidadNegocio":  "Chiclayo",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0160",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-016"
+                                             },
+                          "estado":  "VIGENTE",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-036",
+                                                "codigo":  "ALQ",
+                                                "concepto":  "Alquiler",
+                                                "descripcion":  "Alquiler mensual del inmueble",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  42000,
+                                                "moneda":  "USD",
+                                                "cuentaContable":  "6311010100",
+                                                "descripcionCuenta":  "Alquileres de terrenos"
+                                            },
+                                            {
+                                                "id":  "CONC-037",
+                                                "codigo":  "GC",
+                                                "concepto":  "Gastos Comunes",
+                                                "descripcion":  "Gastos comunes de áreas compartidas",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  12000,
+                                                "moneda":  "USD",
+                                                "cuentaContable":  "6311010200",
+                                                "descripcionCuenta":  "Gastos comunes inmuebles"
+                                            },
+                                            {
+                                                "id":  "CONC-038",
+                                                "codigo":  "SRV",
+                                                "concepto":  "Servicios Adicionales",
+                                                "descripcion":  "Servicios complementarios del inmueble",
+                                                "frecuenciaPago":  "TRIMESTRAL",
+                                                "frecuenciaPagoCodigo":  "T",
+                                                "valorTotal":  6000,
+                                                "moneda":  "USD",
+                                                "cuentaContable":  "6311010300",
+                                                "descripcionCuenta":  "Servicios inmobiliarios"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-017",
+                          "numeroContrato":  "4500012358",
+                          "fechaInicioVigencia":  "2024-05-03",
+                          "fechaFinVigencia":  "2026-05-03",
+                          "valorTotal":  280000,
+                          "moneda":  "PEN",
+                          "descripcion":  "Contrato de Servicios de Seguridad - Cajamarca",
+                          "unidadNegocio":  "Cajamarca",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0170",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-017"
+                                             },
+                          "estado":  "VIGENTE",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-039",
+                                                "codigo":  "VIG",
+                                                "concepto":  "Vigilancia",
+                                                "descripcion":  "Servicio de vigilancia y control de acceso",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  168000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6352010100",
+                                                "descripcionCuenta":  "Servicios de seguridad"
+                                            },
+                                            {
+                                                "id":  "CONC-040",
+                                                "codigo":  "MON",
+                                                "concepto":  "Monitoreo CCTV",
+                                                "descripcion":  "Monitoreo remoto de cámaras de seguridad",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  70000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6352010200",
+                                                "descripcionCuenta":  "Monitoreo electrónico"
+                                            },
+                                            {
+                                                "id":  "CONC-041",
+                                                "codigo":  "EQP",
+                                                "concepto":  "Equipamiento",
+                                                "descripcion":  "Mantenimiento de equipos de seguridad",
+                                                "frecuenciaPago":  "TRIMESTRAL",
+                                                "frecuenciaPagoCodigo":  "T",
+                                                "valorTotal":  42000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6352010300",
+                                                "descripcionCuenta":  "Equipos de seguridad"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-018",
+                          "numeroContrato":  "4500012359",
+                          "fechaInicioVigencia":  "2024-05-12",
+                          "fechaFinVigencia":  "2026-05-12",
+                          "valorTotal":  70000,
+                          "moneda":  "PEN",
+                          "descripcion":  "Contrato de Limpieza - Tacna",
+                          "unidadNegocio":  "Tacna",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0180",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-018"
+                                             },
+                          "estado":  "VIGENTE",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-042",
+                                                "codigo":  "LMP",
+                                                "concepto":  "Limpieza General",
+                                                "descripcion":  "Servicio de limpieza de oficinas y áreas comunes",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  45500,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6353010100",
+                                                "descripcionCuenta":  "Servicios de limpieza"
+                                            },
+                                            {
+                                                "id":  "CONC-043",
+                                                "codigo":  "DES",
+                                                "concepto":  "Desinfección",
+                                                "descripcion":  "Desinfección y sanitización de ambientes",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  14000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6353010200",
+                                                "descripcionCuenta":  "Desinfección ambiental"
+                                            },
+                                            {
+                                                "id":  "CONC-044",
+                                                "codigo":  "INS",
+                                                "concepto":  "Insumos de Limpieza",
+                                                "descripcion":  "Provisión de insumos y materiales de limpieza",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  10500,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6353010300",
+                                                "descripcionCuenta":  "Insumos de mantenimiento"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-019",
+                          "numeroContrato":  "4500012360",
+                          "fechaInicioVigencia":  "2024-05-21",
+                          "fechaFinVigencia":  "2026-05-21",
+                          "valorTotal":  130000,
+                          "moneda":  "PEN",
+                          "descripcion":  "Contrato de Consultoría TI - Corporativo",
+                          "unidadNegocio":  "Corporativo",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0190",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-019"
+                                             },
+                          "estado":  "VIGENTE",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-045",
+                                                "codigo":  "CON",
+                                                "concepto":  "Consultoría Especializada",
+                                                "descripcion":  "Horas de consultoría técnica especializada",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  71500,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6354010100",
+                                                "descripcionCuenta":  "Consultoría profesional"
+                                            },
+                                            {
+                                                "id":  "CONC-046",
+                                                "codigo":  "IMP",
+                                                "concepto":  "Implementación",
+                                                "descripcion":  "Servicios de implementación y configuración",
+                                                "frecuenciaPago":  "TRIMESTRAL",
+                                                "frecuenciaPagoCodigo":  "T",
+                                                "valorTotal":  39000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6354010200",
+                                                "descripcionCuenta":  "Implementación de sistemas"
+                                            },
+                                            {
+                                                "id":  "CONC-047",
+                                                "codigo":  "CAP",
+                                                "concepto":  "Capacitación",
+                                                "descripcion":  "Capacitación y transferencia de conocimiento",
+                                                "frecuenciaPago":  "SEMESTRAL",
+                                                "frecuenciaPagoCodigo":  "S",
+                                                "valorTotal":  19500,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6354010300",
+                                                "descripcionCuenta":  "Capacitación técnica"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-020",
+                          "numeroContrato":  "4500012361",
+                          "fechaInicioVigencia":  "2024-05-30",
+                          "fechaFinVigencia":  "2026-05-30",
+                          "valorTotal":  90000,
+                          "moneda":  "PEN",
+                          "descripcion":  "Contrato de Mantenimiento de Equipos - Huancayo",
+                          "unidadNegocio":  "Huancayo",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0200",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-020"
+                                             },
+                          "estado":  "VIGENTE",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-048",
+                                                "codigo":  "MPR",
+                                                "concepto":  "Mantenimiento Preventivo",
+                                                "descripcion":  "Mantenimiento preventivo programado de equipos",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  45000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6355010100",
+                                                "descripcionCuenta":  "Mantenimiento preventivo"
+                                            },
+                                            {
+                                                "id":  "CONC-049",
+                                                "codigo":  "MCO",
+                                                "concepto":  "Mantenimiento Correctivo",
+                                                "descripcion":  "Reparaciones y mantenimiento correctivo",
+                                                "frecuenciaPago":  "TRIMESTRAL",
+                                                "frecuenciaPagoCodigo":  "T",
+                                                "valorTotal":  27000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6355010200",
+                                                "descripcionCuenta":  "Mantenimiento correctivo"
+                                            },
+                                            {
+                                                "id":  "CONC-050",
+                                                "codigo":  "REP",
+                                                "concepto":  "Repuestos",
+                                                "descripcion":  "Provisión de repuestos y componentes",
+                                                "frecuenciaPago":  "TRIMESTRAL",
+                                                "frecuenciaPagoCodigo":  "T",
+                                                "valorTotal":  18000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6355010300",
+                                                "descripcionCuenta":  "Repuestos y accesorios"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-021",
+                          "numeroContrato":  "4500012362",
+                          "fechaInicioVigencia":  "2024-06-08",
+                          "fechaFinVigencia":  "2026-06-08",
+                          "valorTotal":  175000,
+                          "moneda":  "USD",
+                          "descripcion":  "Contrato de Vigilancia - Lima Norte",
+                          "unidadNegocio":  "Lima Norte",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0210",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-021"
+                                             },
+                          "estado":  "VIGENTE",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-051",
+                                                "codigo":  "VIG",
+                                                "concepto":  "Vigilancia Presencial",
+                                                "descripcion":  "Personal de vigilancia en sitio 24/7",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  113750,
+                                                "moneda":  "USD",
+                                                "cuentaContable":  "6352020100",
+                                                "descripcionCuenta":  "Vigilancia presencial"
+                                            },
+                                            {
+                                                "id":  "CONC-052",
+                                                "codigo":  "RON",
+                                                "concepto":  "Rondas de Seguridad",
+                                                "descripcion":  "Rondas de inspección perimetral",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  35000,
+                                                "moneda":  "USD",
+                                                "cuentaContable":  "6352020200",
+                                                "descripcionCuenta":  "Rondas de seguridad"
+                                            },
+                                            {
+                                                "id":  "CONC-053",
+                                                "codigo":  "INF",
+                                                "concepto":  "Informes de Seguridad",
+                                                "descripcion":  "Elaboración de informes de incidencias",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  26250,
+                                                "moneda":  "USD",
+                                                "cuentaContable":  "6352020300",
+                                                "descripcionCuenta":  "Informes y reportes"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-022",
+                          "numeroContrato":  "4500012363",
+                          "fechaInicioVigencia":  "2024-06-17",
+                          "fechaFinVigencia":  "2026-06-17",
+                          "valorTotal":  55000,
+                          "moneda":  "PEN",
+                          "descripcion":  "Contrato de Gestión Documental - Lima Sur",
+                          "unidadNegocio":  "Lima Sur",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0220",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-022"
+                                             },
+                          "estado":  "PARCIAL",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-054",
+                                                "codigo":  "DIG",
+                                                "concepto":  "Digitalización",
+                                                "descripcion":  "Digitalización de documentos y archivos",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  24750,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6356010100",
+                                                "descripcionCuenta":  "Digitalización documental"
+                                            },
+                                            {
+                                                "id":  "CONC-055",
+                                                "codigo":  "CUS",
+                                                "concepto":  "Custodia",
+                                                "descripcion":  "Custodia y almacenamiento de documentos físicos",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  19250,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6356010200",
+                                                "descripcionCuenta":  "Custodia documental"
+                                            },
+                                            {
+                                                "id":  "CONC-056",
+                                                "codigo":  "IND",
+                                                "concepto":  "Indexación",
+                                                "descripcion":  "Indexación y clasificación de documentos",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  11000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6356010300",
+                                                "descripcionCuenta":  "Indexación documental"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-023",
+                          "numeroContrato":  "4500012364",
+                          "fechaInicioVigencia":  "2024-06-26",
+                          "fechaFinVigencia":  "2026-06-26",
+                          "valorTotal":  240000,
+                          "moneda":  "PEN",
+                          "descripcion":  "Contrato de Transporte - Lima Este",
+                          "unidadNegocio":  "Lima Este",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0230",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-023"
+                                             },
+                          "estado":  "PARCIAL",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-057",
+                                                "codigo":  "FLE",
+                                                "concepto":  "Flete Terrestre",
+                                                "descripcion":  "Servicio de transporte terrestre de carga",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  144000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6357010100",
+                                                "descripcionCuenta":  "Transporte terrestre"
+                                            },
+                                            {
+                                                "id":  "CONC-058",
+                                                "codigo":  "SEG",
+                                                "concepto":  "Seguro de Carga",
+                                                "descripcion":  "Cobertura de seguro para mercancía en tránsito",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  60000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6357010200",
+                                                "descripcionCuenta":  "Seguros de transporte"
+                                            },
+                                            {
+                                                "id":  "CONC-059",
+                                                "codigo":  "ALM",
+                                                "concepto":  "Almacenaje Temporal",
+                                                "descripcion":  "Almacenaje en depósito temporal",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  36000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6357010300",
+                                                "descripcionCuenta":  "Almacenaje"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-024",
+                          "numeroContrato":  "4500012365",
+                          "fechaInicioVigencia":  "2024-07-05",
+                          "fechaFinVigencia":  "2026-07-05",
+                          "valorTotal":  80000,
+                          "moneda":  "PEN",
+                          "descripcion":  "Contrato de Suministro Eléctrico - Lima Centro",
+                          "unidadNegocio":  "Lima Centro",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0240",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-024"
+                                             },
+                          "estado":  "PARCIAL",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-060",
+                                                "codigo":  "SUM",
+                                                "concepto":  "Suministro Eléctrico",
+                                                "descripcion":  "Provisión de energía eléctrica",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  56000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6358010100",
+                                                "descripcionCuenta":  "Energía eléctrica"
+                                            },
+                                            {
+                                                "id":  "CONC-061",
+                                                "codigo":  "MAN",
+                                                "concepto":  "Mantenimiento de Red",
+                                                "descripcion":  "Mantenimiento de infraestructura eléctrica",
+                                                "frecuenciaPago":  "TRIMESTRAL",
+                                                "frecuenciaPagoCodigo":  "T",
+                                                "valorTotal":  16000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6358010200",
+                                                "descripcionCuenta":  "Mantenimiento eléctrico"
+                                            },
+                                            {
+                                                "id":  "CONC-062",
+                                                "codigo":  "EME",
+                                                "concepto":  "Emergencias",
+                                                "descripcion":  "Atención de emergencias eléctricas",
+                                                "frecuenciaPago":  "SEMESTRAL",
+                                                "frecuenciaPagoCodigo":  "S",
+                                                "valorTotal":  8000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6358010300",
+                                                "descripcionCuenta":  "Emergencias eléctricas"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-025",
+                          "numeroContrato":  "4500012366",
+                          "fechaInicioVigencia":  "2024-07-14",
+                          "fechaFinVigencia":  "2026-07-14",
+                          "valorTotal":  110000,
+                          "moneda":  "PEN",
+                          "descripcion":  "Contrato de Soporte Técnico - Lima Oeste",
+                          "unidadNegocio":  "Lima Oeste",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0250",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-025"
+                                             },
+                          "estado":  "PENDIENTE",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-063",
+                                                "codigo":  "SOP",
+                                                "concepto":  "Soporte Nivel 1 y 2",
+                                                "descripcion":  "Atención de tickets de soporte técnico",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  55000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6359010100",
+                                                "descripcionCuenta":  "Soporte técnico"
+                                            },
+                                            {
+                                                "id":  "CONC-064",
+                                                "codigo":  "ADM",
+                                                "concepto":  "Administración de Sistemas",
+                                                "descripcion":  "Administración y monitoreo de servidores",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  33000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6359010200",
+                                                "descripcionCuenta":  "Administración TI"
+                                            },
+                                            {
+                                                "id":  "CONC-065",
+                                                "codigo":  "LIC",
+                                                "concepto":  "Licencias",
+                                                "descripcion":  "Gestión y renovación de licencias de software",
+                                                "frecuenciaPago":  "ANUAL",
+                                                "frecuenciaPagoCodigo":  "A",
+                                                "valorTotal":  22000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6359010300",
+                                                "descripcionCuenta":  "Licencias de software"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-026",
+                          "numeroContrato":  "4500012367",
+                          "fechaInicioVigencia":  "2024-07-23",
+                          "fechaFinVigencia":  "2026-07-23",
+                          "valorTotal":  155000,
+                          "moneda":  "USD",
+                          "descripcion":  "Contrato de Arrendamiento - Arequipa",
+                          "unidadNegocio":  "Arequipa",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0260",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-026"
+                                             },
+                          "estado":  "VIGENTE",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-066",
+                                                "codigo":  "ALQ",
+                                                "concepto":  "Alquiler",
+                                                "descripcion":  "Alquiler mensual del inmueble",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  108500,
+                                                "moneda":  "USD",
+                                                "cuentaContable":  "6311010100",
+                                                "descripcionCuenta":  "Alquileres de terrenos"
+                                            },
+                                            {
+                                                "id":  "CONC-067",
+                                                "codigo":  "GC",
+                                                "concepto":  "Gastos Comunes",
+                                                "descripcion":  "Gastos comunes de áreas compartidas",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  31000,
+                                                "moneda":  "USD",
+                                                "cuentaContable":  "6311010200",
+                                                "descripcionCuenta":  "Gastos comunes inmuebles"
+                                            },
+                                            {
+                                                "id":  "CONC-068",
+                                                "codigo":  "SRV",
+                                                "concepto":  "Servicios Adicionales",
+                                                "descripcion":  "Servicios complementarios del inmueble",
+                                                "frecuenciaPago":  "TRIMESTRAL",
+                                                "frecuenciaPagoCodigo":  "T",
+                                                "valorTotal":  15500,
+                                                "moneda":  "USD",
+                                                "cuentaContable":  "6311010300",
+                                                "descripcionCuenta":  "Servicios inmobiliarios"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-027",
+                          "numeroContrato":  "4500012368",
+                          "fechaInicioVigencia":  "2024-08-01",
+                          "fechaFinVigencia":  "2026-08-01",
+                          "valorTotal":  320000,
+                          "moneda":  "PEN",
+                          "descripcion":  "Contrato de Servicios de Seguridad - Trujillo",
+                          "unidadNegocio":  "Trujillo",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0270",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-027"
+                                             },
+                          "estado":  "VIGENTE",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-069",
+                                                "codigo":  "VIG",
+                                                "concepto":  "Vigilancia",
+                                                "descripcion":  "Servicio de vigilancia y control de acceso",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  192000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6352010100",
+                                                "descripcionCuenta":  "Servicios de seguridad"
+                                            },
+                                            {
+                                                "id":  "CONC-070",
+                                                "codigo":  "MON",
+                                                "concepto":  "Monitoreo CCTV",
+                                                "descripcion":  "Monitoreo remoto de cámaras de seguridad",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  80000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6352010200",
+                                                "descripcionCuenta":  "Monitoreo electrónico"
+                                            },
+                                            {
+                                                "id":  "CONC-071",
+                                                "codigo":  "EQP",
+                                                "concepto":  "Equipamiento",
+                                                "descripcion":  "Mantenimiento de equipos de seguridad",
+                                                "frecuenciaPago":  "TRIMESTRAL",
+                                                "frecuenciaPagoCodigo":  "T",
+                                                "valorTotal":  48000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6352010300",
+                                                "descripcionCuenta":  "Equipos de seguridad"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-028",
+                          "numeroContrato":  "4500012369",
+                          "fechaInicioVigencia":  "2024-08-10",
+                          "fechaFinVigencia":  "2026-08-10",
+                          "valorTotal":  48000,
+                          "moneda":  "PEN",
+                          "descripcion":  "Contrato de Limpieza - Piura",
+                          "unidadNegocio":  "Piura",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0280",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-028"
+                                             },
+                          "estado":  "VIGENTE",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-072",
+                                                "codigo":  "LMP",
+                                                "concepto":  "Limpieza General",
+                                                "descripcion":  "Servicio de limpieza de oficinas y áreas comunes",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  31200,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6353010100",
+                                                "descripcionCuenta":  "Servicios de limpieza"
+                                            },
+                                            {
+                                                "id":  "CONC-073",
+                                                "codigo":  "DES",
+                                                "concepto":  "Desinfección",
+                                                "descripcion":  "Desinfección y sanitización de ambientes",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  9600,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6353010200",
+                                                "descripcionCuenta":  "Desinfección ambiental"
+                                            },
+                                            {
+                                                "id":  "CONC-074",
+                                                "codigo":  "INS",
+                                                "concepto":  "Insumos de Limpieza",
+                                                "descripcion":  "Provisión de insumos y materiales de limpieza",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  7200,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6353010300",
+                                                "descripcionCuenta":  "Insumos de mantenimiento"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-029",
+                          "numeroContrato":  "4500012370",
+                          "fechaInicioVigencia":  "2024-08-19",
+                          "fechaFinVigencia":  "2026-08-19",
+                          "valorTotal":  195000,
+                          "moneda":  "PEN",
+                          "descripcion":  "Contrato de Consultoría TI - Cusco",
+                          "unidadNegocio":  "Cusco",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0290",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-029"
+                                             },
+                          "estado":  "VIGENTE",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-075",
+                                                "codigo":  "CON",
+                                                "concepto":  "Consultoría Especializada",
+                                                "descripcion":  "Horas de consultoría técnica especializada",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  107250,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6354010100",
+                                                "descripcionCuenta":  "Consultoría profesional"
+                                            },
+                                            {
+                                                "id":  "CONC-076",
+                                                "codigo":  "IMP",
+                                                "concepto":  "Implementación",
+                                                "descripcion":  "Servicios de implementación y configuración",
+                                                "frecuenciaPago":  "TRIMESTRAL",
+                                                "frecuenciaPagoCodigo":  "T",
+                                                "valorTotal":  58500,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6354010200",
+                                                "descripcionCuenta":  "Implementación de sistemas"
+                                            },
+                                            {
+                                                "id":  "CONC-077",
+                                                "codigo":  "CAP",
+                                                "concepto":  "Capacitación",
+                                                "descripcion":  "Capacitación y transferencia de conocimiento",
+                                                "frecuenciaPago":  "SEMESTRAL",
+                                                "frecuenciaPagoCodigo":  "S",
+                                                "valorTotal":  29250,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6354010300",
+                                                "descripcionCuenta":  "Capacitación técnica"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-030",
+                          "numeroContrato":  "4500012371",
+                          "fechaInicioVigencia":  "2024-08-28",
+                          "fechaFinVigencia":  "2026-08-28",
+                          "valorTotal":  72000,
+                          "moneda":  "PEN",
+                          "descripcion":  "Contrato de Mantenimiento de Equipos - Ica",
+                          "unidadNegocio":  "Ica",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0300",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-030"
+                                             },
+                          "estado":  "VIGENTE",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-078",
+                                                "codigo":  "MPR",
+                                                "concepto":  "Mantenimiento Preventivo",
+                                                "descripcion":  "Mantenimiento preventivo programado de equipos",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  36000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6355010100",
+                                                "descripcionCuenta":  "Mantenimiento preventivo"
+                                            },
+                                            {
+                                                "id":  "CONC-079",
+                                                "codigo":  "MCO",
+                                                "concepto":  "Mantenimiento Correctivo",
+                                                "descripcion":  "Reparaciones y mantenimiento correctivo",
+                                                "frecuenciaPago":  "TRIMESTRAL",
+                                                "frecuenciaPagoCodigo":  "T",
+                                                "valorTotal":  21600,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6355010200",
+                                                "descripcionCuenta":  "Mantenimiento correctivo"
+                                            },
+                                            {
+                                                "id":  "CONC-080",
+                                                "codigo":  "REP",
+                                                "concepto":  "Repuestos",
+                                                "descripcion":  "Provisión de repuestos y componentes",
+                                                "frecuenciaPago":  "TRIMESTRAL",
+                                                "frecuenciaPagoCodigo":  "T",
+                                                "valorTotal":  14400,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6355010300",
+                                                "descripcionCuenta":  "Repuestos y accesorios"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-031",
+                          "numeroContrato":  "4500012372",
+                          "fechaInicioVigencia":  "2024-09-06",
+                          "fechaFinVigencia":  "2026-09-06",
+                          "valorTotal":  160000,
+                          "moneda":  "USD",
+                          "descripcion":  "Contrato de Vigilancia - Chiclayo",
+                          "unidadNegocio":  "Chiclayo",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0310",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-031"
+                                             },
+                          "estado":  "VIGENTE",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-081",
+                                                "codigo":  "VIG",
+                                                "concepto":  "Vigilancia Presencial",
+                                                "descripcion":  "Personal de vigilancia en sitio 24/7",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  104000,
+                                                "moneda":  "USD",
+                                                "cuentaContable":  "6352020100",
+                                                "descripcionCuenta":  "Vigilancia presencial"
+                                            },
+                                            {
+                                                "id":  "CONC-082",
+                                                "codigo":  "RON",
+                                                "concepto":  "Rondas de Seguridad",
+                                                "descripcion":  "Rondas de inspección perimetral",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  32000,
+                                                "moneda":  "USD",
+                                                "cuentaContable":  "6352020200",
+                                                "descripcionCuenta":  "Rondas de seguridad"
+                                            },
+                                            {
+                                                "id":  "CONC-083",
+                                                "codigo":  "INF",
+                                                "concepto":  "Informes de Seguridad",
+                                                "descripcion":  "Elaboración de informes de incidencias",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  24000,
+                                                "moneda":  "USD",
+                                                "cuentaContable":  "6352020300",
+                                                "descripcionCuenta":  "Informes y reportes"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-032",
+                          "numeroContrato":  "4500012373",
+                          "fechaInicioVigencia":  "2024-09-15",
+                          "fechaFinVigencia":  "2026-09-15",
+                          "valorTotal":  105000,
+                          "moneda":  "PEN",
+                          "descripcion":  "Contrato de Gestión Documental - Cajamarca",
+                          "unidadNegocio":  "Cajamarca",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0320",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-032"
+                                             },
+                          "estado":  "PARCIAL",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-084",
+                                                "codigo":  "DIG",
+                                                "concepto":  "Digitalización",
+                                                "descripcion":  "Digitalización de documentos y archivos",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  47250,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6356010100",
+                                                "descripcionCuenta":  "Digitalización documental"
+                                            },
+                                            {
+                                                "id":  "CONC-085",
+                                                "codigo":  "CUS",
+                                                "concepto":  "Custodia",
+                                                "descripcion":  "Custodia y almacenamiento de documentos físicos",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  36750,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6356010200",
+                                                "descripcionCuenta":  "Custodia documental"
+                                            },
+                                            {
+                                                "id":  "CONC-086",
+                                                "codigo":  "IND",
+                                                "concepto":  "Indexación",
+                                                "descripcion":  "Indexación y clasificación de documentos",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  21000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6356010300",
+                                                "descripcionCuenta":  "Indexación documental"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-033",
+                          "numeroContrato":  "4500012374",
+                          "fechaInicioVigencia":  "2024-09-24",
+                          "fechaFinVigencia":  "2026-09-24",
+                          "valorTotal":  250000,
+                          "moneda":  "PEN",
+                          "descripcion":  "Contrato de Transporte - Tacna",
+                          "unidadNegocio":  "Tacna",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0330",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-033"
+                                             },
+                          "estado":  "PARCIAL",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-087",
+                                                "codigo":  "FLE",
+                                                "concepto":  "Flete Terrestre",
+                                                "descripcion":  "Servicio de transporte terrestre de carga",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  150000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6357010100",
+                                                "descripcionCuenta":  "Transporte terrestre"
+                                            },
+                                            {
+                                                "id":  "CONC-088",
+                                                "codigo":  "SEG",
+                                                "concepto":  "Seguro de Carga",
+                                                "descripcion":  "Cobertura de seguro para mercancía en tránsito",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  62500,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6357010200",
+                                                "descripcionCuenta":  "Seguros de transporte"
+                                            },
+                                            {
+                                                "id":  "CONC-089",
+                                                "codigo":  "ALM",
+                                                "concepto":  "Almacenaje Temporal",
+                                                "descripcion":  "Almacenaje en depósito temporal",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  37500,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6357010300",
+                                                "descripcionCuenta":  "Almacenaje"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-034",
+                          "numeroContrato":  "4500012375",
+                          "fechaInicioVigencia":  "2024-10-03",
+                          "fechaFinVigencia":  "2026-10-03",
+                          "valorTotal":  68000,
+                          "moneda":  "PEN",
+                          "descripcion":  "Contrato de Suministro Eléctrico - Corporativo",
+                          "unidadNegocio":  "Corporativo",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0340",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-034"
+                                             },
+                          "estado":  "PARCIAL",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-090",
+                                                "codigo":  "SUM",
+                                                "concepto":  "Suministro Eléctrico",
+                                                "descripcion":  "Provisión de energía eléctrica",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  47600,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6358010100",
+                                                "descripcionCuenta":  "Energía eléctrica"
+                                            },
+                                            {
+                                                "id":  "CONC-091",
+                                                "codigo":  "MAN",
+                                                "concepto":  "Mantenimiento de Red",
+                                                "descripcion":  "Mantenimiento de infraestructura eléctrica",
+                                                "frecuenciaPago":  "TRIMESTRAL",
+                                                "frecuenciaPagoCodigo":  "T",
+                                                "valorTotal":  13600,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6358010200",
+                                                "descripcionCuenta":  "Mantenimiento eléctrico"
+                                            },
+                                            {
+                                                "id":  "CONC-092",
+                                                "codigo":  "EME",
+                                                "concepto":  "Emergencias",
+                                                "descripcion":  "Atención de emergencias eléctricas",
+                                                "frecuenciaPago":  "SEMESTRAL",
+                                                "frecuenciaPagoCodigo":  "S",
+                                                "valorTotal":  6800,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6358010300",
+                                                "descripcionCuenta":  "Emergencias eléctricas"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-035",
+                          "numeroContrato":  "4500012376",
+                          "fechaInicioVigencia":  "2024-10-12",
+                          "fechaFinVigencia":  "2026-10-12",
+                          "valorTotal":  140000,
+                          "moneda":  "PEN",
+                          "descripcion":  "Contrato de Soporte Técnico - Huancayo",
+                          "unidadNegocio":  "Huancayo",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0350",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-035"
+                                             },
+                          "estado":  "PENDIENTE",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-093",
+                                                "codigo":  "SOP",
+                                                "concepto":  "Soporte Nivel 1 y 2",
+                                                "descripcion":  "Atención de tickets de soporte técnico",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  70000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6359010100",
+                                                "descripcionCuenta":  "Soporte técnico"
+                                            },
+                                            {
+                                                "id":  "CONC-094",
+                                                "codigo":  "ADM",
+                                                "concepto":  "Administración de Sistemas",
+                                                "descripcion":  "Administración y monitoreo de servidores",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  42000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6359010200",
+                                                "descripcionCuenta":  "Administración TI"
+                                            },
+                                            {
+                                                "id":  "CONC-095",
+                                                "codigo":  "LIC",
+                                                "concepto":  "Licencias",
+                                                "descripcion":  "Gestión y renovación de licencias de software",
+                                                "frecuenciaPago":  "ANUAL",
+                                                "frecuenciaPagoCodigo":  "A",
+                                                "valorTotal":  28000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6359010300",
+                                                "descripcionCuenta":  "Licencias de software"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-036",
+                          "numeroContrato":  "4500012377",
+                          "fechaInicioVigencia":  "2024-10-21",
+                          "fechaFinVigencia":  "2026-10-21",
+                          "valorTotal":  88000,
+                          "moneda":  "USD",
+                          "descripcion":  "Contrato de Arrendamiento - Lima Norte",
+                          "unidadNegocio":  "Lima Norte",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0360",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-036"
+                                             },
+                          "estado":  "VIGENTE",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-096",
+                                                "codigo":  "ALQ",
+                                                "concepto":  "Alquiler",
+                                                "descripcion":  "Alquiler mensual del inmueble",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  61600,
+                                                "moneda":  "USD",
+                                                "cuentaContable":  "6311010100",
+                                                "descripcionCuenta":  "Alquileres de terrenos"
+                                            },
+                                            {
+                                                "id":  "CONC-097",
+                                                "codigo":  "GC",
+                                                "concepto":  "Gastos Comunes",
+                                                "descripcion":  "Gastos comunes de áreas compartidas",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  17600,
+                                                "moneda":  "USD",
+                                                "cuentaContable":  "6311010200",
+                                                "descripcionCuenta":  "Gastos comunes inmuebles"
+                                            },
+                                            {
+                                                "id":  "CONC-098",
+                                                "codigo":  "SRV",
+                                                "concepto":  "Servicios Adicionales",
+                                                "descripcion":  "Servicios complementarios del inmueble",
+                                                "frecuenciaPago":  "TRIMESTRAL",
+                                                "frecuenciaPagoCodigo":  "T",
+                                                "valorTotal":  8800,
+                                                "moneda":  "USD",
+                                                "cuentaContable":  "6311010300",
+                                                "descripcionCuenta":  "Servicios inmobiliarios"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-037",
+                          "numeroContrato":  "4500012378",
+                          "fechaInicioVigencia":  "2024-10-30",
+                          "fechaFinVigencia":  "2026-10-30",
+                          "valorTotal":  215000,
+                          "moneda":  "PEN",
+                          "descripcion":  "Contrato de Servicios de Seguridad - Lima Sur",
+                          "unidadNegocio":  "Lima Sur",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0370",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-037"
+                                             },
+                          "estado":  "VIGENTE",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-099",
+                                                "codigo":  "VIG",
+                                                "concepto":  "Vigilancia",
+                                                "descripcion":  "Servicio de vigilancia y control de acceso",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  129000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6352010100",
+                                                "descripcionCuenta":  "Servicios de seguridad"
+                                            },
+                                            {
+                                                "id":  "CONC-100",
+                                                "codigo":  "MON",
+                                                "concepto":  "Monitoreo CCTV",
+                                                "descripcion":  "Monitoreo remoto de cámaras de seguridad",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  53750,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6352010200",
+                                                "descripcionCuenta":  "Monitoreo electrónico"
+                                            },
+                                            {
+                                                "id":  "CONC-101",
+                                                "codigo":  "EQP",
+                                                "concepto":  "Equipamiento",
+                                                "descripcion":  "Mantenimiento de equipos de seguridad",
+                                                "frecuenciaPago":  "TRIMESTRAL",
+                                                "frecuenciaPagoCodigo":  "T",
+                                                "valorTotal":  32250,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6352010300",
+                                                "descripcionCuenta":  "Equipos de seguridad"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-038",
+                          "numeroContrato":  "4500012379",
+                          "fechaInicioVigencia":  "2024-11-08",
+                          "fechaFinVigencia":  "2026-11-08",
+                          "valorTotal":  77000,
+                          "moneda":  "PEN",
+                          "descripcion":  "Contrato de Limpieza - Lima Este",
+                          "unidadNegocio":  "Lima Este",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0380",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-038"
+                                             },
+                          "estado":  "VIGENTE",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-102",
+                                                "codigo":  "LMP",
+                                                "concepto":  "Limpieza General",
+                                                "descripcion":  "Servicio de limpieza de oficinas y áreas comunes",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  50050,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6353010100",
+                                                "descripcionCuenta":  "Servicios de limpieza"
+                                            },
+                                            {
+                                                "id":  "CONC-103",
+                                                "codigo":  "DES",
+                                                "concepto":  "Desinfección",
+                                                "descripcion":  "Desinfección y sanitización de ambientes",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  15400,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6353010200",
+                                                "descripcionCuenta":  "Desinfección ambiental"
+                                            },
+                                            {
+                                                "id":  "CONC-104",
+                                                "codigo":  "INS",
+                                                "concepto":  "Insumos de Limpieza",
+                                                "descripcion":  "Provisión de insumos y materiales de limpieza",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  11550,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6353010300",
+                                                "descripcionCuenta":  "Insumos de mantenimiento"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-039",
+                          "numeroContrato":  "4500012380",
+                          "fechaInicioVigencia":  "2024-11-17",
+                          "fechaFinVigencia":  "2026-11-17",
+                          "valorTotal":  185000,
+                          "moneda":  "PEN",
+                          "descripcion":  "Contrato de Consultoría TI - Lima Centro",
+                          "unidadNegocio":  "Lima Centro",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0390",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-039"
+                                             },
+                          "estado":  "VIGENTE",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-105",
+                                                "codigo":  "CON",
+                                                "concepto":  "Consultoría Especializada",
+                                                "descripcion":  "Horas de consultoría técnica especializada",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  101750,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6354010100",
+                                                "descripcionCuenta":  "Consultoría profesional"
+                                            },
+                                            {
+                                                "id":  "CONC-106",
+                                                "codigo":  "IMP",
+                                                "concepto":  "Implementación",
+                                                "descripcion":  "Servicios de implementación y configuración",
+                                                "frecuenciaPago":  "TRIMESTRAL",
+                                                "frecuenciaPagoCodigo":  "T",
+                                                "valorTotal":  55500,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6354010200",
+                                                "descripcionCuenta":  "Implementación de sistemas"
+                                            },
+                                            {
+                                                "id":  "CONC-107",
+                                                "codigo":  "CAP",
+                                                "concepto":  "Capacitación",
+                                                "descripcion":  "Capacitación y transferencia de conocimiento",
+                                                "frecuenciaPago":  "SEMESTRAL",
+                                                "frecuenciaPagoCodigo":  "S",
+                                                "valorTotal":  27750,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6354010300",
+                                                "descripcionCuenta":  "Capacitación técnica"
+                                            }
+                                        ]
+                      },
+                      {
+                          "id":  "CONT-040",
+                          "numeroContrato":  "4500012381",
+                          "fechaInicioVigencia":  "2024-11-26",
+                          "fechaFinVigencia":  "2026-11-26",
+                          "valorTotal":  115000,
+                          "moneda":  "PEN",
+                          "descripcion":  "Contrato de Mantenimiento de Equipos - Lima Oeste",
+                          "unidadNegocio":  "Lima Oeste",
+                          "interlocutor":  {
+                                               "ruc":  "20100130204",
+                                               "razonSocial":  "INMOBILIARIA PERU SAC",
+                                               "direccion":  "Av. Alfredo Mendiola 1400, Independencia",
+                                               "telefono":  "01-7115000",
+                                               "email":  "facturacion@inmobiliariaperu.com.pe"
+                                           },
+                          "acreedor":  {
+                                           "codigoAcreedor":  "AC001",
+                                           "nombre":  "INMOBILIARIA PERU SAC",
+                                           "cuentaBancaria":  "193-2156789-0-12",
+                                           "banco":  "BCP"
+                                       },
+                          "condicionesPago":  "30 días fecha factura",
+                          "condicionesPagoCodigo":  "Z030",
+                          "periodicidadPago":  "MENSUAL",
+                          "periodicidadPagoCodigo":  "M",
+                          "datosContables":  {
+                                                 "centroCoste":  "CC0400",
+                                                 "cuentaContable":  "6311010100",
+                                                 "elementoPep":  "PEP-2024-040"
+                                             },
+                          "estado":  "VIGENTE",
+                          "conceptos":  [
+                                            {
+                                                "id":  "CONC-108",
+                                                "codigo":  "MPR",
+                                                "concepto":  "Mantenimiento Preventivo",
+                                                "descripcion":  "Mantenimiento preventivo programado de equipos",
+                                                "frecuenciaPago":  "MENSUAL",
+                                                "frecuenciaPagoCodigo":  "M",
+                                                "valorTotal":  57500,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6355010100",
+                                                "descripcionCuenta":  "Mantenimiento preventivo"
+                                            },
+                                            {
+                                                "id":  "CONC-109",
+                                                "codigo":  "MCO",
+                                                "concepto":  "Mantenimiento Correctivo",
+                                                "descripcion":  "Reparaciones y mantenimiento correctivo",
+                                                "frecuenciaPago":  "TRIMESTRAL",
+                                                "frecuenciaPagoCodigo":  "T",
+                                                "valorTotal":  34500,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6355010200",
+                                                "descripcionCuenta":  "Mantenimiento correctivo"
+                                            },
+                                            {
+                                                "id":  "CONC-110",
+                                                "codigo":  "REP",
+                                                "concepto":  "Repuestos",
+                                                "descripcion":  "Provisión de repuestos y componentes",
+                                                "frecuenciaPago":  "TRIMESTRAL",
+                                                "frecuenciaPagoCodigo":  "T",
+                                                "valorTotal":  23000,
+                                                "moneda":  "PEN",
+                                                "cuentaContable":  "6355010300",
+                                                "descripcionCuenta":  "Repuestos y accesorios"
+                                            }
+                                        ]
+                      }
+                  ]
+}

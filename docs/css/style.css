@@ -1,0 +1,1042 @@
+/* ============================================
+   CLARO COMPROBANTES - Estilos Personalizados
+   ============================================ */
+
+/* ============ COLORES CLARO ============ */
+:root {
+    --claro-red: #DA291C;
+    --claro-red-dark: #B71C1C;
+    --claro-gray: #666666;
+    --claro-gray-light: #F5F5F5;
+    --claro-green: #4CAF50;
+    --claro-orange: #FF9800;
+    --claro-blue: #2196F3;
+}
+
+/* ============ HOME VIEW ============ */
+.homeContainer {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.welcomeIcon {
+    color: var(--claro-red) !important;
+    margin-bottom: 1rem;
+}
+
+.homeCards {
+    margin-top: 2rem;
+}
+
+.homeCard {
+    margin: 0.5rem;
+    min-width: 280px;
+    max-width: 400px;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.homeCard:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.homeCard .sapMCHdr {
+    background: linear-gradient(135deg, var(--claro-red), var(--claro-red-dark));
+}
+
+.homeCard .sapMCHdrTitle {
+    color: white !important;
+}
+
+.homeCard .sapMCHdrIcon {
+    color: white !important;
+}
+
+.homeFooter {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: var(--claro-gray-light);
+    border-radius: 4px;
+}
+
+/* ============ DOCUMENT LIST VIEW ============ */
+.filterPanel {
+    background-color: var(--claro-gray-light);
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.providerPanel {
+    background: linear-gradient(to right, var(--claro-gray-light), white);
+    border-left: 4px solid var(--claro-red);
+}
+
+.gridTableContainer {
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+/* ============ DOCUMENT DETAIL VIEW ============ */
+.detailHeader {
+    background-color: var(--claro-gray-light);
+    padding: 1rem;
+    border-bottom: 3px solid var(--claro-red);
+}
+
+.objectStatus.estadoVigente {
+    color: var(--claro-green) !important;
+}
+
+.objectStatus.estadoPendiente {
+    color: var(--claro-orange) !important;
+}
+
+.simpleFormContainer {
+    padding: 1rem;
+}
+
+/* ============ REGISTER VOUCHER VIEW ============ */
+.wizardContainer {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.uploadContainer {
+    padding: 1rem;
+    background-color: var(--claro-gray-light);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.uploadContainer .sapUiUfdShell {
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+}
+
+/* ── DynamicPage header: large icon spacing ── */
+.claro-header-doc-icon.sapUiIcon {
+    flex-shrink: 0;
+}
+
+/* ── DynamicPage header context fields ── */
+.claro-register-dynpage .sapFDynamicPageHeader .sapMGrid .sapMVBox > .sapMLabel {
+    font-size: 0.75rem;
+    color: var(--sapContent_LabelColor, #6a6d70);
+    margin-bottom: 0.125rem;
+}
+
+/* ── Wizard: reset to full width, remove extra padding ── */
+.claro-register-wizard.sapMWizard {
+    box-shadow: none;
+    background: transparent;
+}
+.claro-register-wizard .sapMWizardProgressNavigator {
+    background: #fff;
+    border-bottom: 1px solid var(--sapList_BorderColor, #e4e4e4);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+/* Completed step bullet — Claro red accent */
+.claro-register-wizard .sapMWizardProgressNavItem.sapMWizardProgressNavItemProcessed .sapMWizardProgressNavItemTitle {
+    color: var(--sapSuccessColor, #107e3e);
+}
+/* "Continue" button — Claro style */
+.claro-register-wizard .sapMWizardNextButton.sapMBtnEmphasized {
+    background: var(--claro-red, #DA291C) !important;
+    border-color: var(--claro-red, #DA291C) !important;
+    color: #fff !important;
+}
+.claro-register-wizard .sapMWizardNextButton.sapMBtnEmphasized:hover {
+    background: #b5200e !important;
+    border-color: #b5200e !important;
+}
+
+/* ── Wizard step content area ── */
+.claro-wiz-step-content {
+    padding: 1.5rem 2rem 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+@media (max-width: 599px) {
+    .claro-wiz-step-content {
+        padding: 0.75rem 0.75rem 0.25rem;
+    }
+}
+
+/* ── Paso 1: Grid de archivos (3 cols × 2 filas, celdas iguales) ── */
+.claro-files-grid.sapUiRespGrid {
+    width: 100%;
+}
+
+/* Igual altura por fila: todas las celdas comparten el mismo min-height */
+.claro-files-grid .claro-field-cell.sapMVBox {
+    min-height: 7.5rem;
+    justify-content: flex-start;
+}
+
+/* ── Celdas de campo: label encima del input ── */
+.claro-field-cell.sapMVBox {
+    padding-bottom: 1.25rem;
+}
+.claro-field-label.sapMLabelRoot {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--sapContent_LabelColor, #6a6d70);
+    margin-bottom: 0.375rem;
+    display: block;
+}
+/* Ensure FileUploader stretches inside its cell */
+.claro-field-cell .sapUiUfdFileUpload {
+    width: 100% !important;
+    box-sizing: border-box;
+}
+
+/* ── Estado del archivo cargado ── */
+.claro-file-status {
+    margin-top: 0.375rem;
+    min-height: 1.25rem;
+}
+.claro-file-status .sapMText {
+    font-size: 0.8125rem;
+    color: var(--sapContent_LabelColor, #6a6d70);
+    max-width: 18rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ── Paso 2: Paneles de datos ── */
+.claro-data-panel.sapMPanel {
+    border: 1px solid var(--sapList_BorderColor, #e4e4e4);
+    border-radius: 4px;
+    overflow: hidden;
+}
+.claro-data-grid.sapUiRespGrid {
+    width: 100%;
+}
+
+/* Valor de campo texto (display-only) */
+.claro-field-value.sapMText {
+    font-size: 0.9375rem;
+    color: var(--sapTextColor, #32363a);
+    font-weight: 400;
+    line-height: 1.4;
+    padding-top: 0.125rem;
+}
+
+/* Valor monétario */
+.claro-amount-value .sapMObjNumberNumber {
+    font-size: 0.9375rem;
+    font-weight: 600;
+}
+.claro-amount-value .sapMObjNumberUnit {
+    font-size: 0.75rem;
+    color: var(--sapContent_LabelColor, #6a6d70);
+}
+
+/* Banda resumen Importe Neto */
+.claro-importe-neto-strip {
+    background: #f0faf3;
+    border-top: 2px solid #107e3e;
+    border-radius: 0 0 4px 4px;
+    padding: 0.875rem 1rem;
+    margin-top: 0.25rem;
+}
+.claro-importe-neto-label.sapMLabelRoot {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #107e3e;
+}
+.claro-importe-neto-number .sapMObjNumberNumber {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: #107e3e;
+}
+.claro-importe-neto-number .sapMObjNumberUnit {
+    font-size: 0.875rem;
+    color: #107e3e;
+}
+
+/* ── Paso 4: Banda financiera del resumen final ── */
+.claro-resumen-fin-strip {
+    background: #f0faf3;
+    border-top: 2px solid #107e3e;
+    border-radius: 0 0 4px 4px;
+    padding: 0.875rem 1rem;
+    margin-top: 0.25rem;
+}
+.claro-resumen-fin-block {
+    min-width: 11rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.claro-resumen-neto-block {
+    padding-left: 1.5rem;
+    border-left: 2px solid #107e3e;
+}
+
+/* ── Paso 4: Banda financiera resumen (Mobile) ── */
+.claro-resumen-fin-strip-mobile {
+    background: #f0faf3;
+    border-top: 2px solid #107e3e;
+    border-radius: 0 0 4px 4px;
+    padding: 0.75rem 1rem;
+    margin-top: 0.25rem;
+}
+
+.claro-resumen-fin-mobile-block {
+    display: flex;
+    flex-direction: column;
+}
+
+.claro-resumen-fin-mobile-neto {
+    padding-left: 0.75rem;
+    border-left: 2px solid #107e3e;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.claro-resumen-fin-mobile-neto .sapMObjectNumber {
+    justify-content: flex-end;
+}
+
+
+/* ============ PROVEEDOR STRIP ============ */
+.claro-proveedor-strip {
+    background: var(--sapBaseColor, #fff);
+    border: 1px solid var(--sapList_BorderColor, #e4e4e4);
+    border-left: 4px solid var(--sapHighlightColor, #0854A0);
+    padding: 0.625rem 0.5rem;
+    border-radius: 4px;
+    min-height: 3.5rem;
+}
+
+.claro-proveedor-field {
+    padding: 0.1rem 1.25rem;
+    justify-content: center;
+    gap: 0.1rem;
+}
+
+.claro-proveedor-divider {
+    width: 1px;
+    min-height: 2.5rem;
+    background: var(--sapList_BorderColor, #e4e4e4);
+    flex-shrink: 0;
+}
+
+.claro-field-label {
+    font-size: 0.75rem !important;
+    color: var(--sapContent_LabelColor) !important;
+}
+
+.claro-field-value {
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    color: var(--sapTextColor) !important;
+}
+
+/* ============ FILTER FIELDS ============ */
+.claro-filter-field {
+    flex: 1 1 175px;
+    min-width: 155px;
+}
+
+/* ============ TABLE GRID LINES ============ */
+#documentsTable .sapMListTbl,
+.claro-grid-table .sapMListTbl {
+    border-collapse: collapse;
+    border: 1px solid var(--sapList_BorderColor, #e4e4e4);
+}
+
+#documentsTable .sapMListTbl th,
+#documentsTable .sapMListTbl td,
+.claro-grid-table .sapMListTbl th,
+.claro-grid-table .sapMListTbl td {
+    border-right: 1px solid var(--sapList_BorderColor, #e4e4e4) !important;
+    border-bottom: 1px solid var(--sapList_BorderColor, #e4e4e4) !important;
+}
+
+#documentsTable .sapMListTbl th:last-child,
+#documentsTable .sapMListTbl td:last-child,
+.claro-grid-table .sapMListTbl th:last-child,
+.claro-grid-table .sapMListTbl td:last-child {
+    border-right: none !important;
+}
+
+/* ═══════════════════════════════════════════════════
+   DYNAMIC PAGE — REDISEÑO CABECERA
+═══════════════════════════════════════════════════ */
+
+/* Fondo degradado rojo Claro en el título */
+.claro-dynamic-page .sapFDynamicPageTitle {
+    background: linear-gradient(135deg, var(--claro-red-dark) 0%, var(--claro-red) 65%, #e53935 100%) !important;
+    border-bottom: 3px solid rgba(255,255,255,0.25);
+}
+
+/* Texto blanco en la cabecera */
+.claro-dynamic-page .sapFDynamicPageTitle .sapMTitle,
+.claro-dynamic-page .sapFDynamicPageTitle .sapMObjStatusText,
+.claro-dynamic-page .sapFDynamicPageTitle .sapMText,
+.claro-dynamic-page .sapFDynamicPageTitle .sapMLabel {
+    color: #fff !important;
+}
+
+/* Avatar empresa */
+.claro-company-avatar.sapMAvatarInitialsColorAccent6 {
+    background-color: rgba(255,255,255,0.2) !important;
+    border: 2px solid rgba(255,255,255,0.5);
+}
+.claro-company-avatar .sapMAvatarInitials {
+    color: #fff !important;
+    font-weight: 700 !important;
+}
+
+/* (GenericTags usan sus colores nativos SAP — no se sobreescriben) */
+
+/* Avatar tipo de documento sobre cabecera roja */
+.claro-doc-avatar.sapMAvatar {
+    background-color: rgba(255,255,255,0.15) !important;
+    border: 2px solid rgba(255,255,255,0.4);
+}
+.claro-doc-avatar .sapUiIcon {
+    color: #fff !important;
+}
+
+/* Breadcrumb blanco sobre cabecera roja */
+.claro-detail-page .sapFObjectPageDTH .sapMBreadcrumbs .sapMLnk {
+    color: rgba(255,255,255,0.85) !important;
+}
+.claro-detail-page .sapFObjectPageDTH .sapMBreadcrumbs .sapMLnk:hover {
+    color: #fff !important;
+}
+.claro-detail-page .sapFObjectPageDTH .sapMBreadcrumbs .sapMBrdcrbCurrentLocation {
+    color: rgba(255,255,255,0.6) !important;
+}
+.claro-detail-page .sapFObjectPageDTH .sapMBreadcrumbs .sapUiIcon {
+    color: rgba(255,255,255,0.6) !important;
+}
+
+/* Botón Transparent blanco sobre cabecera roja */
+.claro-dynamic-page .sapFDynamicPageTitle .sapMBtnTransparent .sapMBtnContent,
+.claro-dynamic-page .sapFDynamicPageTitle .sapMBtnTransparent .sapMBtnIcon {
+    color: #fff !important;
+}
+
+/* ── TILES del header expandido ── */
+.claro-header-info-row {
+    padding: 0.75rem 1rem;
+    gap: 0;
+}
+
+/* ── Header attributes (inline) ── */
+.claro-header-attributes {
+    padding: 0.5rem 0.25rem;
+    gap: 1rem;
+}
+.claro-header-attr-label {
+    font-size: 0.8125rem !important;
+    color: var(--sapContent_LabelColor) !important;
+    margin-right: 0.25rem;
+}
+.claro-header-attr-value {
+    font-size: 0.8125rem !important;
+    font-weight: 600 !important;
+}
+
+/* ── Header detalle: icono + titulo + comprobantes ── */
+.claro-detail-header-row {
+    align-items: center;
+}
+.claro-doc-avatar-main.sapMAvatar {
+    width: 3.5rem;
+    height: 3.5rem;
+    min-width: 3.5rem;
+}
+.claro-detail-header-text {
+    max-width: 44rem;
+}
+.claro-detail-header-title,
+.claro-detail-header-title-snapped {
+    white-space: normal !important;
+    line-height: 1.2;
+}
+.claro-comprobantes-line .sapUiIcon {
+    color: #000 !important;
+}
+.claro-comprobantes-label {
+    color: #000 !important;
+    font-size: 0.875rem !important;
+    font-weight: 400 !important;
+}
+.claro-comprobantes-count .sapMObjectNumberText {
+    color: #000 !important;
+    font-weight: 700 !important;
+    font-size: 1.1rem !important;
+}
+.claro-comprobantes-count .sapMObjectNumberUnit {
+    color: #000 !important;
+}
+
+.claro-info-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.5rem 1.25rem;
+    border-right: 1px solid var(--sapList_BorderColor, #e4e4e4);
+    min-width: 150px;
+    gap: 0.2rem;
+}
+
+.claro-info-tile:last-child {
+    border-right: none;
+}
+
+.claro-info-tile-wide {
+    min-width: 240px;
+    max-width: 320px;
+}
+
+/* ── Tabla con scroll interno y cabeceras fijas ── */
+.claro-table-scroll-wrapper {
+    max-height: 484px;  /* header ~44px + 10 filas × 44px */
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 1px solid var(--sapList_BorderColor, #e4e4e4);
+    border-radius: 4px 4px 0 0;
+}
+/* Variante: 8 filas visibles */
+.claro-table-scroll-wrapper.claro-table-scroll-8 {
+    max-height: 396px; /* header ~44px + 8 filas × 44px */
+}
+/* Separar border-collapse para que position:sticky funcione */
+.claro-table-scroll-wrapper .claro-grid-table .sapMListTbl {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    border: none !important;
+}
+/* Cabeceras pegajosas */
+.claro-table-scroll-wrapper .sapMListTblHeader th {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background-color: var(--sapList_HeaderBackground, #f5f6f7);
+    border-bottom: 2px solid var(--sapList_BorderColor, #e4e4e4) !important;
+    box-shadow: 0 1px 0 var(--sapList_BorderColor, #e4e4e4);
+}
+/* Restaurar bordes en celdas del body */
+.claro-table-scroll-wrapper .claro-grid-table .sapMListTbl td {
+    border-right: 1px solid var(--sapList_BorderColor, #e4e4e4) !important;
+    border-bottom: 1px solid var(--sapList_BorderColor, #e4e4e4) !important;
+}
+.claro-table-scroll-wrapper .claro-grid-table .sapMListTbl td:last-child {
+    border-right: none !important;
+}
+
+/* ── Toolbar cabecera de sección (fuera de la table, encima del scroll wrapper) ── */
+.claro-section-header-toolbar.sapMTB {
+    background-color: var(--sapList_HeaderBackground, #f5f6f7) !important;
+    border: 1px solid var(--sapList_BorderColor, #e4e4e4);
+    border-bottom: none !important;
+    border-radius: 4px 4px 0 0;
+    min-height: 2.75rem;
+    padding: 0 0.75rem;
+}
+/* El scroll wrapper que sigue a la toolbar pierde su borde superior y radio */
+.claro-section-header-toolbar.sapMTB + .sapMVBox.claro-table-scroll-wrapper {
+    border-top: none !important;
+    border-radius: 0 !important;
+}
+
+/* ── Paginación ── */
+.claro-pagination-bar.sapMTB {
+    background: var(--sapList_FooterBackground, #fafafa) !important;
+    border-top: 1px solid var(--sapList_BorderColor, #e4e4e4);
+    min-height: 2.75rem;
+    height: 2.75rem;
+    padding: 0 0.5rem;
+}
+
+.claro-page-info {
+    font-size: 0.875rem;
+    color: var(--sapContent_LabelColor);
+    font-weight: 600;
+}
+
+/* ── Mobile Comprobante Card (CustomListItem con highlight nativo Fiori) ── */
+.claro-comp-mobile-row {
+    width: 100%;
+    padding: 0.625rem 0.75rem;
+    box-sizing: border-box;
+}
+.claro-comp-mobile-data {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin-top: 1.25rem;
+}
+.claro-comp-mobile-title.sapMText {
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--sapTextColor);
+    margin-bottom: 0.125rem;
+}
+.claro-comp-mobile-amount.sapMObjectNumber {
+    font-size: 0.875rem;
+}
+/* Divisor vertical entre datos y acciones */
+.claro-comp-divider {
+    width: 1px;
+    align-self: stretch;
+    background-color: var(--sapList_BorderColor, #e4e4e4);
+    flex-shrink: 0;
+    margin: 0.375rem 0.5rem;
+}
+.claro-comp-mobile-actions {
+    flex-shrink: 0;
+    gap: 0;
+}
+.claro-comp-action-btn.sapMBtn {
+    width: 2.75rem;
+    height: 2.75rem;
+}
+
+/* ── Conceptos contrato: estado neutro/gris para servicios generales ── */
+.claro-conceptos-status:not(.sapMObjStatusSuccess):not(.sapMObjStatusWarning):not(.sapMObjStatusError):not(.sapMObjStatusInformation) .sapMObjStatusIcon,
+.claro-conceptos-status:not(.sapMObjStatusSuccess):not(.sapMObjStatusWarning):not(.sapMObjStatusError):not(.sapMObjStatusInformation) .sapMObjStatusText {
+    color: #6a6d70;
+}
+
+/* ── Adaptación móvil ── */
+@media (max-width: 599px) {
+    .claro-info-tile {
+        border-right: none;
+        border-bottom: 1px solid var(--sapList_BorderColor);
+        width: 100%;
+        min-width: unset;
+        padding: 0.5rem 0.75rem;
+    }
+    .claro-detail-header-row {
+        align-items: flex-start;
+    }
+    .claro-doc-avatar-main.sapMAvatar {
+        width: 3.1rem;
+        height: 3.1rem;
+        min-width: 3.1rem;
+    }
+    .claro-detail-header-text {
+        max-width: calc(100vw - 8rem);
+    }
+    .claro-detail-header-title,
+    .claro-detail-header-title-snapped {
+        font-size: 1rem !important;
+    }
+    .claro-comprobantes-label {
+        font-size: 0.8125rem !important;
+    }
+    .claro-info-tile:last-child { border-bottom: none; }
+    .claro-filter-field { width: 100%; flex: 0 0 100%; }
+}
+
+/* ════════════════════════════════════════
+   DETAIL PAGE — ObjectPageLayout
+════════════════════════════════════════ */
+
+/* Header gradient para detalle */
+.claro-detail-page .sapFObjectPageDTH,
+.claro-detail-page .sapUxAPObjectPageHeader {
+    background: linear-gradient(135deg, var(--claro-red-dark) 0%, var(--claro-red) 65%, #e53935 100%) !important;
+    border-bottom: 3px solid rgba(255,255,255,0.25);
+}
+.claro-detail-page .sapFObjectPageDTH .sapMTitle,
+.claro-detail-page .sapFObjectPageDTH .sapMText,
+.claro-detail-page .sapFObjectPageDTH .sapMObjStatusText,
+.claro-detail-page .sapUxAPObjectPageHeader .sapMTitle {
+    color: #fff !important;
+}
+
+.claro-detail-page .sapFObjectPageDTH .claro-comprobantes-label,
+.claro-detail-page .sapUxAPObjectPageHeader .claro-comprobantes-label {
+    color: #000 !important;
+}
+
+.claro-detail-page .sapFObjectPageDTH .claro-comprobantes-line .sapUiIcon,
+.claro-detail-page .sapUxAPObjectPageHeader .claro-comprobantes-line .sapUiIcon,
+.claro-detail-page .sapFObjectPageDTH .claro-comprobantes-count .sapMObjectNumberText,
+.claro-detail-page .sapUxAPObjectPageHeader .claro-comprobantes-count .sapMObjectNumberText,
+.claro-detail-page .sapFObjectPageDTH .claro-comprobantes-count .sapMObjectNumberUnit,
+.claro-detail-page .sapUxAPObjectPageHeader .claro-comprobantes-count .sapMObjectNumberUnit {
+    color: #000 !important;
+}
+
+/* ── Form fields stacked Label+Value ── */
+.claro-form-grid {
+    width: 100%;
+    border-top: 1px solid var(--sapList_BorderColor, #e4e4e4);
+    border-left: 1px solid var(--sapList_BorderColor, #e4e4e4);
+}
+.claro-form-field {
+    flex: 1 1 220px;
+    min-width: 180px;
+    padding: 0.75rem 1rem;
+    border-right: 1px solid var(--sapList_BorderColor, #e4e4e4);
+    border-bottom: 1px solid var(--sapList_BorderColor, #e4e4e4);
+    box-sizing: border-box;
+    gap: 0.2rem;
+}
+.claro-form-field-wide {
+    flex: 2 1 380px;
+}
+.claro-detail-label {
+    font-size: 0.75rem !important;
+    color: var(--sapContent_LabelColor) !important;
+    margin-bottom: 0.2rem;
+    line-height: 1.2;
+}
+.claro-detail-value {
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    color: var(--sapTextColor) !important;
+}
+.claro-section-block {
+    padding: 0.25rem 0;
+    width: 100%;
+}
+.claro-full-width {
+    width: 100%;
+}
+
+/* Pagination buttons compact */
+.claro-pagination-btn.sapMBtn .sapMBtnInner {
+    min-width: 2rem;
+    padding: 0 0.375rem;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+@media (max-width: 599px) {
+    .claro-form-field {
+        flex: 0 0 50%;
+        min-width: unset;
+    }
+}
+@media (max-width: 360px) {
+    .claro-form-field { flex: 0 0 100%; }
+}
+
+.uploadContainer .sapUiUfdShell:hover {
+    border-color: var(--claro-red);
+}
+
+.dataPanel {
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.dataPanel .sapMPanelHdr {
+    background-color: var(--claro-red);
+    color: white;
+}
+
+.validationSuccess {
+    background-color: #E8F5E9;
+    border: 1px solid var(--claro-green);
+    border-radius: 4px;
+    padding: 0.5rem;
+}
+
+.validationError {
+    background-color: #FFEBEE;
+    border: 1px solid var(--claro-red);
+    border-radius: 4px;
+    padding: 0.5rem;
+}
+
+.validationWarning {
+    background-color: #FFF3E0;
+    border: 1px solid var(--claro-orange);
+    border-radius: 4px;
+    padding: 0.5rem;
+}
+
+.resumenPanel {
+    background-color: var(--claro-gray-light);
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+.totalBox {
+    background-color: white;
+    border: 2px solid var(--claro-red);
+    border-radius: 4px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.totalBox .sapMText {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--claro-red);
+}
+
+/* ============ VOUCHER LIST VIEW ============ */
+.voucherCard {
+    border-left: 4px solid var(--claro-gray);
+    transition: border-color 0.3s ease;
+}
+
+.voucherCard:hover {
+    border-left-color: var(--claro-red);
+}
+
+.voucherCard.estadoRegistrado {
+    border-left-color: var(--claro-orange);
+}
+
+.voucherCard.estadoEnviado {
+    border-left-color: var(--claro-green);
+}
+
+/* ============ ESTADOS ============ */
+.estadoRegistrado {
+    background-color: #FFF3E0 !important;
+    color: var(--claro-orange) !important;
+}
+
+.estadoEnviado {
+    background-color: #E8F5E9 !important;
+    color: var(--claro-green) !important;
+}
+
+.estadoPendiente {
+    background-color: #FFEBEE !important;
+    color: var(--claro-red) !important;
+}
+
+/* ============ TABLES ============ */
+.sapUiTableCell {
+    vertical-align: middle !important;
+}
+
+.tableHeaderBold .sapMText {
+    font-weight: bold;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 768px) {
+    .homeContainer {
+        padding: 1rem;
+    }
+    
+    .homeCard {
+        min-width: 100%;
+        margin: 0.5rem 0;
+    }
+    
+    .filterPanel .sapMFlexBox {
+        flex-direction: column;
+    }
+}
+
+/* ============ BUTTONS ============ */
+/* Botones Emphasized - Estilo Claro con buen contraste */
+/* .sapMBtnEmphasized .sapMBtnInner {
+    background-color: var(--claro-red) !important;
+    border-color: var(--claro-red) !important;
+}
+
+.sapMBtnEmphasized .sapMBtnContent,
+.sapMBtnEmphasized .sapMBtnIcon {
+    color: white !important;
+}
+
+.sapMBtnEmphasized:hover .sapMBtnInner {
+    background-color: var(--claro-red-dark) !important;
+    border-color: var(--claro-red-dark) !important;
+}
+
+.sapMBtnAccept .sapMBtnInner {
+    background-color: var(--claro-green) !important;
+}
+
+.sapMBtnAccept .sapMBtnContent,
+.sapMBtnAccept .sapMBtnIcon {
+    color: white !important;
+} */
+
+/* ============ ICONS ============ */
+.claroIcon {
+    color: var(--claro-red) !important;
+}
+
+/* ============ ANIMATIONS ============ */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fadeInAnimation {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* ============ MISC ============ */
+.centerContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.textBold {
+    font-weight: bold !important;
+}
+
+.textRed {
+    color: var(--claro-red) !important;
+}
+
+.marginTop1rem {
+    margin-top: 1rem;
+}
+
+.marginBottom1rem {
+    margin-bottom: 1rem;
+}
+
+.padding1rem {
+    padding: 1rem;
+}
+
+/* ── Paso 3: Inputs compactos en tabla Pendientes por Facturar ── */
+.claro-tbl-input.sapMInputBase {
+    height: 1.875rem;
+    min-width: 0;
+}
+.claro-tbl-input.sapMInputBase .sapMInputBaseInner {
+    height: 1.875rem;
+    padding: 0 0.375rem;
+    font-size: 0.8125rem;
+}
+
+/* Reduce cell padding for dense editable tables */
+.claro-grid-table .sapMListTblCell {
+    padding: 0.25rem 0.5rem;
+    vertical-align: middle;
+}
+.claro-grid-table .sapMListTblHeaderCell {
+    padding: 0.375rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* ── Posiciones OC/Póliza: fila asignada (sap.m.Table ColumnListItem = <tr>) ── */
+tr.claro-row-asignado td.sapMListTblCell,
+tr.claro-row-asignado .sapMListTblCell {
+    background-color: #4CAF50 !important;
+}
+tr.claro-row-asignado:hover td.sapMListTblCell,
+tr.claro-row-asignado:hover .sapMListTblCell {
+    background-color: #388E3C !important;
+}
+
+/* ── Button aligned to input height in HBox ── */
+.claro-btn-aligned.sapMBtn {
+    margin-bottom: 0 !important;
+    align-self: flex-end;
+}
+
+/* ── Readonly input visual style ── */
+.claro-readonly-input.sapMInputBase {
+    background: var(--sapField_ReadOnly_Background, #f2f2f2) !important;
+    border-color: transparent !important;
+}
+
+/* ── Pendientes por Facturar: fila asignada ── */
+.claro-row-asignado td,
+.claro-row-asignado > td,
+.claro-row-asignado td.sapUiTableCell,
+.sapUiTable .claro-row-asignado td,
+.sapUiTable .claro-row-asignado td.sapUiTableCell,
+.claro-row-asignado td > .sapUiTableCellInner {
+    background-color: #4CAF50 !important;
+}
+.claro-row-asignado:hover td,
+.claro-row-asignado:hover > td,
+.sapUiTable .claro-row-asignado:hover td {
+    background-color: #388E3C !important;
+}
+
+/* ============ COMPARACIÓN IMPORTES MOBILE (Cards) ============ */
+.claro-comp-card {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-left: 4px solid #0854a0;
+    border-radius: 0.5rem;
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.625rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.claro-comp-card-header {
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 0.5rem;
+}
+
+.claro-comp-card-header .sapMTitle {
+    font-size: 0.875rem !important;
+    color: #32363a;
+}
+
+.claro-comp-card-amounts {
+    padding: 0.375rem 0;
+}
+
+.claro-comp-card-label {
+    font-size: 0.75rem !important;
+    color: #6a6d70 !important;
+    margin-bottom: 0.125rem;
+}
+
+.claro-comp-card-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.claro-comp-card-right .sapMLabel {
+    text-align: right;
+}
+
+.claro-comp-card-right .sapMObjectNumber {
+    text-align: right;
+    justify-content: flex-end;
+}
+
+.claro-comp-card-right .sapMObjectNumber .sapMObjectNumberText {
+    text-align: right;
+}
+
+.claro-comp-card-status {
+    flex-shrink: 0;
+    text-align: right;
+}
+
+.claro-comp-card-diff {
+    padding-top: 0.375rem;
+    border-top: 1px solid #f0f0f0;
+    margin-top: 0.25rem;
+}
+
+.claro-comp-card-diff .sapMLabel {
+    font-size: 0.75rem !important;
+    color: #6a6d70;
+}

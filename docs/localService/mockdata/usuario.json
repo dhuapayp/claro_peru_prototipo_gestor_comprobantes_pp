@@ -1,0 +1,44 @@
+{
+  "usuario": {
+    "id": "USR-001",
+    "email": "proveedor@inmobiliariaperu.com.pe",
+    "nombre": "Juan Carlos Mendoza",
+    "ruc": "20100130204",
+    "razonSocial": "INMOBILIARIA PERU SAC",
+    "rol": "PROVEEDOR",
+    "permisos": [
+      "CONSULTAR_DOCUMENTOS",
+      "REGISTRAR_COMPROBANTES",
+      "MODIFICAR_COMPROBANTES",
+      "ENVIAR_COMPROBANTES"
+    ],
+    "datosProveedor": {
+      "direccion": "Av. Alfredo Mendiola 1400, Independencia, Lima",
+      "telefono": "01-7115000",
+      "email": "facturacion@inmobiliariapersu.com.pe",
+      "cuentaBancaria": "193-2156789-0-12",
+      "banco": "BCP",
+      "cci": "002-193-002156789012-91"
+    }
+  },
+  "configuracion": {
+    "rucReceptor": "20467534026",
+    "razonSocialReceptor": "AMERICA MOVIL PERU SAC",
+    "direccionReceptor": "Av. Nicolas Arriola 480, La Victoria, Lima",
+    "toleranciaDiferencia": 1.00,
+    "tiposDocumento": [
+      { "codigo": "01", "descripcion": "Factura" },
+      { "codigo": "07", "descripcion": "Nota de Crédito" },
+      { "codigo": "08", "descripcion": "Nota de Débito" }
+    ],
+    "monedas": [
+      { "codigo": "PEN", "descripcion": "Soles", "simbolo": "S/" },
+      { "codigo": "USD", "descripcion": "Dólares", "simbolo": "$" }
+    ],
+    "estadosComprobante": [
+      { "codigo": "REGISTRADO", "descripcion": "Registrado", "editable": true },
+      { "codigo": "ENVIADO", "descripcion": "Enviado", "editable": false },
+      { "codigo": "PENDIENTE", "descripcion": "Pendiente de Aprobación", "editable": false }
+    ]
+  }
+}
