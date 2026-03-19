@@ -340,7 +340,7 @@
                 <!-- ═══════ PASO 3: Asignación al Documento ═══════ -->
                 <WizardStep
                     id="wizardStep3"
-                    title="Asignaci\u00f3n al Documento"
+                    title="Asignación al Documento"
                     icon="sap-icon://add-activity"
                     validated="{viewModel>/step3Valid}">
                     <VBox class="claro-wiz-step-content">
@@ -905,7 +905,7 @@
                 <!-- ═══════ PASO 4: Validación y Registro ═══════ -->
                 <WizardStep
                     id="wizardStep4"
-                    title="Validaci\u00f3n y Registro"
+                    title="Validación y Registro"
                     icon="sap-icon://compare"
                     validated="{viewModel>/step4Valid}"
                     activate=".onStep4Activate">
