@@ -78,7 +78,12 @@ sap.ui.define([
             this._sDocumentId = oArgs.documentId;
             this._sTipoDocumento = oArgs.tipoDocumento;
             this._sNumeroDocumento = oArgs.numeroDocumento;
-            
+
+            // Exponer contexto del documento al DemoTourService
+            window.DemoTourCurrentDocType = oArgs.tipoDocumento;
+            window.DemoTourCurrentDocId   = oArgs.documentId;
+            window.DemoTourCurrentDocNum  = oArgs.numeroDocumento;
+
             // Cargar datos
             this._loadData();
         },
@@ -234,6 +239,9 @@ sap.ui.define([
         },
         
         onRegisterVoucher: function () {
+            if (window.DemoTour) {
+                window.DemoTour.onUserAction("abrirRegistro");
+            }
             var oRouter = this.getOwnerComponent().getRouter();
             oRouter.navTo("RouteRegisterVoucher", {
                 documentId: this._sDocumentId,

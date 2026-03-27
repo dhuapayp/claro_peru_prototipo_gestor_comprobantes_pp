@@ -175,6 +175,103 @@ sap.ui.define([
             this._sMode = "new";
             this._resetState();
             this._loadData();
+
+            // Publish demo helpers for DemoTourService
+            var that2 = this;
+
+            // Simula la carga del XML con datos adaptados al tipo de documento
+            window.DemoTourSimulateDemoXML = function () {
+                var oComprobanteModel = that2.getView().getModel("comprobante");
+                var oViewModel2 = that2.getView().getModel("viewModel");
+                if (!oComprobanteModel || !oViewModel2) { return; }
+
+                // Importes según tipo de documento para que la validación del Paso 4 pase
+                var sDocType = window.DemoTourCurrentDocType || "CONTRATO";
+                var fBase, fIGV, fTotal;
+                var bIndicadorIGV;
+                if (sDocType === "OC") {
+                    fBase = 18000; fIGV = 0; fTotal = 18000; bIndicadorIGV = false;
+                } else if (sDocType === "P\u00f3liza" || sDocType === "POLIZA") {
+                    fBase = 9333.33; fIGV = 0; fTotal = 9333.33; bIndicadorIGV = false;
+                } else { // CONTRATO — un periodo ENE-2026: valorVenta=5000, igv=900, total=5900
+                    fBase = 5000; fIGV = 900; fTotal = 5900; bIndicadorIGV = true;
+                }
+
+                oComprobanteModel.setProperty("/tipoDocumento", "01");
+                oComprobanteModel.setProperty("/serieDocumento", "F001");
+                oComprobanteModel.setProperty("/numeroDocumento", "00001234");
+                oComprobanteModel.setProperty("/fechaEmision", "2025-03-26");
+                oComprobanteModel.setProperty("/rucEmisor", "20601234560");
+                oComprobanteModel.setProperty("/razonSocialEmisor", "INVERSIONES PRESENCIA SAC");
+                oComprobanteModel.setProperty("/rucReceptor", "701951741");
+                oComprobanteModel.setProperty("/razonSocialReceptor", "AMERICA MOVIL PERU SAC");
+                oComprobanteModel.setProperty("/moneda", "PEN");
+                oComprobanteModel.setProperty("/importeBase", fBase);
+                oComprobanteModel.setProperty("/montoIGV", fIGV);
+                oComprobanteModel.setProperty("/montoInafecto", 0);
+                oComprobanteModel.setProperty("/montoTotal", fTotal);
+                oComprobanteModel.setProperty("/indicadorIGV", bIndicadorIGV);
+                oComprobanteModel.setProperty("/importeNeto", fTotal);
+                oViewModel2.setProperty("/xmlLoaded", true);
+                oViewModel2.setProperty("/xmlFileName", "F001-00001234.xml");
+                oViewModel2.setProperty("/pdfLoaded", true);
+                oViewModel2.setProperty("/pdfFileName", "F001-00001234.pdf");
+                oViewModel2.setProperty("/rucEmisorValid", true);
+                oViewModel2.setProperty("/rucReceptorValid", true);
+                that2._validateStep1();
+                that2._validateStep2();
+                sap.m.MessageToast.show("Archivos XML y PDF cargados (Demo)");
+                if (window.DemoTour) { window.DemoTour.onUserAction("xmlCargado"); }
+            };
+
+            // Selecciona el primer concepto en el selector del Paso 3 (CONTRATO)
+            window.DemoTourSelectFirstConcepto = function () {
+                var oSelectEl = document.querySelector('[id$="--selectConcepto"]');
+                if (!oSelectEl) { return; }
+                var oSelect = sap.ui.getCore().byId(oSelectEl.id);
+                if (!oSelect) { return; }
+                var aItems = oSelect.getItems ? oSelect.getItems() : [];
+                if (aItems.length > 0) {
+                    oSelect.setSelectedItem(aItems[0]);
+                    oSelect.fireChange({ selectedItem: aItems[0] });
+                }
+            };
+
+            // Selecciona solo la primera fila de la tabla de Pendientes (CONTRATO)
+            window.DemoTourSelectAllPendientes = function () {
+                var oTable = that2.byId("pendientesFactTable");
+                if (oTable && typeof oTable.getRows === "function") {
+                    var nRows = oTable.getRows().length;
+                    if (nRows > 0) {
+                        oTable.addSelectionInterval(0, 0); // primera fila = un periodo
+                    }
+                    that2.getView().getModel("viewModel").setProperty("/hasSelectedPendientes", nRows > 0);
+                }
+            };
+
+            // Selecciona la primera posición PENDIENTE (OC / Póliza)
+            window.DemoTourSelectFirstPosicion = function () {
+                var oTable = that2.byId("posicionesAsignacionTable");
+                if (!oTable) { return; }
+                var aItems = oTable.getItems ? oTable.getItems() : [];
+                // Preferir la primera con estado PENDIENTE
+                var oFirst = null;
+                for (var i = 0; i < aItems.length; i++) {
+                    var oCtx = aItems[i].getBindingContext("posiciones");
+                    if (oCtx) {
+                        var oObj = oCtx.getObject();
+                        if (oObj && oObj.estado === "PENDIENTE" && !oObj.asignado) {
+                            oFirst = aItems[i];
+                            break;
+                        }
+                    }
+                }
+                if (!oFirst && aItems.length > 0) { oFirst = aItems[0]; }
+                if (oFirst) {
+                    oTable.setSelectedItem(oFirst, true);
+                    that2.getView().getModel("viewModel").setProperty("/hasSelectedPosiciones", true);
+                }
+            };
         },
         
         _onVoucherDetailMatched: function (oEvent) {
@@ -1379,6 +1476,7 @@ sap.ui.define([
             }, 150);
 
             MessageToast.show(aAsignaciones.length + " registro(s) asignado(s)");
+            if (window.DemoTour) { window.DemoTour.onUserAction("obligacionesAsignadas"); }
         },
 
         onDesasignarPendiente: function () {
@@ -1698,6 +1796,7 @@ sap.ui.define([
             }, 150);
 
             MessageToast.show(aSelectedItems.length + " posición(es) asignada(s)");
+            if (window.DemoTour) { window.DemoTour.onUserAction("obligacionesAsignadas"); }
         },
 
         onDesasignarPosiciones: function () {
@@ -1946,6 +2045,7 @@ sap.ui.define([
             // Simular guardado
             setTimeout(function () {
                 that._oMockDataService.saveComprobante(oNuevoComprobante);
+                if (sEstado === "ENVIADO" && window.DemoTour) { window.DemoTour.onUserAction("comprobanteEnviado"); }
 
                 oViewModel.setProperty("/busy", false);
                 // Mark as registered so onNavBack skips the unsaved-data warning

@@ -934,7 +934,7 @@
                                         class="sapUiSmallMarginBottom"/>
                                     
                                     <!-- Comparación de Importes (Desktop) -->
-                                    <Panel headerText="{i18n>comparacionImportes}" visible="{= !${viewModel>/isPhone}}">
+                                    <Panel id="comparacionPanel" headerText="{i18n>comparacionImportes}" visible="{= !${viewModel>/isPhone}}">
                                         <Table 
                                             id="comparacionTable"
                                             items="{viewModel>/comparacion}"
@@ -1041,7 +1041,7 @@
                                     </Panel>
                                     
                                     <!-- Resumen Final -->
-                                    <Panel headerText="{i18n>resumenFinal}" class="claro-data-panel sapUiSmallMarginTop">
+                                    <Panel id="resumenFinalPanel" headerText="{i18n>resumenFinal}" class="claro-data-panel sapUiSmallMarginTop">
                                         <VBox>
                                             <layout:Grid defaultSpan="XL4 L4 M6 S12" hSpacing="2" vSpacing="0" class="claro-data-grid sapUiSmallMargin">
 

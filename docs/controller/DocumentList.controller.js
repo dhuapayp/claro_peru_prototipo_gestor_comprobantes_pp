@@ -5,8 +5,9 @@
     "sap/m/MessageToast",
     "sap/ui/Device",
     "claro/com/clarocomprobantes/service/MockDataService",
-    "claro/com/clarocomprobantes/model/formatter"
-], function (Controller, JSONModel, MessageBox, MessageToast, Device, MockDataService, formatter) {
+    "claro/com/clarocomprobantes/model/formatter",
+    "claro/com/clarocomprobantes/service/DemoTourService"
+], function (Controller, JSONModel, MessageBox, MessageToast, Device, MockDataService, formatter, DemoTourService) {
     "use strict";
 
     var PAGE_SIZE = 20;
@@ -163,6 +164,13 @@
         },
 
         _navigateToDetail: function (oDocument) {
+            if (window.DemoTour) {
+                // Set globals BEFORE onUserAction so DemoTour builds the correct steps for this doc type
+                window.DemoTourCurrentDocType = oDocument.tipoDocumento;
+                window.DemoTourCurrentDocId   = oDocument.id;
+                window.DemoTourCurrentDocNum  = oDocument.numeroDocumento;
+                window.DemoTour.onUserAction("abrirDetalle");
+            }
             this.getOwnerComponent().getRouter().navTo("RouteDocumentDetail", {
                 documentId: oDocument.id,
                 tipoDocumento: oDocument.tipoDocumento,
@@ -172,6 +180,11 @@
 
         onNavigateToVouchers: function () {
             this.getOwnerComponent().getRouter().navTo("RouteVoucherList");
+        },
+
+        onIniciarDemo: function () {
+            var oRouter = this.getOwnerComponent().getRouter();
+            DemoTourService.start(oRouter);
         },
 
         onRolChange: function (oEvent) {

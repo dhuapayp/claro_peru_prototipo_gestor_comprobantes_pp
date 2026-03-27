@@ -381,7 +381,7 @@
                             <OverflowToolbar class="claro-section-header-toolbar" visible="{= !${viewModel>/isPhone}}">
                                 <Title text="Historial de Comprobantes" level="H5"/>
                                 <ToolbarSpacer/>
-                                <Button text="Registrar Comprobante" type="Emphasized"
+                                <Button id="btnRegistrarComprobante" text="Registrar Comprobante" type="Emphasized"
                                     icon="sap-icon://add-document" press=".onRegisterVoucher"/>
                             </OverflowToolbar>
                             <VBox class="claro-table-scroll-wrapper" visible="{= !${viewModel>/isPhone}}">

@@ -61,6 +61,11 @@
                 <f:actions>
                     <Button text="Mis Comprobantes" icon="sap-icon://documents"
                         type="Transparent" press=".onNavigateToVouchers" visible="false"/>
+                    <Button id="btnIniciarDemo" text="▶ Demo Tour" icon="sap-icon://video"
+                        type="Emphasized" press=".onIniciarDemo"
+                        tooltip="Iniciar demo guiada del flujo completo"
+                        class="sapUiTinyMarginBegin"
+                        style="background:#DA291C;border-color:#DA291C"/>
                     <Select id="selectRol" width="155px" selectedKey="{viewModel>/selectedRol}"
                         change=".onRolChange" class="sapUiTinyMarginBegin">
                         <core:Item key="proveedor" text="Proveedor"/>
