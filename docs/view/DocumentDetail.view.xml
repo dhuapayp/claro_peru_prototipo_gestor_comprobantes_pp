@@ -15,7 +15,7 @@
             <uxap:ObjectPageDynamicHeaderTitle>
                 <uxap:breadcrumbs>
                     <Breadcrumbs currentLocationText="{detalle>/tipoDocumentoDesc}">
-                        <Link text="Listado de Documentos" press=".onNavBack"/>
+                        <Link text="Registro de Comprobantes" press=".onNavToHome"/>
                     </Breadcrumbs>
                 </uxap:breadcrumbs>
                 <uxap:heading>
@@ -381,8 +381,6 @@
                             <OverflowToolbar class="claro-section-header-toolbar" visible="{= !${viewModel>/isPhone}}">
                                 <Title text="Historial de Comprobantes" level="H5"/>
                                 <ToolbarSpacer/>
-                                <Button id="btnRegistrarComprobante" text="Registrar Comprobante" type="Emphasized"
-                                    icon="sap-icon://add-document" press=".onRegisterVoucher"/>
                             </OverflowToolbar>
                             <VBox class="claro-table-scroll-wrapper" visible="{= !${viewModel>/isPhone}}">
                             <Table id="comprobantesTable" items="{comprobantes>/}"
@@ -396,7 +394,7 @@
                                     <Column width="15%" hAlign="Right"><Text text="Monto Total"/></Column>
                                     <Column width="11%"><Text text="Estado"/></Column>
                                     <Column width="17%"><Text text="F. Registro"/></Column>
-                                    <Column width="25%" hAlign="Center"><Text text="Acciones"/></Column>
+                                    <Column width="25%" hAlign="Center" visible="false"><Text text="Acciones"/></Column>
                                 </columns>
                                 <items>
                                     <ColumnListItem
@@ -451,9 +449,6 @@
                                     <Toolbar>
                                         <core:Icon src="sap-icon://receipt" color="var(--claro-red, #DA291C)" class="sapUiTinyMarginEnd"/>
                                         <Title text="Historial de Comprobantes" level="H5"/>
-                                        <ToolbarSpacer/>
-                                        <Button text="Registrar" type="Emphasized"
-                                            icon="sap-icon://add-document" press=".onRegisterVoucher"/>
                                     </Toolbar>
                                 </headerToolbar>
                                 <CustomListItem class="claro-comp-list-item"

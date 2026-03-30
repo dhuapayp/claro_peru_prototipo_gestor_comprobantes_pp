@@ -243,7 +243,7 @@ sap.ui.define([
                 window.DemoTour.onUserAction("abrirRegistro");
             }
             var oRouter = this.getOwnerComponent().getRouter();
-            oRouter.navTo("RouteRegisterVoucher", {
+            oRouter.navTo("RouteRegisterVoucherForDoc", {
                 documentId: this._sDocumentId,
                 tipoDocumento: this._sTipoDocumento,
                 numeroDocumento: this._sNumeroDocumento
@@ -311,7 +311,12 @@ sap.ui.define([
 
         onNavBack: function () {
             var oRouter = this.getOwnerComponent().getRouter();
-            oRouter.navTo("RouteDocumentList");
+            oRouter.navTo("RouteRegisterVoucher");
+        },
+
+        onNavToHome: function () {
+            var oRouter = this.getOwnerComponent().getRouter();
+            oRouter.navTo("RouteRegisterVoucher");
         },
         
         /**

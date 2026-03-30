@@ -51,9 +51,9 @@ sap.ui.define([
                 rucEmisorValid: false,
                 rucReceptorValid: false,
                 selectedConceptoId: "",
-                filterEstadoPosicion: "",
                 hasSelectedObligaciones: false,
                 hasSelectedPosiciones: false,
+                countSelectedPosiciones: 0,
                 hasSelectedPendientes: false,
                 posicionesPage: 1,
                 posicionesTotalPages: 1,
@@ -61,6 +61,7 @@ sap.ui.define([
                 registrationComplete: false,
                 asignaciones: [],
                 totalAsignado: 0,
+                asignacionesCount: 0,
                 validacionOk: false,
                 validacionMessage: "",
                 comparacion: [],
@@ -119,6 +120,10 @@ sap.ui.define([
             this.getView().setModel(new JSONModel([]), "programacionPaged");
             this.getView().setModel(new JSONModel([]), "pendientesFactPaged");
             this.getView().setModel(new JSONModel([]), "posicionesPaged");
+            this.getView().setModel(new JSONModel([]), "searchResults");
+            this.getView().setModel(new JSONModel([]), "searchResultsPaged");
+            this._allSearchResults = [];
+            this._iSearchPageSize = 10;
             this._iMobilePageSize = 3;
             this._iPosMobilePageSize = 5;
 
@@ -163,14 +168,19 @@ sap.ui.define([
             // Router
             var oRouter = this.getOwnerComponent().getRouter();
             oRouter.getRoute("RouteRegisterVoucher").attachPatternMatched(this._onNewVoucherMatched, this);
+            oRouter.getRoute("RouteRegisterVoucherForDoc").attachPatternMatched(this._onRegisterForDocMatched, this);
             oRouter.getRoute("RouteVoucherDetail").attachPatternMatched(this._onVoucherDetailMatched, this);
         },
         
         _onNewVoucherMatched: function (oEvent) {
-            var oArgs = oEvent.getParameter("arguments");
-            this._sDocumentId = oArgs.documentId;
-            this._sTipoDocumento = oArgs.tipoDocumento;
-            this._sNumeroDocumento = oArgs.numeroDocumento;
+            // Skip reset if returning from document detail (preserve wizard state)
+            if (this._bPreserveState) {
+                this._bPreserveState = false;
+                return;
+            }
+            this._sDocumentId = null;
+            this._sTipoDocumento = null;
+            this._sNumeroDocumento = null;
             this._sComprobanteId = null;
             this._sMode = "new";
             this._resetState();
@@ -274,6 +284,17 @@ sap.ui.define([
             };
         },
         
+        _onRegisterForDocMatched: function (oEvent) {
+            var oArgs = oEvent.getParameter("arguments");
+            this._sDocumentId = oArgs.documentId;
+            this._sTipoDocumento = oArgs.tipoDocumento;
+            this._sNumeroDocumento = oArgs.numeroDocumento;
+            this._sComprobanteId = null;
+            this._sMode = "new";
+            this._resetState();
+            this._loadData();
+        },
+
         _onVoucherDetailMatched: function (oEvent) {
             var oArgs = oEvent.getParameter("arguments");
             this._sDocumentId = oArgs.documentId;
@@ -319,9 +340,9 @@ sap.ui.define([
                 rucEmisorValid: false,
                 rucReceptorValid: false,
                 selectedConceptoId: "",
-                filterEstadoPosicion: "",
                 hasSelectedObligaciones: false,
                 hasSelectedPosiciones: false,
+                countSelectedPosiciones: 0,
                 hasSelectedPendientes: false,
                 periodoAsignacion: (function () {
                     var d = new Date();
@@ -335,11 +356,26 @@ sap.ui.define([
                 registrationComplete: false,
                 asignaciones: [],
                 totalAsignado: 0,
+                asignacionesCount: 0,
                 validacionOk: false,
                 validacionMessage: "",
                 comparacion: [],
                 currentStep: 1,
                 isPhone: window.innerWidth < 600,
+                searchTipoDocumento: "OC",
+                searchNumeroDocumento: "",
+                searchSociedad: "",
+                searchFechaDesde: null,
+                searchFechaHasta: null,
+                searchMaterial: "",
+                searchPerformed: false,
+                searchResultsCount: 0,
+                asignacionesResumen: "",
+                documentosOrigenResumen: "",
+                searchPage: 1,
+                searchTotalPages: 1,
+                documentSelected: false,
+                selectedDocId: "",
                 progMobilePage: 1,
                 progMobileTotalPages: 1,
                 progMobileTotal: 0,
@@ -370,6 +406,13 @@ sap.ui.define([
             this._allPosicionesData = [];
             this._allProgramacionData = [];
             this._allPendientesData = [];
+
+            // Reset search results
+            var oSearchModel = this.getView().getModel("searchResults");
+            if (oSearchModel) { oSearchModel.setData([]); }
+            var oSearchPagedModel = this.getView().getModel("searchResultsPaged");
+            if (oSearchPagedModel) { oSearchPagedModel.setData([]); }
+            this._allSearchResults = [];
 
             // Volver el Wizard al paso 1 solo en modo nuevo (view/edit navegan programáticamente)
             var that = this;
@@ -403,8 +446,12 @@ sap.ui.define([
                 var oConfig = that._oMockDataService.getConfiguracion();
                 that._oXMLValidatorService.setConfiguracion(oConfig);
                 
-                // Cargar detalle del documento
-                that._loadDocumentDetail();
+                // Only load document detail if we have document context (VoucherDetail mode)
+                if (that._sDocumentId) {
+                    that._loadDocumentDetail();
+                    that.getView().getModel("viewModel").setProperty("/documentSelected", true);
+                    that.getView().getModel("viewModel").setProperty("/selectedDocId", that._sDocumentId);
+                }
                 
                 // Si hay un comprobante a cargar (modo view o edit)
                 if (that._sComprobanteId && that._sMode !== "new") {
@@ -449,12 +496,15 @@ sap.ui.define([
         _loadOrdenCompraData: function (sNumeroOC) {
             var oOrdenCompra = this._oMockDataService.getOrdenCompraByNumero(sNumeroOC);
             if (oOrdenCompra) {
-                // Filtrar solo posiciones pendientes por defecto
-                var aPosiciones = oOrdenCompra.posiciones.filter(function (oPos) {
-                    return oPos.estado === "PENDIENTE";
-                });
-                // Limpiar flag asignado de sesiones anteriores
-                aPosiciones.forEach(function (oPos) { oPos.asignado = false; });
+                // Filtrar pendientes y hacer copia profunda para no mutar el mock
+                var aAsignaciones = this.getView().getModel("viewModel").getProperty("/asignaciones") || [];
+                var aPosiciones = oOrdenCompra.posiciones
+                    .filter(function (oPos) { return oPos.estado === "PENDIENTE"; })
+                    .map(function (oPos) {
+                        var oCopy = Object.assign({}, oPos);
+                        oCopy.asignado = aAsignaciones.some(function (a) { return a.id === oPos.id; });
+                        return oCopy;
+                    });
                 this._allPosicionesData = aPosiciones;
                 this._applyPosicionesPagination(1);
             }
@@ -463,13 +513,241 @@ sap.ui.define([
         _loadPolizaData: function (sNumeroPoliza) {
             var oPoliza = this._oMockDataService.getPolizaByNumero(sNumeroPoliza);
             if (oPoliza) {
-                var aPosiciones = oPoliza.posiciones.filter(function (oPos) {
-                    return oPos.estado === "PENDIENTE";
-                });
-                aPosiciones.forEach(function (oPos) { oPos.asignado = false; });
+                // Filtrar pendientes y hacer copia profunda para no mutar el mock
+                var aAsignaciones = this.getView().getModel("viewModel").getProperty("/asignaciones") || [];
+                var aPosiciones = oPoliza.posiciones
+                    .filter(function (oPos) { return oPos.estado === "PENDIENTE"; })
+                    .map(function (oPos) {
+                        var oCopy = Object.assign({}, oPos);
+                        oCopy.asignado = aAsignaciones.some(function (a) { return a.id === oPos.id; });
+                        return oCopy;
+                    });
                 this._allPosicionesData = aPosiciones;
                 this._applyPosicionesPagination(1);
             }
+        },
+
+        // ─── Búsqueda y Selección de Documento (Paso 3) ───────────────────────
+        onSearchDocumento: function () {
+            var oViewModel = this.getView().getModel("viewModel");
+            var sTipo = oViewModel.getProperty("/searchTipoDocumento");
+            var sNumero = oViewModel.getProperty("/searchNumeroDocumento");
+            var sSociedad = oViewModel.getProperty("/searchSociedad");
+            var dFechaDesde = oViewModel.getProperty("/searchFechaDesde");
+            var dFechaHasta = oViewModel.getProperty("/searchFechaHasta");
+            var sMaterial = oViewModel.getProperty("/searchMaterial");
+
+            var aResults = this._oMockDataService.getDocumentos({
+                tipoDocumento: sTipo || null,
+                numeroDocumento: sNumero || null,
+                sociedad: sSociedad || null,
+                fechaDesde: dFechaDesde || null,
+                fechaHasta: dFechaHasta || null,
+                material: sMaterial || null
+            });
+
+            this._allSearchResults = aResults;
+            this.getView().getModel("searchResults").setData(aResults);
+            oViewModel.setProperty("/searchPerformed", true);
+            oViewModel.setProperty("/searchResultsCount", aResults.length);
+
+            // NO borrar asignaciones previas al buscar — patrón MIRO
+            // Solo limpiar la selección visual y los datos del documento actual
+            oViewModel.setProperty("/documentSelected", false);
+            oViewModel.setProperty("/selectedDocId", "");
+            this._allPosicionesData = [];
+            this._allProgramacionData = [];
+            this._allPendientesData = [];
+            this.getView().getModel("posiciones").setData([]);
+            this.getView().getModel("programacion").setData([]);
+            this.getView().getModel("pendientesFact").setData([]);
+
+            // Apply pagination
+            this._applySearchResultsPagination(1);
+        },
+
+        onClearSearchFilters: function () {
+            var oViewModel = this.getView().getModel("viewModel");
+            oViewModel.setProperty("/searchTipoDocumento", "OC");
+            oViewModel.setProperty("/searchNumeroDocumento", "");
+            oViewModel.setProperty("/searchSociedad", "");
+            oViewModel.setProperty("/searchFechaDesde", null);
+            oViewModel.setProperty("/searchFechaHasta", null);
+            oViewModel.setProperty("/searchMaterial", "");
+            // Reset DateRangeSelection
+            var oDateRange = this.byId("dateRangeSearchFecha");
+            if (oDateRange) {
+                oDateRange.setDateValue(null);
+                oDateRange.setSecondDateValue(null);
+            }
+        },
+
+        onSearchTipoDocumentoChange: function () {
+            // Limpiar filtros específicos al cambiar tipo de documento
+            var oViewModel = this.getView().getModel("viewModel");
+            oViewModel.setProperty("/searchNumeroDocumento", "");
+            oViewModel.setProperty("/searchSociedad", "");
+            oViewModel.setProperty("/searchFechaDesde", null);
+            oViewModel.setProperty("/searchFechaHasta", null);
+            oViewModel.setProperty("/searchMaterial", "");
+            var oDateRange = this.byId("dateRangeSearchFecha");
+            if (oDateRange) {
+                oDateRange.setDateValue(null);
+                oDateRange.setSecondDateValue(null);
+            }
+        },
+
+        // ─── Paginación resultados de búsqueda ───────────────────────────
+        _applySearchResultsPagination: function (iPage) {
+            var iPageSize = this._iSearchPageSize || 10;
+            var aAll = this._allSearchResults || [];
+            var iTotal = aAll.length;
+            var iTotalPages = Math.max(1, Math.ceil(iTotal / iPageSize));
+            iPage = Math.min(Math.max(1, iPage), iTotalPages);
+            var iStart = (iPage - 1) * iPageSize;
+            var aPageData = aAll.slice(iStart, iStart + iPageSize);
+
+            this.getView().getModel("searchResultsPaged").setData(aPageData);
+            var oViewModel = this.getView().getModel("viewModel");
+            oViewModel.setProperty("/searchPage", iPage);
+            oViewModel.setProperty("/searchTotalPages", iTotalPages);
+
+            // Limpiar selecciones al cambiar de página
+            var oTable = this.byId("searchResultsTable");
+            if (oTable) { oTable.removeSelections(true); }
+            var oList = this.byId("searchResultsMobileList");
+            if (oList) { oList.removeSelections(true); }
+        },
+
+        onSearchFirstPage: function () { this._applySearchResultsPagination(1); },
+        onSearchPrevPage: function () {
+            var iCurrent = this.getView().getModel("viewModel").getProperty("/searchPage");
+            this._applySearchResultsPagination(iCurrent - 1);
+        },
+        onSearchNextPage: function () {
+            var iCurrent = this.getView().getModel("viewModel").getProperty("/searchPage");
+            this._applySearchResultsPagination(iCurrent + 1);
+        },
+        onSearchLastPage: function () {
+            var iTotalPages = this.getView().getModel("viewModel").getProperty("/searchTotalPages");
+            this._applySearchResultsPagination(iTotalPages);
+        },
+
+        // ─── Selección de documento en resultados (SingleSelect) ──────────
+        onSearchResultSelect: function (oEvent) {
+            var oItem = oEvent.getParameter("listItem");
+            if (!oItem) { return; }
+            var oDoc = oItem.getBindingContext("searchResultsPaged").getObject();
+            this._selectDocument(oDoc);
+        },
+
+        onSearchResultRowPress: function (oEvent) {
+            var oItem = oEvent.getSource();
+            var oDoc = oItem.getBindingContext("searchResultsPaged").getObject();
+            this._selectDocument(oDoc);
+        },
+
+        onSearchResultPress: function (oEvent) {
+            var oDoc = oEvent.getSource().getBindingContext("searchResultsPaged").getObject();
+            // Set flag to preserve wizard state when returning from detail
+            this._bPreserveState = true;
+            this.getOwnerComponent().getRouter().navTo("RouteDocumentDetail", {
+                documentId: oDoc.id,
+                tipoDocumento: oDoc.tipoDocumento,
+                numeroDocumento: oDoc.numeroDocumento
+            });
+        },
+
+        onSearchResultMobilePress: function (oEvent) {
+            var oItem = oEvent.getSource();
+            var oDoc = oItem.getBindingContext("searchResultsPaged").getObject();
+            this._selectDocument(oDoc);
+        },
+
+        _selectDocument: function (oDoc) {
+            this._sDocumentId = oDoc.id;
+            this._sTipoDocumento = oDoc.tipoDocumento;
+            this._sNumeroDocumento = oDoc.numeroDocumento;
+
+            var oViewModel = this.getView().getModel("viewModel");
+            oViewModel.setProperty("/documentSelected", true);
+            oViewModel.setProperty("/selectedDocId", oDoc.id);
+
+            // Set document detail model
+            this.getView().getModel("detalle").setData(oDoc);
+
+            // NO borrar asignaciones previas — patrón MIRO acumulativo
+            // Solo resetear datos del documento actual (posiciones/programación/pendientes)
+            this._allPosicionesData = [];
+            this._allProgramacionData = [];
+            this._allPendientesData = [];
+            oViewModel.setProperty("/hasSelectedPosiciones", false);
+            oViewModel.setProperty("/hasSelectedPendientes", false);
+
+            // Load type-specific data
+            if (oDoc.tipoDocumento === "CONTRATO") {
+                this._loadContratoData(oDoc.numeroDocumento);
+            } else if (oDoc.tipoDocumento === "OC") {
+                this._loadOrdenCompraData(oDoc.numeroDocumento);
+            } else if (oDoc.tipoDocumento === "POLIZA" || oDoc.tipoDocumento === "Póliza") {
+                this._loadPolizaData(oDoc.numeroDocumento);
+            }
+
+            this._updateAsignacionesResumen();
+            MessageToast.show("Documento seleccionado: " + oDoc.tipoDocumentoDesc + " - " + oDoc.numeroDocumento);
+
+            // Auto-scroll a la sección de posiciones/contrato
+            var that = this;
+            setTimeout(function () {
+                var sPanelId = oDoc.tipoDocumento === "CONTRATO" ? "contratoPanel" : "posicionesPanel";
+                var oPanel = that.byId(sPanelId);
+                if (oPanel && oPanel.getDomRef()) {
+                    oPanel.getDomRef().scrollIntoView({ behavior: "smooth", block: "start" });
+                }
+            }, 300);
+        },
+
+        // ─── Actualizar resumen de asignaciones acumuladas ────────────────
+        _updateAsignacionesResumen: function () {
+            var oViewModel = this.getView().getModel("viewModel");
+            var aAsignaciones = oViewModel.getProperty("/asignaciones") || [];
+
+            if (aAsignaciones.length === 0) {
+                oViewModel.setProperty("/asignacionesResumen", "");
+                return;
+            }
+
+            // Agrupar por documento de origen
+            var oGroups = {};
+            aAsignaciones.forEach(function (oAsig) {
+                var sKey = oAsig._sourceDoc || "Sin documento";
+                if (!oGroups[sKey]) {
+                    oGroups[sKey] = { count: 0, total: 0, tipo: oAsig._sourceDocType || "" };
+                }
+                oGroups[sKey].count++;
+                oGroups[sKey].total += (oAsig.montoTotal || oAsig.importe || oAsig.total || 0);
+            });
+
+            var aParts = Object.keys(oGroups).map(function (sKey) {
+                var g = oGroups[sKey];
+                var sTipo = g.tipo ? g.tipo + " " : "";
+                return sTipo + sKey + ": " + g.count + " pos. (" + g.total.toFixed(2) + ")";
+            });
+
+            var fTotal = aAsignaciones.reduce(function (s, o) {
+                return s + (o.montoTotal || o.importe || o.total || 0);
+            }, 0);
+
+            oViewModel.setProperty("/asignacionesResumen",
+                "Asignaciones acumuladas: " + aAsignaciones.length + " posición(es) | Total: " +
+                fTotal.toFixed(2) + " | Detalle: " + aParts.join(" | ")
+            );
+
+            // Resumen de documentos origen para Paso 4
+            var aDocLabels = Object.keys(oGroups).map(function (sKey) {
+                return (oGroups[sKey].tipo ? oGroups[sKey].tipo + " " : "") + sKey;
+            });
+            oViewModel.setProperty("/documentosOrigenResumen", aDocLabels.join(", "));
         },
 
         // ─── Paginación: Tabla Posiciones Disponibles (OC / Póliza) ───────────────
@@ -495,6 +773,10 @@ sap.ui.define([
                 oTable.removeSelections(true);
                 oViewModel.setProperty("/hasSelectedPosiciones", false);
             }
+
+            // Sincronizar clases CSS de highlight tras cambio de datos
+            var that = this;
+            setTimeout(function () { that._refreshPosicionesHighlight(); }, 100);
 
             // Actualizar también la lista mobile paginada
             this._applyPosMobilePage(1);
@@ -594,7 +876,9 @@ sap.ui.define([
         onPosicionesMobileSelectionChange: function () {
             var oList = this.byId("posicionesMobileList");
             var aSelected = oList.getSelectedItems();
-            this.getView().getModel("viewModel").setProperty("/hasSelectedPosiciones", aSelected.length > 0);
+            var oVM = this.getView().getModel("viewModel");
+            oVM.setProperty("/hasSelectedPosiciones", aSelected.length > 0);
+            oVM.setProperty("/countSelectedPosiciones", aSelected.length);
         },
 
         onAsignarPosicionesMobile: function () {
@@ -608,36 +892,42 @@ sap.ui.define([
 
             var oViewModel = this.getView().getModel("viewModel");
             var aAsignaciones = oViewModel.getProperty("/asignaciones") || [];
+            var oDetalle = this.getView().getModel("detalle").getData();
 
             aSelected.forEach(function (oItem) {
                 var oPos = oItem.getBindingContext("posicionesPaged").getObject();
-                oPos.asignado = true;
-                // Sync back to _allPosicionesData
-                var oOrig = that._allPosicionesData.find(function (p) { return p.id === oPos.id; });
-                if (oOrig) { oOrig.asignado = true; }
 
                 var bExists = aAsignaciones.some(function (a) { return a.id === oPos.id; });
                 if (!bExists) {
+                    // Marcar como asignado para pintar la fila de verde
+                    oPos.asignado = true;
+                    // Sincronizar con datos originales
+                    var oOrig = that._allPosicionesData.find(function (p) { return p.id === oPos.id; });
+                    if (oOrig) { oOrig.asignado = true; }
+
                     var oAsig = Object.assign({}, oPos);
                     oAsig.montoTotal = oPos.importe;
+                    // Etiquetar con documento de origen (patrón MIRO)
+                    oAsig._sourceDoc = oDetalle.numeroDocumento;
+                    oAsig._sourceDocType = oDetalle.tipoDocumentoDesc;
+                    oAsig._sourceDocId = oDetalle.id;
+                    oAsig._sourceDocTipo = oDetalle.tipoDocumento;
                     aAsignaciones.push(oAsig);
                 }
             });
 
             oViewModel.setProperty("/asignaciones", aAsignaciones);
-            this.getView().getModel("posicionesPaged").refresh(true);
-            // Refresh desktop table too
-            this.getView().getModel("posiciones").refresh(true);
+            that.getView().getModel("posicionesPaged").refresh(true);
 
             oList.removeSelections(true);
             oViewModel.setProperty("/hasSelectedPosiciones", false);
+            oViewModel.setProperty("/countSelectedPosiciones", 0);
 
             this._calcularTotalAsignado();
             this._validateStep3();
 
             setTimeout(function () {
                 that._realizarValidacionImportes();
-                that._navigateToStep4();
             }, 150);
 
             MessageToast.show(aSelected.length + " posición(es) asignada(s)");
@@ -657,6 +947,8 @@ sap.ui.define([
 
             aSelected.forEach(function (oItem) {
                 var oPos = oItem.getBindingContext("posicionesPaged").getObject();
+
+                // Quitar el color verde
                 oPos.asignado = false;
                 var oOrig = that._allPosicionesData.find(function (p) { return p.id === oPos.id; });
                 if (oOrig) { oOrig.asignado = false; }
@@ -666,8 +958,7 @@ sap.ui.define([
             });
 
             oViewModel.setProperty("/asignaciones", aAsignaciones);
-            this.getView().getModel("posicionesPaged").refresh(true);
-            this.getView().getModel("posiciones").refresh(true);
+            that.getView().getModel("posicionesPaged").refresh(true);
 
             oList.removeSelections(true);
             oViewModel.setProperty("/hasSelectedPosiciones", false);
@@ -677,7 +968,6 @@ sap.ui.define([
 
             setTimeout(function () {
                 that._realizarValidacionImportes();
-                that._navigateToStep4();
             }, 150);
 
             MessageToast.show(aSelected.length + " posición(es) desasignada(s)");
@@ -1660,6 +1950,7 @@ sap.ui.define([
             
             var oViewModel = this.getView().getModel("viewModel");
             var aAsignaciones = oViewModel.getProperty("/asignaciones") || [];
+            var oDetalle = this.getView().getModel("detalle").getData();
             
             // Agregar las obligaciones seleccionadas a las asignaciones
             aSelectedItems.forEach(function (oItem) {
@@ -1671,7 +1962,13 @@ sap.ui.define([
                 });
                 
                 if (!bExists) {
-                    aAsignaciones.push(Object.assign({}, oObligacion));
+                    var oAsig = Object.assign({}, oObligacion);
+                    // Etiquetar con documento de origen (patrón MIRO)
+                    oAsig._sourceDoc = oDetalle.numeroDocumento;
+                    oAsig._sourceDocType = oDetalle.tipoDocumentoDesc;
+                    oAsig._sourceDocId = oDetalle.id;
+                    oAsig._sourceDocTipo = oDetalle.tipoDocumento;
+                    aAsignaciones.push(oAsig);
                 }
             });
             
@@ -1690,38 +1987,13 @@ sap.ui.define([
             MessageToast.show(aSelectedItems.length + " obligación(es) asignada(s)");
         },
         
-        onFilterPosicionesChange: function (oEvent) {
-            var sEstado = oEvent.getSource().getSelectedKey();
-            var oDetalle = this.getView().getModel("detalle").getData();
-
-            var aPosicionesAll = [];
-
-            if (oDetalle.tipoDocumento === "OC") {
-                var oOrdenCompra = this._oMockDataService.getOrdenCompraByNumero(oDetalle.numeroDocumento);
-                if (oOrdenCompra) { aPosicionesAll = oOrdenCompra.posiciones; }
-            } else if (oDetalle.tipoDocumento === "POLIZA" || oDetalle.tipoDocumento === "Póliza") {
-                var oPoliza = this._oMockDataService.getPolizaByNumero(oDetalle.numeroDocumento);
-                if (oPoliza) { aPosicionesAll = oPoliza.posiciones; }
-            }
-
-            // Aplicar filtro
-            if (sEstado) {
-                this._allPosicionesData = aPosicionesAll.filter(function (oPos) {
-                    return oPos.estado === sEstado;
-                });
-            } else {
-                this._allPosicionesData = aPosicionesAll.slice();
-            }
-
-            this._applyPosicionesPagination(1);
-        },
-        
         onPosicionesSelectionChange: function (oEvent) {
             var oTable = this.byId("posicionesAsignacionTable");
             var aSelectedItems = oTable.getSelectedItems();
             
             var oViewModel = this.getView().getModel("viewModel");
             oViewModel.setProperty("/hasSelectedPosiciones", aSelectedItems.length > 0);
+            oViewModel.setProperty("/countSelectedPosiciones", aSelectedItems.length);
         },
         
         onSelectAllPosiciones: function () {
@@ -1757,42 +2029,45 @@ sap.ui.define([
             var oViewModel = this.getView().getModel("viewModel");
             var aAsignaciones = oViewModel.getProperty("/asignaciones") || [];
             var oModel = this.getView().getModel("posiciones");
+            var oDetalle = this.getView().getModel("detalle").getData();
 
             aSelectedItems.forEach(function (oItem) {
                 var oPosicion = oItem.getBindingContext("posiciones").getObject();
 
-                // Marcar como asignado para que el binding de clase aplique el color verde
-                oPosicion.asignado = true;
-
-                // También actualizar en _allPosicionesData si la referencia es la misma
                 var bExists = aAsignaciones.some(function (oAsig) {
                     return oAsig.id === oPosicion.id;
                 });
 
                 if (!bExists) {
+                    // Marcar como asignado para pintar la fila de verde
+                    oPosicion.asignado = true;
+
                     var oAsignacion = Object.assign({}, oPosicion);
                     oAsignacion.montoTotal = oPosicion.importe;
+                    // Etiquetar con documento de origen (patrón MIRO)
+                    oAsignacion._sourceDoc = oDetalle.numeroDocumento;
+                    oAsignacion._sourceDocType = oDetalle.tipoDocumentoDesc;
+                    oAsignacion._sourceDocId = oDetalle.id;
+                    oAsignacion._sourceDocTipo = oDetalle.tipoDocumento;
                     aAsignaciones.push(oAsignacion);
                 }
             });
 
             oViewModel.setProperty("/asignaciones", aAsignaciones);
-
-            // Forzar refresco del binding de clase en las filas de la página actual
             oModel.refresh(true);
 
             // Limpiar selección
             oTable.removeSelections(true);
             oViewModel.setProperty("/hasSelectedPosiciones", false);
+            oViewModel.setProperty("/countSelectedPosiciones", 0);
 
             this._calcularTotalAsignado();
             this._validateStep3();
 
-            // Navegar al paso 4 (Validación y Registro) y actualizar comparación
+            // Actualizar validación de importes y refrescar highlight
             setTimeout(function () {
                 that._refreshPosicionesHighlight();
                 that._realizarValidacionImportes();
-                that._navigateToStep4();
             }, 150);
 
             MessageToast.show(aSelectedItems.length + " posición(es) asignada(s)");
@@ -1834,11 +2109,9 @@ sap.ui.define([
             this._calcularTotalAsignado();
             this._validateStep3();
 
-            // Navegar al paso 4 y actualizar comparación en caliente
             setTimeout(function () {
                 that._refreshPosicionesHighlight();
                 that._realizarValidacionImportes();
-                that._navigateToStep4();
             }, 150);
 
             MessageToast.show(aSelectedItems.length + " posición(es) desasignada(s)");
@@ -1861,6 +2134,75 @@ sap.ui.define([
             
             MessageToast.show("Asignación eliminada");
         },
+
+        onQuitarAsignacion: function (oEvent) {
+            // Soporta tanto mode="Delete" (listItem param) como botón directo (getSource)
+            var oItem = oEvent.getParameter("listItem") || oEvent.getSource();
+            var oContext = oItem.getBindingContext("viewModel");
+            var sPath = oContext.getPath();
+            var iIndex = parseInt(sPath.split("/").pop());
+
+            var oViewModel = this.getView().getModel("viewModel");
+            var aAsignaciones = oViewModel.getProperty("/asignaciones");
+            var oRemoved = aAsignaciones[iIndex];
+
+            // Unmark the position in the posiciones model if it belongs to the current document
+            if (oRemoved && this._allPosicionesData) {
+                var oFound = this._allPosicionesData.find(function (p) { return p.id === oRemoved.id; });
+                if (oFound) {
+                    oFound.asignado = false;
+                    this.getView().getModel("posiciones").refresh(true);
+                }
+            }
+
+            aAsignaciones.splice(iIndex, 1);
+            oViewModel.setProperty("/asignaciones", aAsignaciones);
+
+            this._calcularTotalAsignado();
+            this._validateStep3();
+            this._realizarValidacionImportes();
+
+            // Refrescar highlight de posiciones
+            var that = this;
+            setTimeout(function () { that._refreshPosicionesHighlight(); }, 100);
+
+            MessageToast.show("Asignación eliminada");
+        },
+
+        /**
+         * Click en el link Doc. Origen de la tabla de asignaciones.
+         * Busca el documento en los resultados de búsqueda, lo selecciona visualmente,
+         * carga sus posiciones y hace scroll a la sección correspondiente.
+         */
+        onAsignacionDocClick: function (oEvent) {
+            var oContext = oEvent.getSource().getBindingContext("viewModel");
+            var oAsig = oContext.getObject();
+            var sNumeroDoc = oAsig._sourceDoc;
+            var sTipoDoc = oAsig._sourceDocTipo;
+
+            // Buscar el documento en los resultados de búsqueda actuales
+            var aResults = this._allSearchResults || [];
+            var oDoc = aResults.find(function (d) {
+                return d.numeroDocumento === sNumeroDoc && d.tipoDocumento === sTipoDoc;
+            });
+
+            if (!oDoc) {
+                MessageToast.show("Documento " + sNumeroDoc + " no encontrado en los resultados de búsqueda");
+                return;
+            }
+
+            // Navegar a la página correcta
+            var iPageSize = this._iSearchPageSize || 10;
+            var iDocIndex = aResults.indexOf(oDoc);
+            var iTargetPage = Math.floor(iDocIndex / iPageSize) + 1;
+            this._applySearchResultsPagination(iTargetPage);
+
+            // Cargar las posiciones del documento
+            var that = this;
+            setTimeout(function () {
+                that._selectDocument(oDoc);
+            }, 150);
+        },
         
         _calcularTotalAsignado: function () {
             var oViewModel = this.getView().getModel("viewModel");
@@ -1871,6 +2213,8 @@ sap.ui.define([
             }, 0);
             
             oViewModel.setProperty("/totalAsignado", fTotal);
+            oViewModel.setProperty("/asignacionesCount", aAsignaciones.length);
+            this._updateAsignacionesResumen();
         },
         
         _validateStep3: function () {
@@ -2063,7 +2407,14 @@ sap.ui.define([
                 MessageBox.success(sMessage, {
                     title: sEstado === "ENVIADO" ? "Registrado y Enviado" : "Registro Exitoso",
                     onClose: function () {
-                        that.onNavBack();
+                        // Reinicializar wizard al paso 1 en lugar de navegar
+                        that._sDocumentId = null;
+                        that._sTipoDocumento = null;
+                        that._sNumeroDocumento = null;
+                        that._sComprobanteId = null;
+                        that._sMode = "new";
+                        that._resetState();
+                        that._loadData();
                     }
                 });
             }, 1000);
@@ -2084,37 +2435,23 @@ sap.ui.define([
         },
         
         onNavToList: function () {
-            var that = this;
-            var oViewModel = this.getView().getModel("viewModel");
-            if (oViewModel.getProperty("/readOnly") || oViewModel.getProperty("/registrationComplete")) {
-                this.getOwnerComponent().getRouter().navTo("RouteDocumentList");
-                return;
-            }
-            MessageBox.confirm(
-                "¿Está seguro de navegar a otra página? Se perderán los datos ingresados.",
-                {
-                    title: "Confirmar navegación",
-                    actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
-                    emphasizedAction: MessageBox.Action.CANCEL,
-                    onClose: function (oAction) {
-                        if (oAction === MessageBox.Action.OK) {
-                            that.getOwnerComponent().getRouter().navTo("RouteDocumentList");
-                        }
-                    }
-                }
-            );
+            this.getOwnerComponent().getRouter().navTo("RouteRegisterVoucher");
         },
 
         onNavBack: function () {
             var that = this;
             var oViewModel = this.getView().getModel("viewModel");
             var fnNavigate = function () {
-                var oRouter = that.getOwnerComponent().getRouter();
-                oRouter.navTo("RouteDocumentDetail", {
-                    documentId: that._sDocumentId,
-                    tipoDocumento: that._sTipoDocumento,
-                    numeroDocumento: that._sNumeroDocumento
-                });
+                // If we came from a document context, go back to that document detail
+                if (that._sDocumentId) {
+                    that.getOwnerComponent().getRouter().navTo("RouteDocumentDetail", {
+                        documentId: that._sDocumentId,
+                        tipoDocumento: that._sTipoDocumento,
+                        numeroDocumento: that._sNumeroDocumento
+                    });
+                } else {
+                    that.getOwnerComponent().getRouter().navTo("RouteRegisterVoucher");
+                }
             };
             if (oViewModel.getProperty("/readOnly") || oViewModel.getProperty("/registrationComplete")) {
                 fnNavigate();

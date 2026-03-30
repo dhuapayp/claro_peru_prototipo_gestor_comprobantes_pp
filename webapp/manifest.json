@@ -91,8 +91,13 @@
       },
       "routes": [
         {
-          "name": "RouteDocumentList",
+          "name": "RouteRegisterVoucher",
           "pattern": "",
+          "target": ["TargetRegisterVoucher"]
+        },
+        {
+          "name": "RouteDocumentList",
+          "pattern": "documents",
           "target": ["TargetDocumentList"]
         },
         {
@@ -101,13 +106,13 @@
           "target": ["TargetDocumentDetail"]
         },
         {
-          "name": "RouteRegisterVoucher",
-          "pattern": "documents/{tipoDocumento}/{numeroDocumento}/{documentId}/register",
+          "name": "RouteRegisterVoucherForDoc",
+          "pattern": "register/{tipoDocumento}/{numeroDocumento}/{documentId}",
           "target": ["TargetRegisterVoucher"]
         },
         {
           "name": "RouteVoucherDetail",
-          "pattern": "documents/{tipoDocumento}/{numeroDocumento}/{documentId}/register/{comprobanteId}/{mode}",
+          "pattern": "voucher/{tipoDocumento}/{numeroDocumento}/{documentId}/{comprobanteId}/{mode}",
           "target": ["TargetRegisterVoucher"]
         },
         {

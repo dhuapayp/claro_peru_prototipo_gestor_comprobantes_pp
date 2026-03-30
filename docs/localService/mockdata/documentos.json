@@ -17,7 +17,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Norte",
-                           "descripcion":  "Arrendamiento local comercial - Lima Norte"
+                           "descripcion":  "Arrendamiento local comercial - Lima Norte",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "LI01",
+                           "centroDesc":  "Lima Norte"
                        },
                        {
                            "id":  "DOC-002",
@@ -36,7 +40,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Arequipa Centro",
-                           "descripcion":  "Arrendamiento oficina administrativa - Arequipa"
+                           "descripcion":  "Arrendamiento oficina administrativa - Arequipa",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "AQ01",
+                           "centroDesc":  "Arequipa"
                        },
                        {
                            "id":  "DOC-003",
@@ -55,7 +63,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Este",
-                           "descripcion":  "Servicios de mantenimiento preventivo"
+                           "descripcion":  "Servicios de mantenimiento preventivo",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "LI03",
+                           "centroDesc":  "Lima Este"
                        },
                        {
                            "id":  "DOC-004",
@@ -74,7 +86,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Corporativo",
-                           "descripcion":  "Póliza de seguro equipos de telecomunicaciones"
+                           "descripcion":  "Póliza de seguro equipos de telecomunicaciones",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "CO01",
+                           "centroDesc":  "Corporativo"
                        },
                        {
                            "id":  "DOC-005",
@@ -93,7 +109,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Sur",
-                           "descripcion":  "Suministro de materiales de construcciÍ³n"
+                           "descripcion":  "Suministro de materiales de construcciÍ³n",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "LI02",
+                           "centroDesc":  "Lima Sur"
                        },
                        {
                            "id":  "DOC-006",
@@ -112,7 +132,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Norte",
-                           "descripcion":  "Contrato de Arrendamiento - Lima Norte"
+                           "descripcion":  "Contrato de Arrendamiento - Lima Norte",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "LI01",
+                           "centroDesc":  "Lima Norte"
                        },
                        {
                            "id":  "DOC-007",
@@ -131,7 +155,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Sur",
-                           "descripcion":  "Contrato de Servicios de Seguridad - Lima Sur"
+                           "descripcion":  "Contrato de Servicios de Seguridad - Lima Sur",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "LI02",
+                           "centroDesc":  "Lima Sur"
                        },
                        {
                            "id":  "DOC-008",
@@ -150,7 +178,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Este",
-                           "descripcion":  "Contrato de Limpieza - Lima Este"
+                           "descripcion":  "Contrato de Limpieza - Lima Este",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "LI03",
+                           "centroDesc":  "Lima Este"
                        },
                        {
                            "id":  "DOC-009",
@@ -169,7 +201,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Centro",
-                           "descripcion":  "Contrato de Consultoría TI - Lima Centro"
+                           "descripcion":  "Contrato de Consultoría TI - Lima Centro",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "LI04",
+                           "centroDesc":  "Lima Centro"
                        },
                        {
                            "id":  "DOC-010",
@@ -188,7 +224,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Oeste",
-                           "descripcion":  "Contrato de Mantenimiento de Equipos - Lima Oeste"
+                           "descripcion":  "Contrato de Mantenimiento de Equipos - Lima Oeste",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "LI05",
+                           "centroDesc":  "Lima Oeste"
                        },
                        {
                            "id":  "DOC-011",
@@ -207,7 +247,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Arequipa",
-                           "descripcion":  "Contrato de Vigilancia - Arequipa"
+                           "descripcion":  "Contrato de Vigilancia - Arequipa",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "AQ01",
+                           "centroDesc":  "Arequipa"
                        },
                        {
                            "id":  "DOC-012",
@@ -226,7 +270,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Trujillo",
-                           "descripcion":  "Contrato de Gestión Documental - Trujillo"
+                           "descripcion":  "Contrato de Gestión Documental - Trujillo",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "TR01",
+                           "centroDesc":  "Trujillo"
                        },
                        {
                            "id":  "DOC-013",
@@ -245,7 +293,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Piura",
-                           "descripcion":  "Contrato de Transporte - Piura"
+                           "descripcion":  "Contrato de Transporte - Piura",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "PI01",
+                           "centroDesc":  "Piura"
                        },
                        {
                            "id":  "DOC-014",
@@ -264,7 +316,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Cusco",
-                           "descripcion":  "Contrato de Suministro Eléctrico - Cusco"
+                           "descripcion":  "Contrato de Suministro Eléctrico - Cusco",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "CU01",
+                           "centroDesc":  "Cusco"
                        },
                        {
                            "id":  "DOC-015",
@@ -283,7 +339,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Ica",
-                           "descripcion":  "Contrato de Soporte Técnico - Ica"
+                           "descripcion":  "Contrato de Soporte Técnico - Ica",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "IC01",
+                           "centroDesc":  "Ica"
                        },
                        {
                            "id":  "DOC-016",
@@ -302,7 +362,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Chiclayo",
-                           "descripcion":  "Contrato de Arrendamiento - Chiclayo"
+                           "descripcion":  "Contrato de Arrendamiento - Chiclayo",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "CH01",
+                           "centroDesc":  "Chiclayo"
                        },
                        {
                            "id":  "DOC-017",
@@ -321,7 +385,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Cajamarca",
-                           "descripcion":  "Contrato de Servicios de Seguridad - Cajamarca"
+                           "descripcion":  "Contrato de Servicios de Seguridad - Cajamarca",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "CA01",
+                           "centroDesc":  "Cajamarca"
                        },
                        {
                            "id":  "DOC-018",
@@ -340,7 +408,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Tacna",
-                           "descripcion":  "Contrato de Limpieza - Tacna"
+                           "descripcion":  "Contrato de Limpieza - Tacna",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "TA01",
+                           "centroDesc":  "Tacna"
                        },
                        {
                            "id":  "DOC-019",
@@ -359,7 +431,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Corporativo",
-                           "descripcion":  "Contrato de Consultoría TI - Corporativo"
+                           "descripcion":  "Contrato de Consultoría TI - Corporativo",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "CO01",
+                           "centroDesc":  "Corporativo"
                        },
                        {
                            "id":  "DOC-020",
@@ -378,7 +454,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Huancayo",
-                           "descripcion":  "Contrato de Mantenimiento de Equipos - Huancayo"
+                           "descripcion":  "Contrato de Mantenimiento de Equipos - Huancayo",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "HU01",
+                           "centroDesc":  "Huancayo"
                        },
                        {
                            "id":  "DOC-021",
@@ -397,7 +477,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Norte",
-                           "descripcion":  "Contrato de Vigilancia - Lima Norte"
+                           "descripcion":  "Contrato de Vigilancia - Lima Norte",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "LI01",
+                           "centroDesc":  "Lima Norte"
                        },
                        {
                            "id":  "DOC-022",
@@ -416,7 +500,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Sur",
-                           "descripcion":  "Contrato de Gestión Documental - Lima Sur"
+                           "descripcion":  "Contrato de Gestión Documental - Lima Sur",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "LI02",
+                           "centroDesc":  "Lima Sur"
                        },
                        {
                            "id":  "DOC-023",
@@ -435,7 +523,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Este",
-                           "descripcion":  "Contrato de Transporte - Lima Este"
+                           "descripcion":  "Contrato de Transporte - Lima Este",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "LI03",
+                           "centroDesc":  "Lima Este"
                        },
                        {
                            "id":  "DOC-024",
@@ -454,7 +546,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Centro",
-                           "descripcion":  "Contrato de Suministro Eléctrico - Lima Centro"
+                           "descripcion":  "Contrato de Suministro Eléctrico - Lima Centro",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "LI04",
+                           "centroDesc":  "Lima Centro"
                        },
                        {
                            "id":  "DOC-025",
@@ -473,7 +569,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Oeste",
-                           "descripcion":  "Contrato de Soporte Técnico - Lima Oeste"
+                           "descripcion":  "Contrato de Soporte Técnico - Lima Oeste",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "LI05",
+                           "centroDesc":  "Lima Oeste"
                        },
                        {
                            "id":  "DOC-026",
@@ -492,7 +592,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Arequipa",
-                           "descripcion":  "Contrato de Arrendamiento - Arequipa"
+                           "descripcion":  "Contrato de Arrendamiento - Arequipa",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "AQ01",
+                           "centroDesc":  "Arequipa"
                        },
                        {
                            "id":  "DOC-027",
@@ -511,7 +615,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Trujillo",
-                           "descripcion":  "Contrato de Servicios de Seguridad - Trujillo"
+                           "descripcion":  "Contrato de Servicios de Seguridad - Trujillo",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "TR01",
+                           "centroDesc":  "Trujillo"
                        },
                        {
                            "id":  "DOC-028",
@@ -530,7 +638,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Piura",
-                           "descripcion":  "Contrato de Limpieza - Piura"
+                           "descripcion":  "Contrato de Limpieza - Piura",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "PI01",
+                           "centroDesc":  "Piura"
                        },
                        {
                            "id":  "DOC-029",
@@ -549,7 +661,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Cusco",
-                           "descripcion":  "Contrato de Consultoría TI - Cusco"
+                           "descripcion":  "Contrato de Consultoría TI - Cusco",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "CU01",
+                           "centroDesc":  "Cusco"
                        },
                        {
                            "id":  "DOC-030",
@@ -568,7 +684,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Ica",
-                           "descripcion":  "Contrato de Mantenimiento de Equipos - Ica"
+                           "descripcion":  "Contrato de Mantenimiento de Equipos - Ica",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "IC01",
+                           "centroDesc":  "Ica"
                        },
                        {
                            "id":  "DOC-031",
@@ -587,7 +707,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Chiclayo",
-                           "descripcion":  "Contrato de Vigilancia - Chiclayo"
+                           "descripcion":  "Contrato de Vigilancia - Chiclayo",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "CH01",
+                           "centroDesc":  "Chiclayo"
                        },
                        {
                            "id":  "DOC-032",
@@ -606,7 +730,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Cajamarca",
-                           "descripcion":  "Contrato de Gestión Documental - Cajamarca"
+                           "descripcion":  "Contrato de Gestión Documental - Cajamarca",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "CA01",
+                           "centroDesc":  "Cajamarca"
                        },
                        {
                            "id":  "DOC-033",
@@ -625,7 +753,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Tacna",
-                           "descripcion":  "Contrato de Transporte - Tacna"
+                           "descripcion":  "Contrato de Transporte - Tacna",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "TA01",
+                           "centroDesc":  "Tacna"
                        },
                        {
                            "id":  "DOC-034",
@@ -644,7 +776,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Corporativo",
-                           "descripcion":  "Contrato de Suministro Eléctrico - Corporativo"
+                           "descripcion":  "Contrato de Suministro Eléctrico - Corporativo",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "CO01",
+                           "centroDesc":  "Corporativo"
                        },
                        {
                            "id":  "DOC-035",
@@ -663,7 +799,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Huancayo",
-                           "descripcion":  "Contrato de Soporte Técnico - Huancayo"
+                           "descripcion":  "Contrato de Soporte Técnico - Huancayo",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "HU01",
+                           "centroDesc":  "Huancayo"
                        },
                        {
                            "id":  "DOC-036",
@@ -682,7 +822,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Norte",
-                           "descripcion":  "Contrato de Arrendamiento - Lima Norte"
+                           "descripcion":  "Contrato de Arrendamiento - Lima Norte",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "LI01",
+                           "centroDesc":  "Lima Norte"
                        },
                        {
                            "id":  "DOC-037",
@@ -701,7 +845,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Sur",
-                           "descripcion":  "Contrato de Servicios de Seguridad - Lima Sur"
+                           "descripcion":  "Contrato de Servicios de Seguridad - Lima Sur",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "LI02",
+                           "centroDesc":  "Lima Sur"
                        },
                        {
                            "id":  "DOC-038",
@@ -720,7 +868,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Este",
-                           "descripcion":  "Contrato de Limpieza - Lima Este"
+                           "descripcion":  "Contrato de Limpieza - Lima Este",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "LI03",
+                           "centroDesc":  "Lima Este"
                        },
                        {
                            "id":  "DOC-039",
@@ -739,7 +891,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Centro",
-                           "descripcion":  "Contrato de Consultoría TI - Lima Centro"
+                           "descripcion":  "Contrato de Consultoría TI - Lima Centro",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "LI04",
+                           "centroDesc":  "Lima Centro"
                        },
                        {
                            "id":  "DOC-040",
@@ -758,7 +914,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Oeste",
-                           "descripcion":  "Contrato de Mantenimiento de Equipos - Lima Oeste"
+                           "descripcion":  "Contrato de Mantenimiento de Equipos - Lima Oeste",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "LI05",
+                           "centroDesc":  "Lima Oeste"
                        },
                        {
                            "id":  "DOC-041",
@@ -777,7 +937,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Norte",
-                           "descripcion":  "Suministro de materiales de oficina - Lima Norte"
+                           "descripcion":  "Suministro de materiales de oficina - Lima Norte",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "LI01",
+                           "centroDesc":  "Lima Norte"
                        },
                        {
                            "id":  "DOC-042",
@@ -796,7 +960,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Sur",
-                           "descripcion":  "Compra de equipos de cómputo - Lima Sur"
+                           "descripcion":  "Compra de equipos de cómputo - Lima Sur",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "LI02",
+                           "centroDesc":  "Lima Sur"
                        },
                        {
                            "id":  "DOC-043",
@@ -815,7 +983,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Este",
-                           "descripcion":  "Adquisición de mobiliario - Lima Este"
+                           "descripcion":  "Adquisición de mobiliario - Lima Este",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "LI03",
+                           "centroDesc":  "Lima Este"
                        },
                        {
                            "id":  "DOC-044",
@@ -834,7 +1006,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Centro",
-                           "descripcion":  "Materiales eléctricos - Lima Centro"
+                           "descripcion":  "Materiales eléctricos - Lima Centro",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "LI04",
+                           "centroDesc":  "Lima Centro"
                        },
                        {
                            "id":  "DOC-045",
@@ -853,7 +1029,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Oeste",
-                           "descripcion":  "Repuestos para generadores - Lima Oeste"
+                           "descripcion":  "Repuestos para generadores - Lima Oeste",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "LI05",
+                           "centroDesc":  "Lima Oeste"
                        },
                        {
                            "id":  "DOC-046",
@@ -872,7 +1052,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Arequipa",
-                           "descripcion":  "Equipos de seguridad CCTV - Arequipa"
+                           "descripcion":  "Equipos de seguridad CCTV - Arequipa",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "AQ01",
+                           "centroDesc":  "Arequipa"
                        },
                        {
                            "id":  "DOC-047",
@@ -891,7 +1075,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Trujillo",
-                           "descripcion":  "Uniformes y EPP - Trujillo"
+                           "descripcion":  "Uniformes y EPP - Trujillo",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "TR01",
+                           "centroDesc":  "Trujillo"
                        },
                        {
                            "id":  "DOC-048",
@@ -910,7 +1098,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Piura",
-                           "descripcion":  "Material de construcción - Piura"
+                           "descripcion":  "Material de construcción - Piura",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "PI01",
+                           "centroDesc":  "Piura"
                        },
                        {
                            "id":  "DOC-049",
@@ -929,7 +1121,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Cusco",
-                           "descripcion":  "Impresoras y consumibles - Cusco"
+                           "descripcion":  "Impresoras y consumibles - Cusco",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "CU01",
+                           "centroDesc":  "Cusco"
                        },
                        {
                            "id":  "DOC-050",
@@ -948,7 +1144,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Ica",
-                           "descripcion":  "Combustible y lubricantes - Ica"
+                           "descripcion":  "Combustible y lubricantes - Ica",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "IC01",
+                           "centroDesc":  "Ica"
                        },
                        {
                            "id":  "DOC-051",
@@ -967,7 +1167,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Chiclayo",
-                           "descripcion":  "Suministro de materiales de oficina - Chiclayo"
+                           "descripcion":  "Suministro de materiales de oficina - Chiclayo",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "CH01",
+                           "centroDesc":  "Chiclayo"
                        },
                        {
                            "id":  "DOC-052",
@@ -986,7 +1190,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Cajamarca",
-                           "descripcion":  "Compra de equipos de cómputo - Cajamarca"
+                           "descripcion":  "Compra de equipos de cómputo - Cajamarca",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "CA01",
+                           "centroDesc":  "Cajamarca"
                        },
                        {
                            "id":  "DOC-053",
@@ -1005,7 +1213,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Tacna",
-                           "descripcion":  "Adquisición de mobiliario - Tacna"
+                           "descripcion":  "Adquisición de mobiliario - Tacna",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "TA01",
+                           "centroDesc":  "Tacna"
                        },
                        {
                            "id":  "DOC-054",
@@ -1024,7 +1236,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Corporativo",
-                           "descripcion":  "Materiales eléctricos - Corporativo"
+                           "descripcion":  "Materiales eléctricos - Corporativo",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "CO01",
+                           "centroDesc":  "Corporativo"
                        },
                        {
                            "id":  "DOC-055",
@@ -1043,7 +1259,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Huancayo",
-                           "descripcion":  "Repuestos para generadores - Huancayo"
+                           "descripcion":  "Repuestos para generadores - Huancayo",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "HU01",
+                           "centroDesc":  "Huancayo"
                        },
                        {
                            "id":  "DOC-056",
@@ -1062,7 +1282,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Norte",
-                           "descripcion":  "Equipos de seguridad CCTV - Lima Norte"
+                           "descripcion":  "Equipos de seguridad CCTV - Lima Norte",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "LI01",
+                           "centroDesc":  "Lima Norte"
                        },
                        {
                            "id":  "DOC-057",
@@ -1081,7 +1305,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Sur",
-                           "descripcion":  "Uniformes y EPP - Lima Sur"
+                           "descripcion":  "Uniformes y EPP - Lima Sur",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "LI02",
+                           "centroDesc":  "Lima Sur"
                        },
                        {
                            "id":  "DOC-058",
@@ -1100,7 +1328,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Este",
-                           "descripcion":  "Material de construcción - Lima Este"
+                           "descripcion":  "Material de construcción - Lima Este",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "LI03",
+                           "centroDesc":  "Lima Este"
                        },
                        {
                            "id":  "DOC-059",
@@ -1119,7 +1351,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Centro",
-                           "descripcion":  "Impresoras y consumibles - Lima Centro"
+                           "descripcion":  "Impresoras y consumibles - Lima Centro",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "LI04",
+                           "centroDesc":  "Lima Centro"
                        },
                        {
                            "id":  "DOC-060",
@@ -1138,7 +1374,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Oeste",
-                           "descripcion":  "Combustible y lubricantes - Lima Oeste"
+                           "descripcion":  "Combustible y lubricantes - Lima Oeste",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "LI05",
+                           "centroDesc":  "Lima Oeste"
                        },
                        {
                            "id":  "DOC-061",
@@ -1157,7 +1397,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Arequipa",
-                           "descripcion":  "Suministro de materiales de oficina - Arequipa"
+                           "descripcion":  "Suministro de materiales de oficina - Arequipa",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "AQ01",
+                           "centroDesc":  "Arequipa"
                        },
                        {
                            "id":  "DOC-062",
@@ -1176,7 +1420,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Trujillo",
-                           "descripcion":  "Compra de equipos de cómputo - Trujillo"
+                           "descripcion":  "Compra de equipos de cómputo - Trujillo",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "TR01",
+                           "centroDesc":  "Trujillo"
                        },
                        {
                            "id":  "DOC-063",
@@ -1195,7 +1443,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Piura",
-                           "descripcion":  "Adquisición de mobiliario - Piura"
+                           "descripcion":  "Adquisición de mobiliario - Piura",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "PI01",
+                           "centroDesc":  "Piura"
                        },
                        {
                            "id":  "DOC-064",
@@ -1214,7 +1466,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Cusco",
-                           "descripcion":  "Materiales eléctricos - Cusco"
+                           "descripcion":  "Materiales eléctricos - Cusco",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "CU01",
+                           "centroDesc":  "Cusco"
                        },
                        {
                            "id":  "DOC-065",
@@ -1233,7 +1489,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Ica",
-                           "descripcion":  "Repuestos para generadores - Ica"
+                           "descripcion":  "Repuestos para generadores - Ica",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "IC01",
+                           "centroDesc":  "Ica"
                        },
                        {
                            "id":  "DOC-066",
@@ -1252,7 +1512,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Chiclayo",
-                           "descripcion":  "Equipos de seguridad CCTV - Chiclayo"
+                           "descripcion":  "Equipos de seguridad CCTV - Chiclayo",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "CH01",
+                           "centroDesc":  "Chiclayo"
                        },
                        {
                            "id":  "DOC-067",
@@ -1271,7 +1535,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Cajamarca",
-                           "descripcion":  "Uniformes y EPP - Cajamarca"
+                           "descripcion":  "Uniformes y EPP - Cajamarca",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "CA01",
+                           "centroDesc":  "Cajamarca"
                        },
                        {
                            "id":  "DOC-068",
@@ -1290,7 +1558,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Tacna",
-                           "descripcion":  "Material de construcción - Tacna"
+                           "descripcion":  "Material de construcción - Tacna",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "TA01",
+                           "centroDesc":  "Tacna"
                        },
                        {
                            "id":  "DOC-069",
@@ -1309,7 +1581,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Corporativo",
-                           "descripcion":  "Impresoras y consumibles - Corporativo"
+                           "descripcion":  "Impresoras y consumibles - Corporativo",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "CO01",
+                           "centroDesc":  "Corporativo"
                        },
                        {
                            "id":  "DOC-070",
@@ -1328,7 +1604,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Huancayo",
-                           "descripcion":  "Combustible y lubricantes - Huancayo"
+                           "descripcion":  "Combustible y lubricantes - Huancayo",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "HU01",
+                           "centroDesc":  "Huancayo"
                        },
                        {
                            "id":  "DOC-071",
@@ -1347,7 +1627,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Norte",
-                           "descripcion":  "Poliza de equipos de telecomunicaciones - Lima Norte"
+                           "descripcion":  "Poliza de equipos de telecomunicaciones - Lima Norte",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "LI01",
+                           "centroDesc":  "Lima Norte"
                        },
                        {
                            "id":  "DOC-072",
@@ -1366,7 +1650,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Sur",
-                           "descripcion":  "Poliza SCTR personal de planta - Lima Sur"
+                           "descripcion":  "Poliza SCTR personal de planta - Lima Sur",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "LI02",
+                           "centroDesc":  "Lima Sur"
                        },
                        {
                            "id":  "DOC-073",
@@ -1385,7 +1673,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Este",
-                           "descripcion":  "Poliza de responsabilidad civil - Lima Este"
+                           "descripcion":  "Poliza de responsabilidad civil - Lima Este",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "LI03",
+                           "centroDesc":  "Lima Este"
                        },
                        {
                            "id":  "DOC-074",
@@ -1404,7 +1696,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Centro",
-                           "descripcion":  "Poliza de vida colectivo - Lima Centro"
+                           "descripcion":  "Poliza de vida colectivo - Lima Centro",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "LI04",
+                           "centroDesc":  "Lima Centro"
                        },
                        {
                            "id":  "DOC-075",
@@ -1423,7 +1719,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Oeste",
-                           "descripcion":  "Poliza de transporte de mercancías - Lima Oeste"
+                           "descripcion":  "Poliza de transporte de mercancías - Lima Oeste",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "LI05",
+                           "centroDesc":  "Lima Oeste"
                        },
                        {
                            "id":  "DOC-076",
@@ -1442,7 +1742,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Arequipa",
-                           "descripcion":  "Poliza multirriesgo - Arequipa"
+                           "descripcion":  "Poliza multirriesgo - Arequipa",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "AQ01",
+                           "centroDesc":  "Arequipa"
                        },
                        {
                            "id":  "DOC-077",
@@ -1461,7 +1765,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Trujillo",
-                           "descripcion":  "Poliza de equipos de telecomunicaciones - Trujillo"
+                           "descripcion":  "Poliza de equipos de telecomunicaciones - Trujillo",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "TR01",
+                           "centroDesc":  "Trujillo"
                        },
                        {
                            "id":  "DOC-078",
@@ -1480,7 +1788,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Piura",
-                           "descripcion":  "Poliza SCTR personal de planta - Piura"
+                           "descripcion":  "Poliza SCTR personal de planta - Piura",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "PI01",
+                           "centroDesc":  "Piura"
                        },
                        {
                            "id":  "DOC-079",
@@ -1499,7 +1811,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Cusco",
-                           "descripcion":  "Poliza de responsabilidad civil - Cusco"
+                           "descripcion":  "Poliza de responsabilidad civil - Cusco",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "CU01",
+                           "centroDesc":  "Cusco"
                        },
                        {
                            "id":  "DOC-080",
@@ -1518,7 +1834,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Ica",
-                           "descripcion":  "Poliza de vida colectivo - Ica"
+                           "descripcion":  "Poliza de vida colectivo - Ica",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "IC01",
+                           "centroDesc":  "Ica"
                        },
                        {
                            "id":  "DOC-081",
@@ -1537,7 +1857,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Chiclayo",
-                           "descripcion":  "Poliza de transporte de mercancías - Chiclayo"
+                           "descripcion":  "Poliza de transporte de mercancías - Chiclayo",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "CH01",
+                           "centroDesc":  "Chiclayo"
                        },
                        {
                            "id":  "DOC-082",
@@ -1556,7 +1880,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Cajamarca",
-                           "descripcion":  "Poliza multirriesgo - Cajamarca"
+                           "descripcion":  "Poliza multirriesgo - Cajamarca",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "CA01",
+                           "centroDesc":  "Cajamarca"
                        },
                        {
                            "id":  "DOC-083",
@@ -1575,7 +1903,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Tacna",
-                           "descripcion":  "Poliza de equipos de telecomunicaciones - Tacna"
+                           "descripcion":  "Poliza de equipos de telecomunicaciones - Tacna",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "TA01",
+                           "centroDesc":  "Tacna"
                        },
                        {
                            "id":  "DOC-084",
@@ -1594,7 +1926,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Corporativo",
-                           "descripcion":  "Poliza SCTR personal de planta - Corporativo"
+                           "descripcion":  "Poliza SCTR personal de planta - Corporativo",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "CO01",
+                           "centroDesc":  "Corporativo"
                        },
                        {
                            "id":  "DOC-085",
@@ -1613,7 +1949,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Huancayo",
-                           "descripcion":  "Poliza de responsabilidad civil - Huancayo"
+                           "descripcion":  "Poliza de responsabilidad civil - Huancayo",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "HU01",
+                           "centroDesc":  "Huancayo"
                        },
                        {
                            "id":  "DOC-086",
@@ -1632,7 +1972,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Norte",
-                           "descripcion":  "Poliza de vida colectivo - Lima Norte"
+                           "descripcion":  "Poliza de vida colectivo - Lima Norte",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "LI01",
+                           "centroDesc":  "Lima Norte"
                        },
                        {
                            "id":  "DOC-087",
@@ -1651,7 +1995,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Sur",
-                           "descripcion":  "Poliza de transporte de mercancías - Lima Sur"
+                           "descripcion":  "Poliza de transporte de mercancías - Lima Sur",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "LI02",
+                           "centroDesc":  "Lima Sur"
                        },
                        {
                            "id":  "DOC-088",
@@ -1670,7 +2018,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Este",
-                           "descripcion":  "Poliza multirriesgo - Lima Este"
+                           "descripcion":  "Poliza multirriesgo - Lima Este",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "LI03",
+                           "centroDesc":  "Lima Este"
                        },
                        {
                            "id":  "DOC-089",
@@ -1689,7 +2041,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Centro",
-                           "descripcion":  "Poliza de equipos de telecomunicaciones - Lima Centro"
+                           "descripcion":  "Poliza de equipos de telecomunicaciones - Lima Centro",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "LI04",
+                           "centroDesc":  "Lima Centro"
                        },
                        {
                            "id":  "DOC-090",
@@ -1708,7 +2064,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Lima Oeste",
-                           "descripcion":  "Poliza SCTR personal de planta - Lima Oeste"
+                           "descripcion":  "Poliza SCTR personal de planta - Lima Oeste",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "LI05",
+                           "centroDesc":  "Lima Oeste"
                        },
                        {
                            "id":  "DOC-091",
@@ -1727,7 +2087,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Arequipa",
-                           "descripcion":  "Poliza de responsabilidad civil - Arequipa"
+                           "descripcion":  "Poliza de responsabilidad civil - Arequipa",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "AQ01",
+                           "centroDesc":  "Arequipa"
                        },
                        {
                            "id":  "DOC-092",
@@ -1746,7 +2110,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Trujillo",
-                           "descripcion":  "Poliza de vida colectivo - Trujillo"
+                           "descripcion":  "Poliza de vida colectivo - Trujillo",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "TR01",
+                           "centroDesc":  "Trujillo"
                        },
                        {
                            "id":  "DOC-093",
@@ -1765,7 +2133,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Piura",
-                           "descripcion":  "Poliza de transporte de mercancías - Piura"
+                           "descripcion":  "Poliza de transporte de mercancías - Piura",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "PI01",
+                           "centroDesc":  "Piura"
                        },
                        {
                            "id":  "DOC-094",
@@ -1784,7 +2156,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Cusco",
-                           "descripcion":  "Poliza multirriesgo - Cusco"
+                           "descripcion":  "Poliza multirriesgo - Cusco",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "CU01",
+                           "centroDesc":  "Cusco"
                        },
                        {
                            "id":  "DOC-095",
@@ -1803,7 +2179,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Ica",
-                           "descripcion":  "Poliza de equipos de telecomunicaciones - Ica"
+                           "descripcion":  "Poliza de equipos de telecomunicaciones - Ica",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "IC01",
+                           "centroDesc":  "Ica"
                        },
                        {
                            "id":  "DOC-096",
@@ -1822,7 +2202,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Chiclayo",
-                           "descripcion":  "Poliza SCTR personal de planta - Chiclayo"
+                           "descripcion":  "Poliza SCTR personal de planta - Chiclayo",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "CH01",
+                           "centroDesc":  "Chiclayo"
                        },
                        {
                            "id":  "DOC-097",
@@ -1841,7 +2225,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Cajamarca",
-                           "descripcion":  "Poliza de responsabilidad civil - Cajamarca"
+                           "descripcion":  "Poliza de responsabilidad civil - Cajamarca",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "CA01",
+                           "centroDesc":  "Cajamarca"
                        },
                        {
                            "id":  "DOC-098",
@@ -1860,7 +2248,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Tacna",
-                           "descripcion":  "Poliza de vida colectivo - Tacna"
+                           "descripcion":  "Poliza de vida colectivo - Tacna",
+                           "sociedad":  "2000",
+                           "sociedadDesc":  "Claro Comunicaciones S.A.C.",
+                           "centro":  "TA01",
+                           "centroDesc":  "Tacna"
                        },
                        {
                            "id":  "DOC-099",
@@ -1879,7 +2271,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Corporativo",
-                           "descripcion":  "Poliza de transporte de mercancías - Corporativo"
+                           "descripcion":  "Poliza de transporte de mercancías - Corporativo",
+                           "sociedad":  "3000",
+                           "sociedadDesc":  "Claro Infraestructura S.A.C.",
+                           "centro":  "CO01",
+                           "centroDesc":  "Corporativo"
                        },
                        {
                            "id":  "DOC-100",
@@ -1898,8 +2294,11 @@
                            "proveedorRuc":  "20100130204",
                            "proveedorNombre":  "INMOBILIARIA PERU SAC",
                            "unidadNegocio":  "Huancayo",
-                           "descripcion":  "Poliza multirriesgo - Huancayo"
+                           "descripcion":  "Poliza multirriesgo - Huancayo",
+                           "sociedad":  "1000",
+                           "sociedadDesc":  "Claro Perú S.A.C.",
+                           "centro":  "HU01",
+                           "centroDesc":  "Huancayo"
                        }
                    ]
 }
-

@@ -100,12 +100,28 @@ sap.ui.define([
                         return oDoc.numeroDocumento.includes(oFilters.numeroDocumento);
                     });
                 }
+                if (oFilters.sociedad) {
+                    aDocumentos = aDocumentos.filter(function (oDoc) {
+                        return oDoc.sociedad === oFilters.sociedad;
+                    });
+                }
+                if (oFilters.centro) {
+                    aDocumentos = aDocumentos.filter(function (oDoc) {
+                        return oDoc.centro === oFilters.centro;
+                    });
+                }
                 if (oFilters.fechaDesde || oFilters.fechaHasta) {
                     aDocumentos = aDocumentos.filter(function (oDoc) {
                         var dFecha = new Date(oDoc.fechaDocumento);
                         if (oFilters.fechaDesde && dFecha < oFilters.fechaDesde) { return false; }
                         if (oFilters.fechaHasta && dFecha > oFilters.fechaHasta) { return false; }
                         return true;
+                    });
+                }
+                if (oFilters.material) {
+                    var sMaterial = oFilters.material.toLowerCase();
+                    aDocumentos = aDocumentos.filter(function (oDoc) {
+                        return (oDoc.descripcion || "").toLowerCase().includes(sMaterial);
                     });
                 }
             }

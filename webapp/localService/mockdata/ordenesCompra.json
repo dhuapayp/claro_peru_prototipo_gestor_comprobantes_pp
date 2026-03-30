@@ -88,7 +88,7 @@
             "estadoDesc": "Vigente",
             "posiciones": [
                 {
-                    "id": "POS-004",
+                    "id": "POS-004b",
                     "ordenCompraId": "OC-002",
                     "posicion": "10",
                     "codigoServicio": "MAT001",

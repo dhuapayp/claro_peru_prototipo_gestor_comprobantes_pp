@@ -23,8 +23,8 @@
                 <f:breadcrumbs>
                     <Breadcrumbs currentLocationText="{viewModel>/pageTitle}">
                         <links>
-                            <Link text="Mis Documentos" press=".onNavToList"/>
-                            <Link text="{= (${detalle>/tipoDocumentoDesc} || '') + '  \u00b7  ' + (${detalle>/numeroDocumento} || '')}" press=".onNavBack"/>
+                            <Link text="Registro de Comprobantes" press=".onNavToList"
+                                visible="{= ${viewModel>/mode} !== 'new' || ${viewModel>/documentSelected} }"/>
                         </links>
                     </Breadcrumbs>
                 </f:breadcrumbs>
@@ -360,8 +360,368 @@
                     icon="sap-icon://add-activity"
                     validated="{viewModel>/step3Valid}">
                     <VBox class="claro-wiz-step-content">
-                                    <!-- Para Contratos -->
-                                    <VBox visible="{= ${detalle>/tipoDocumento} === 'CONTRATO' }">
+
+                        <!-- ══ Búsqueda de Documento ══ -->
+                        <Panel headerText="Búsqueda de Documento" class="claro-data-panel sapUiSmallMarginBottom">
+                            <layout:Grid defaultSpan="XL3 L3 M6 S12" hSpacing="1" vSpacing="1" class="sapUiSmallMargin">
+                                <VBox>
+                                    <Label text="Tipo de Documento" class="claro-field-label" labelFor="selectSearchTipoDoc"/>
+                                    <Select
+                                        id="selectSearchTipoDoc"
+                                        width="100%"
+                                        selectedKey="{viewModel>/searchTipoDocumento}"
+                                        change=".onSearchTipoDocumentoChange">
+                                        <core:Item key="OC" text="Orden de Compra"/>
+                                        <core:Item key="CONTRATO" text="Contrato de Arrendamiento"/>
+                                        <core:Item key="Póliza" text="Póliza"/>
+                                    </Select>
+                                </VBox>
+                                <VBox>
+                                    <Label text="Número de Documento" class="claro-field-label" labelFor="inputSearchNumDoc"/>
+                                    <Input
+                                        id="inputSearchNumDoc"
+                                        width="100%"
+                                        value="{viewModel>/searchNumeroDocumento}"
+                                        placeholder="Ej: 4500098765"
+                                        submit=".onSearchDocumento"/>
+                                </VBox>
+                                <VBox>
+                                    <Label text="Sociedad" class="claro-field-label" labelFor="selectSearchSociedad"/>
+                                    <Select
+                                        id="selectSearchSociedad"
+                                        width="100%"
+                                        selectedKey="{viewModel>/searchSociedad}">
+                                        <core:Item key="" text="Todas"/>
+                                        <core:Item key="1000" text="1000 - Claro Perú S.A.C."/>
+                                        <core:Item key="2000" text="2000 - Claro Comunicaciones S.A.C."/>
+                                        <core:Item key="3000" text="3000 - Claro Infraestructura S.A.C."/>
+                                    </Select>
+                                </VBox>
+
+                                <VBox>
+                                    <Label text="Fecha de Documento" class="claro-field-label" labelFor="dateRangeSearchFecha"/>
+                                    <DateRangeSelection
+                                        id="dateRangeSearchFecha"
+                                        width="100%"
+                                        dateValue="{viewModel>/searchFechaDesde}"
+                                        secondDateValue="{viewModel>/searchFechaHasta}"
+                                        displayFormat="dd/MM/yyyy"
+                                        placeholder="Desde - Hasta"/>
+                                </VBox>
+                                <VBox>
+                                    <Label text="Material / Servicio" class="claro-field-label" labelFor="inputSearchMaterial"/>
+                                    <Input
+                                        id="inputSearchMaterial"
+                                        width="100%"
+                                        value="{viewModel>/searchMaterial}"
+                                        placeholder="Descripción o código"
+                                        submit=".onSearchDocumento"/>
+                                </VBox>
+                                <VBox justifyContent="End">
+                                    <Label text="" class="claro-field-label" visible="{= !${viewModel>/isPhone}}"/>
+                                    <HBox>
+                                        <Button
+                                            id="btnSearchDocumento"
+                                            text="Buscar"
+                                            type="Emphasized"
+                                            icon="sap-icon://search"
+                                            press=".onSearchDocumento"
+                                            class="sapUiTinyMarginEnd"/>
+                                        <Button
+                                            id="btnClearFilters"
+                                            text="Limpiar"
+                                            type="Default"
+                                            icon="sap-icon://clear-filter"
+                                            press=".onClearSearchFilters"/>
+                                    </HBox>
+                                </VBox>
+                            </layout:Grid>
+                        </Panel>
+
+                        <!-- ══ Resultados de Búsqueda (Desktop) ══ -->
+                        <Panel headerText="{= 'Resultados de la Búsqueda (' + ${viewModel>/searchResultsCount} + ')'}"
+                            class="claro-data-panel sapUiSmallMarginBottom"
+                            visible="{= ${viewModel>/searchPerformed} &amp;&amp; !${viewModel>/isPhone}}">
+                            <VBox class="claro-table-scroll-wrapper">
+                                <Table
+                                    id="searchResultsTable"
+                                    items="{searchResultsPaged>/}"
+                                    mode="None"
+                                    alternateRowColors="true"
+                                    showSeparators="All"
+                                    class="claro-grid-table"
+                                    noDataText="No se encontraron documentos">
+                                    <columns>
+                                        <Column width="12%"><Text text="Tipo Documento"/></Column>
+                                        <Column width="11%"><Text text="Nro. Documento"/></Column>
+                                        <Column width="12%" hAlign="Right"><Text text="Valor Documento"/></Column>
+                                        <Column width="9%"><Text text="Fecha Doc."/></Column>
+                                        <Column width="5%"><Text text="Moneda"/></Column>
+                                        <Column width="11%" hAlign="Right"><Text text="Monto Facturado"/></Column>
+                                        <Column width="10%"><Text text="Estado"/></Column>
+                                        <Column width="20%"><Text text="Descripción"/></Column>
+                                        <Column width="5%" hAlign="Center"><Text text="Acciones"/></Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem
+                                            type="Active"
+                                            press=".onSearchResultRowPress">
+                                            <cells>
+                                                <HBox alignItems="Center">
+                                                    <core:Icon src="{path:'searchResultsPaged>tipoDocumento', formatter:'.formatter.formatTipoDocumentoIcon'}" size="1rem" class="sapUiTinyMarginEnd" color="Default"/>
+                                                    <Text text="{searchResultsPaged>tipoDocumentoDesc}"/>
+                                                </HBox>
+                                                <Text text="{searchResultsPaged>numeroDocumento}"/>
+                                                <ObjectNumber
+                                                    number="{path:'searchResultsPaged>valorDocumento', formatter:'.formatter.formatCurrency'}"
+                                                    unit="{searchResultsPaged>moneda}"/>
+                                                <Text text="{path:'searchResultsPaged>fechaDocumento', formatter:'.formatter.formatDate'}"/>
+                                                <Text text="{searchResultsPaged>moneda}"/>
+                                                <ObjectNumber
+                                                    number="{path:'searchResultsPaged>montoFacturado', formatter:'.formatter.formatCurrency'}"
+                                                    unit="{searchResultsPaged>moneda}"
+                                                    state="{= ${searchResultsPaged>montoFacturado} > 0 ? 'Success' : 'None'}"/>
+                                                <ObjectStatus
+                                                    text="{searchResultsPaged>estadoDocumentoDesc}"
+                                                    icon="{path:'searchResultsPaged>estadoDocumento', formatter:'.formatter.formatEstadoIcon'}"
+                                                    state="{= ${searchResultsPaged>estadoDocumento} === 'VIGENTE' ? 'Success' : (${searchResultsPaged>estadoDocumento} === 'PARCIAL' ? 'Warning' : 'None')}"/>
+                                                <Text text="{searchResultsPaged>descripcion}" maxLines="2"/>
+                                                <Button
+                                                    icon="sap-icon://detail-view"
+                                                    type="Transparent"
+                                                    tooltip="Ver detalle del documento"
+                                                    press=".onSearchResultPress"/>
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </VBox>
+                            <Toolbar class="claro-pagination-bar">
+                                <Button text="«" tooltip="Primera página"
+                                    press=".onSearchFirstPage"
+                                    enabled="{= ${viewModel>/searchPage} > 1 }"
+                                    class="claro-pagination-btn"/>
+                                <Button icon="sap-icon://navigation-left-arrow" tooltip="Anterior"
+                                    press=".onSearchPrevPage"
+                                    enabled="{= ${viewModel>/searchPage} > 1 }"
+                                    class="claro-pagination-btn"/>
+                                <ToolbarSpacer/>
+                                <Text
+                                    text="{= 'Página ' + ${viewModel>/searchPage} + ' de ' + ${viewModel>/searchTotalPages} + ' | ' + ${viewModel>/searchResultsCount} + ' registros' }"
+                                    class="claro-page-info"/>
+                                <ToolbarSpacer/>
+                                <Button icon="sap-icon://navigation-right-arrow" tooltip="Siguiente"
+                                    press=".onSearchNextPage"
+                                    enabled="{= ${viewModel>/searchPage} &lt; ${viewModel>/searchTotalPages} }"
+                                    class="claro-pagination-btn"/>
+                                <Button text="»" tooltip="Última página"
+                                    press=".onSearchLastPage"
+                                    enabled="{= ${viewModel>/searchPage} &lt; ${viewModel>/searchTotalPages} }"
+                                    class="claro-pagination-btn"/>
+                            </Toolbar>
+                        </Panel>
+
+                        <!-- ══ Resultados de Búsqueda (Mobile) ══ -->
+                        <Panel headerText="{= 'Resultados (' + ${viewModel>/searchResultsCount} + ')'}"
+                            class="claro-data-panel sapUiSmallMarginBottom"
+                            visible="{= ${viewModel>/searchPerformed} &amp;&amp; ${viewModel>/isPhone}}">
+                            <List
+                                id="searchResultsMobileList"
+                                items="{searchResultsPaged>/}"
+                                mode="None"
+                                noDataText="No se encontraron documentos">
+                                <ObjectListItem
+                                    type="Active"
+                                    press=".onSearchResultMobilePress"
+                                    intro="{searchResultsPaged>tipoDocumentoDesc}"
+                                    title="{searchResultsPaged>numeroDocumento}"
+                                    number="{path:'searchResultsPaged>valorDocumento', formatter:'.formatter.formatCurrency'}"
+                                    numberUnit="{searchResultsPaged>moneda}">
+                                    <firstStatus>
+                                        <ObjectStatus
+                                            text="{searchResultsPaged>estadoDocumentoDesc}"
+                                            state="{= ${searchResultsPaged>estadoDocumento} === 'VIGENTE' ? 'Success' : (${searchResultsPaged>estadoDocumento} === 'PARCIAL' ? 'Warning' : 'None')}"/>
+                                    </firstStatus>
+                                    <attributes>
+                                        <ObjectAttribute title="Fecha" text="{path:'searchResultsPaged>fechaDocumento', formatter:'.formatter.formatDate'}"/>
+                                    </attributes>
+                                </ObjectListItem>
+                            </List>
+                            <Toolbar class="claro-pagination-bar">
+                                <Button text="«" tooltip="Primera página"
+                                    press=".onSearchFirstPage"
+                                    enabled="{= ${viewModel>/searchPage} > 1 }"
+                                    class="claro-pagination-btn"/>
+                                <Button icon="sap-icon://navigation-left-arrow" tooltip="Anterior"
+                                    press=".onSearchPrevPage"
+                                    enabled="{= ${viewModel>/searchPage} > 1 }"
+                                    class="claro-pagination-btn"/>
+                                <ToolbarSpacer/>
+                                <Text
+                                    text="{= 'Pag ' + ${viewModel>/searchPage} + ' de ' + ${viewModel>/searchTotalPages} + ' | ' + ${viewModel>/searchResultsCount} + ' Reg.' }"
+                                    class="claro-page-info"/>
+                                <ToolbarSpacer/>
+                                <Button icon="sap-icon://navigation-right-arrow" tooltip="Siguiente"
+                                    press=".onSearchNextPage"
+                                    enabled="{= ${viewModel>/searchPage} &lt; ${viewModel>/searchTotalPages} }"
+                                    class="claro-pagination-btn"/>
+                                <Button text="»" tooltip="Última página"
+                                    press=".onSearchLastPage"
+                                    enabled="{= ${viewModel>/searchPage} &lt; ${viewModel>/searchTotalPages} }"
+                                    class="claro-pagination-btn"/>
+                            </Toolbar>
+                        </Panel>
+
+                        <!-- ══════════════════════════════════════════════════════════════════ -->
+                        <!-- SECCIÓN B: POSICIONES DEL DOCUMENTO SELECCIONADO (OC/Póliza)    -->
+                        <!-- ══════════════════════════════════════════════════════════════════ -->
+                        <Panel
+                            id="posicionesPanel"
+                            headerText="{= 'Posiciones de ' + (${detalle>/tipoDocumentoDesc} || '') + ' ' + (${detalle>/numeroDocumento} || '') + ' (' + ${viewModel>/posicionesTotal} + ' posiciones)'}"
+                            class="claro-data-panel sapUiSmallMarginBottom"
+                            visible="{= ${viewModel>/documentSelected} &amp;&amp; ${detalle>/tipoDocumento} !== 'CONTRATO' &amp;&amp; !${viewModel>/isPhone}}">
+                            <headerToolbar>
+                                <OverflowToolbar>
+                                    <core:Icon src="sap-icon://shipping-status" color="var(--claro-red, #DA291C)" class="sapUiTinyMarginEnd"/>
+                                    <Title text="{= 'Posiciones de ' + (${detalle>/tipoDocumentoDesc} || '') + ' ' + (${detalle>/numeroDocumento} || '')}" level="H5"/>
+                                    <ToolbarSpacer/>
+
+                                    <Button
+                                        text="{= 'Asignar (' + ${viewModel>/countSelectedPosiciones} + ')' }"
+                                        type="Accept"
+                                        icon="sap-icon://add"
+                                        press=".onAsignarPosiciones"
+                                        enabled="{viewModel>/hasSelectedPosiciones}"/>
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <VBox class="claro-table-scroll-wrapper">
+                            <Table
+                                id="posicionesAsignacionTable"
+                                items="{posiciones>/}"
+                                mode="{= ${viewModel>/readOnly} ? 'None' : 'MultiSelect' }"
+                                selectionChange=".onPosicionesSelectionChange"
+                                alternateRowColors="true"
+                                showSeparators="All"
+                                class="claro-grid-table claro-full-width">
+                                <columns>
+                                    <Column width="6%" hAlign="Center"><Text text="Pos."/></Column>
+                                    <Column width="12%"><Text text="Código"/></Column>
+                                    <Column width="38%"><Text text="Descripción"/></Column>
+                                    <Column width="10%" hAlign="End"><Text text="Cant."/></Column>
+                                    <Column width="8%" hAlign="Center"><Text text="UM"/></Column>
+                                    <Column width="16%" hAlign="End"><Text text="Importe"/></Column>
+                                    <Column width="10%" hAlign="Center"><Text text="Estado"/></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem
+                                        type="Active"
+                                        highlight="{= ${posiciones>asignado} ? 'Success' : 'Warning' }"
+                                        class="{= ${posiciones>asignado} ? 'claro-row-asignado' : '' }">
+                                        <cells>
+                                            <Text text="{posiciones>posicion}" textAlign="Center"/>
+                                            <Text text="{posiciones>codigoServicio}"/>
+                                            <Text text="{posiciones>descripcion}"/>
+                                            <Text text="{posiciones>cantidad}" textAlign="End"/>
+                                            <Text text="{posiciones>unidadMedida}" textAlign="Center"/>
+                                            <ObjectNumber
+                                                number="{path: 'posiciones>importe', formatter: '.formatter.formatCurrency'}"
+                                                unit="{posiciones>moneda}"/>
+                                            <ObjectStatus
+                                                icon="{= ${posiciones>asignado} ? 'sap-icon://sys-enter-2' : 'sap-icon://pending' }"
+                                                text="{= ${posiciones>asignado} ? 'Asignado' : 'Pendiente' }"
+                                                state="{= ${posiciones>asignado} ? 'Success' : 'Warning' }"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                            </VBox>
+                            <Toolbar class="claro-pagination-bar">
+                                <Button text="«" tooltip="Primera página"
+                                    press=".onPosicionesFirstPage"
+                                    enabled="{= ${viewModel>/posicionesPage} > 1 }"
+                                    class="claro-pagination-btn"/>
+                                <Button icon="sap-icon://navigation-left-arrow" tooltip="Anterior"
+                                    press=".onPosicionesPrevPage"
+                                    enabled="{= ${viewModel>/posicionesPage} > 1 }"
+                                    class="claro-pagination-btn"/>
+                                <ToolbarSpacer/>
+                                <Text
+                                    text="{= 'Página ' + ${viewModel>/posicionesPage} + ' de ' + ${viewModel>/posicionesTotalPages} + ' | ' + ${viewModel>/posicionesTotal} + ' registros' }"
+                                    class="claro-page-info"/>
+                                <ToolbarSpacer/>
+                                <Button icon="sap-icon://navigation-right-arrow" tooltip="Siguiente"
+                                    press=".onPosicionesNextPage"
+                                    enabled="{= ${viewModel>/posicionesPage} &lt; ${viewModel>/posicionesTotalPages} }"
+                                    class="claro-pagination-btn"/>
+                                <Button text="»" tooltip="Última página"
+                                    press=".onPosicionesLastPage"
+                                    enabled="{= ${viewModel>/posicionesPage} &lt; ${viewModel>/posicionesTotalPages} }"
+                                    class="claro-pagination-btn"/>
+                            </Toolbar>
+                        </Panel>
+
+                        <!-- Posiciones Mobile (OC/Póliza) -->
+                        <Panel headerText="{= 'Posiciones de ' + (${detalle>/numeroDocumento} || '') + ' (' + ${viewModel>/posicionesTotal} + ')'}"
+                            class="claro-data-panel"
+                            visible="{= ${viewModel>/documentSelected} &amp;&amp; ${detalle>/tipoDocumento} !== 'CONTRATO' &amp;&amp; ${viewModel>/isPhone}}">
+                            <List
+                                id="posicionesMobileList"
+                                items="{posicionesPaged>/}"
+                                mode="{= ${viewModel>/readOnly} ? 'None' : 'MultiSelect' }"
+                                selectionChange=".onPosicionesMobileSelectionChange"
+                                showSeparators="Inner"
+                                noDataText="No hay posiciones disponibles">
+                                <headerToolbar>
+                                    <OverflowToolbar>
+                                        <ToolbarSpacer/>
+                                        <Button
+                                            text="{= 'Asignar (' + ${viewModel>/countSelectedPosiciones} + ')' }"
+                                            type="Accept"
+                                            icon="sap-icon://add"
+                                            press=".onAsignarPosicionesMobile"
+                                            visible="{= !${viewModel>/readOnly}}"
+                                            enabled="{viewModel>/hasSelectedPosiciones}"/>
+                                    </OverflowToolbar>
+                                </headerToolbar>
+                                <items>
+                                    <ObjectListItem
+                                        title="{posicionesPaged>descripcion}"
+                                        intro="{= 'Pos. ' + ${posicionesPaged>posicion} + '  \u00b7  ' + ${posicionesPaged>codigoServicio}}"
+                                        number="{path: 'posicionesPaged>importe', formatter: '.formatter.formatCurrency'}"
+                                        numberUnit="{posicionesPaged>moneda}"
+                                        highlight="{= ${posicionesPaged>asignado} ? 'Success' : 'Warning' }"
+                                        type="Active"
+                                        press=".onOpenPosicionMobileDialog">
+                                        <firstStatus>
+                                            <ObjectStatus
+                                                text="{= ${posicionesPaged>asignado} ? 'Asignado' : 'Pendiente'}"
+                                                state="{= ${posicionesPaged>asignado} ? 'Success' : 'Warning' }"/>
+                                        </firstStatus>
+                                        <attributes>
+                                            <ObjectAttribute text="{= 'Cant: ' + ${posicionesPaged>cantidad} + ' ' + ${posicionesPaged>unidadMedida}}"/>
+                                        </attributes>
+                                    </ObjectListItem>
+                                </items>
+                            </List>
+                            <Toolbar class="claro-pagination-bar">
+                                <Button text="«" tooltip="Primera página"
+                                    press=".onPosMobileFirstPage" enabled="{viewModel>/posMobilePrevEnabled}" class="claro-pagination-btn"/>
+                                <Button icon="sap-icon://navigation-left-arrow" tooltip="Anterior"
+                                    press=".onPosMobilePrevPage" enabled="{viewModel>/posMobilePrevEnabled}" class="claro-pagination-btn"/>
+                                <ToolbarSpacer/>
+                                <Text text="{viewModel>/posMobilePageInfo}" class="claro-page-info"/>
+                                <ToolbarSpacer/>
+                                <Button icon="sap-icon://navigation-right-arrow" tooltip="Siguiente"
+                                    press=".onPosMobileNextPage" enabled="{viewModel>/posMobileNextEnabled}" class="claro-pagination-btn"/>
+                                <Button text="»" tooltip="Última página"
+                                    press=".onPosMobileLastPage" enabled="{viewModel>/posMobileNextEnabled}" class="claro-pagination-btn"/>
+                            </Toolbar>
+                        </Panel>
+
+                        <!-- ══════════════════════════════════════════════════════════════════ -->
+                        <!-- SECCIÓN B-ALT: CONTRATOS (concepto + programación + pendientes)  -->
+                        <!-- ══════════════════════════════════════════════════════════════════ -->
+                                    <VBox id="contratoPanel" visible="{= ${viewModel>/documentSelected} &amp;&amp; ${detalle>/tipoDocumento} === 'CONTRATO' }">
                                         <MessageStrip 
                                             text="{i18n>instruccionesAsignacionContrato}"
                                             type="Information"
@@ -732,188 +1092,106 @@
                                         </Panel>
                                     </VBox>
 
-                                    <!-- Para OC/Póliza -->
-                                    <VBox visible="{= ${detalle>/tipoDocumento} !== 'CONTRATO' }">
-                                        <MessageStrip 
-                                            text="{i18n>instruccionesAsignacionOC}"
-                                            type="Information"
-                                            showIcon="true"
-                                            class="sapUiSmallMarginBottom"/>
-                                        
-                                        <!-- Filtro de Estado -->
-                                        <Panel headerText="{i18n>filtrarPosiciones}" class="sapUiSmallMarginBottom"
-                                            visible="{= !${viewModel>/readOnly}}">
-                                            <HBox alignItems="End" class="sapUiSmallMargin">
-                                                <VBox class="sapUiSmallMarginEnd">
-                                                    <Label text="{i18n>estadoPosicion}" labelFor="selectEstadoPosicion"/>
-                                                    <Select 
-                                                        id="selectEstadoPosicion"
-                                                        width="200px"
-                                                        selectedKey="{viewModel>/filterEstadoPosicion}"
-                                                        change=".onFilterPosicionesChange">
-                                                        <core:Item key="" text="{i18n>todos}"/>
-                                                        <core:Item key="PENDIENTE" text="{i18n>pendiente}"/>
-                                                        <core:Item key="FACTURADO" text="{i18n>facturado}"/>
-                                                    </Select>
-                                                </VBox>
-                                            </HBox>
-                                        </Panel>
-                                        
-                                        <!-- Tabla de Posiciones (Desktop) -->
-                                        <VBox class="claro-full-width" visible="{= !${viewModel>/isPhone}}">
-                                            <OverflowToolbar class="claro-section-header-toolbar">
-                                                <core:Icon src="sap-icon://detail-view" color="var(--claro-red, #DA291C)" class="sapUiTinyMarginEnd"/>
-                                                <Title text="{= 'Posiciones Disponibles  (' + ${viewModel>/posicionesTotal} + ' registros)'}" level="H5"/>
-                                                <ToolbarSpacer/>
+                        <!-- ══════════════════════════════════════════════════════════════════ -->
+                        <!-- SECCIÓN C: ASIGNACIONES ACUMULADAS (siempre visible)             -->
+                        <!-- ══════════════════════════════════════════════════════════════════ -->
+                        <Panel
+                            headerText="{= 'Asignaciones del Comprobante (' + ${viewModel>/asignacionesCount} + ')'}"
+                            class="claro-data-panel sapUiSmallMarginTop"
+                            visible="{= ${viewModel>/asignacionesCount} > 0 &amp;&amp; !${viewModel>/isPhone}}">
+                            <headerToolbar>
+                                <OverflowToolbar>
+                                    <core:Icon src="sap-icon://attachment" color="var(--claro-red, #DA291C)" class="sapUiTinyMarginEnd"/>
+                                    <Title text="{= 'Asignaciones del Comprobante (' + ${viewModel>/asignacionesCount} + ')'}" level="H5"/>
+                                    <ToolbarSpacer/>
+                                    <ObjectNumber
+                                        number="{path: 'viewModel>/totalAsignado', formatter: '.formatter.formatCurrency'}"
+                                        unit="PEN"
+                                        emphasized="true"
+                                        state="Success"/>
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <VBox class="claro-table-scroll-wrapper">
+                                <Table
+                                    id="asignacionesAcumuladasTable"
+                                    items="{viewModel>/asignaciones}"
+                                    alternateRowColors="true"
+                                    showSeparators="All"
+                                    class="claro-grid-table claro-full-width"
+                                    noDataText="No hay asignaciones">
+                                    <columns>
+                                        <Column width="15%"><Text text="Doc. Origen"/></Column>
+                                        <Column width="10%"><Text text="Tipo"/></Column>
+                                        <Column width="7%" hAlign="Center"><Text text="Pos."/></Column>
+                                        <Column width="28%"><Text text="Descripción"/></Column>
+                                        <Column width="8%" hAlign="End"><Text text="Cant."/></Column>
+                                        <Column width="17%" hAlign="End"><Text text="Importe"/></Column>
+                                        <Column width="8%" hAlign="Center"><Text text="Acciones"/></Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <Link text="{viewModel>_sourceDoc}" press=".onAsignacionDocClick"/>
+                                                <Text text="{viewModel>_sourceDocType}"/>
+                                                <Text text="{viewModel>posicion}" textAlign="Center"/>
+                                                <Text text="{viewModel>descripcion}"/>
+                                                <Text text="{viewModel>cantidad}" textAlign="End"/>
+                                                <ObjectNumber
+                                                    number="{path: 'viewModel>importe', formatter: '.formatter.formatCurrency'}"
+                                                    unit="{viewModel>moneda}"/>
                                                 <Button
-                                                    id="btnDesasignarPosicion"
-                                                    text="Desasignar"
-                                                    type="Reject"
-                                                    icon="sap-icon://undo"
-                                                    press=".onDesasignarPosiciones"
-                                                    visible="{= !${viewModel>/readOnly}}"
-                                                    enabled="{viewModel>/hasSelectedPosiciones}"
-                                                    class="sapUiSmallMarginEnd"/>
-                                                <Button
-                                                    id="btnAsignarPosiciones"
-                                                    text="{i18n>asignar}"
-                                                    type="Accept"
-                                                    icon="sap-icon://accept"
-                                                    press=".onAsignarPosiciones"
-                                                    visible="{= !${viewModel>/readOnly}}"
-                                                    enabled="{viewModel>/hasSelectedPosiciones}"/>
-                                            </OverflowToolbar>
-                                            <VBox class="claro-table-scroll-wrapper">
-                                            <Table
-                                                id="posicionesAsignacionTable"
-                                                items="{posiciones>/}"
-                                                mode="{= ${viewModel>/readOnly} ? 'None' : 'MultiSelect' }"
-                                                selectionChange=".onPosicionesSelectionChange"
-                                                alternateRowColors="true"
-                                                showSeparators="All"
-                                                class="claro-grid-table claro-full-width">
-                                                <columns>
-                                                    <Column width="6%" hAlign="Center"><Text text="Pos."/></Column>
-                                                    <Column width="10%"><Text text="Código"/></Column>
-                                                    <Column width="34%"><Text text="Descripción"/></Column>
-                                                    <Column width="9%" hAlign="End"><Text text="Cant."/></Column>
-                                                    <Column width="6%" hAlign="Center"><Text text="UM"/></Column>
-                                                    <Column width="16%" hAlign="End"><Text text="Importe"/></Column>
-                                                    <Column width="19%"><Text text="Estado"/></Column>
-                                                </columns>
-                                                <items>
-                                                    <ColumnListItem
-                                                        type="{= ${posiciones>estado} === 'PENDIENTE' ? 'Active' : 'Inactive' }"
-                                                        highlight="{= ${posiciones>estado} === 'PENDIENTE' ? 'Warning' : 'Success' }"
-                                                        class="{= ${posiciones>asignado} ? 'claro-row-asignado' : '' }">
-                                                        <cells>
-                                                            <Text text="{posiciones>posicion}" textAlign="Center"/>
-                                                            <Text text="{posiciones>codigoServicio}"/>
-                                                            <Text text="{posiciones>descripcion}"/>
-                                                            <Text text="{posiciones>cantidad}" textAlign="End"/>
-                                                            <Text text="{posiciones>unidadMedida}" textAlign="Center"/>
-                                                            <ObjectNumber
-                                                                number="{path: 'posiciones>importe', formatter: '.formatter.formatCurrency'}"
-                                                                unit="{posiciones>moneda}"/>
-                                                            <ObjectStatus
-                                                                icon="{= ${posiciones>estado} === 'PENDIENTE' ? 'sap-icon://pending' : 'sap-icon://sys-enter-2' }"
-                                                                text="{posiciones>estadoDesc}"
-                                                                state="{= ${posiciones>estado} === 'PENDIENTE' ? 'Warning' : 'Success' }"/>
-                                                        </cells>
-                                                    </ColumnListItem>
-                                                </items>
-                                            </Table>
-                                            </VBox>
-                                            <Toolbar class="claro-pagination-bar">
-                                                <Button text="«" tooltip="Primera página"
-                                                    press=".onPosicionesFirstPage"
-                                                    enabled="{= ${viewModel>/posicionesPage} > 1 }"
-                                                    class="claro-pagination-btn"/>
-                                                <Button icon="sap-icon://navigation-left-arrow" tooltip="Anterior"
-                                                    press=".onPosicionesPrevPage"
-                                                    enabled="{= ${viewModel>/posicionesPage} > 1 }"
-                                                    class="claro-pagination-btn"/>
-                                                <ToolbarSpacer/>
-                                                <Text
-                                                    text="{= 'Página ' + ${viewModel>/posicionesPage} + ' de ' + ${viewModel>/posicionesTotalPages} + ' | ' + ${viewModel>/posicionesTotal} + ' registros' }"
-                                                    class="claro-page-info"/>
-                                                <ToolbarSpacer/>
-                                                <Button icon="sap-icon://navigation-right-arrow" tooltip="Siguiente"
-                                                    press=".onPosicionesNextPage"
-                                                    enabled="{= ${viewModel>/posicionesPage} &lt; ${viewModel>/posicionesTotalPages} }"
-                                                    class="claro-pagination-btn"/>
-                                                <Button text="»" tooltip="Última página"
-                                                    press=".onPosicionesLastPage"
-                                                    enabled="{= ${viewModel>/posicionesPage} &lt; ${viewModel>/posicionesTotalPages} }"
-                                                    class="claro-pagination-btn"/>
-                                            </Toolbar>
-                                        </VBox>
+                                                    icon="sap-icon://delete"
+                                                    type="Transparent"
+                                                    tooltip="Quitar asignación"
+                                                    press=".onQuitarAsignacion"/>
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </VBox>
+                        </Panel>
 
-                                        <!-- Lista Mobile: Posiciones Disponibles -->
-                                        <Panel headerText="{= 'Posiciones  (' + ${viewModel>/posicionesTotal} + ')'}" class="claro-data-panel"
-                                            visible="{viewModel>/isPhone}">
-                                            <List
-                                                id="posicionesMobileList"
-                                                items="{posicionesPaged>/}"
-                                                mode="{= ${viewModel>/readOnly} ? 'None' : 'MultiSelect' }"
-                                                selectionChange=".onPosicionesMobileSelectionChange"
-                                                showSeparators="Inner"
-                                                noDataText="No hay posiciones disponibles">
-                                                <headerToolbar>
-                                                    <OverflowToolbar>
-                                                        <ToolbarSpacer/>
-                                                        <Button
-                                                            text="Desasignar"
-                                                            type="Reject"
-                                                            icon="sap-icon://undo"
-                                                            press=".onDesasignarPosicionesMobile"
-                                                            visible="{= !${viewModel>/readOnly}}"
-                                                            enabled="{viewModel>/hasSelectedPosiciones}"
-                                                            class="sapUiSmallMarginEnd"/>
-                                                        <Button
-                                                            text="{i18n>asignar}"
-                                                            type="Accept"
-                                                            icon="sap-icon://accept"
-                                                            press=".onAsignarPosicionesMobile"
-                                                            visible="{= !${viewModel>/readOnly}}"
-                                                            enabled="{viewModel>/hasSelectedPosiciones}"/>
-                                                    </OverflowToolbar>
-                                                </headerToolbar>
-                                                <items>
-                                                    <ObjectListItem
-                                                        title="{posicionesPaged>descripcion}"
-                                                        intro="{= 'Pos. ' + ${posicionesPaged>posicion} + '  \u00b7  ' + ${posicionesPaged>codigoServicio}}"
-                                                        number="{path: 'posicionesPaged>importe', formatter: '.formatter.formatCurrency'}"
-                                                        numberUnit="{posicionesPaged>moneda}"
-                                                        highlight="{= ${posicionesPaged>asignado} ? 'Success' : (${posicionesPaged>estado} === 'PENDIENTE' ? 'Warning' : 'Success') }"
-                                                        type="Active"
-                                                        press=".onOpenPosicionMobileDialog">
-                                                        <firstStatus>
-                                                            <ObjectStatus
-                                                                text="{= ${posicionesPaged>asignado} ? 'Asignado' : ${posicionesPaged>estadoDesc}}"
-                                                                state="{= ${posicionesPaged>asignado} ? 'Success' : (${posicionesPaged>estado} === 'PENDIENTE' ? 'Warning' : 'Success') }"/>
-                                                        </firstStatus>
-                                                        <attributes>
-                                                            <ObjectAttribute text="{= 'Cant: ' + ${posicionesPaged>cantidad} + ' ' + ${posicionesPaged>unidadMedida}}"/>
-                                                        </attributes>
-                                                    </ObjectListItem>
-                                                </items>
-                                            </List>
-                                            <Toolbar class="claro-pagination-bar">
-                                                <Button text="«" tooltip="Primera página"
-                                                    press=".onPosMobileFirstPage" enabled="{viewModel>/posMobilePrevEnabled}" class="claro-pagination-btn"/>
-                                                <Button icon="sap-icon://navigation-left-arrow" tooltip="Anterior"
-                                                    press=".onPosMobilePrevPage" enabled="{viewModel>/posMobilePrevEnabled}" class="claro-pagination-btn"/>
-                                                <ToolbarSpacer/>
-                                                <Text text="{viewModel>/posMobilePageInfo}" class="claro-page-info"/>
-                                                <ToolbarSpacer/>
-                                                <Button icon="sap-icon://navigation-right-arrow" tooltip="Siguiente"
-                                                    press=".onPosMobileNextPage" enabled="{viewModel>/posMobileNextEnabled}" class="claro-pagination-btn"/>
-                                                <Button text="»" tooltip="Última página"
-                                                    press=".onPosMobileLastPage" enabled="{viewModel>/posMobileNextEnabled}" class="claro-pagination-btn"/>
-                                            </Toolbar>
-                                        </Panel>
-                                    </VBox>
+                        <!-- Asignaciones Mobile -->
+                        <Panel
+                            headerText="{= 'Asignaciones (' + ${viewModel>/asignacionesCount} + ')'}"
+                            class="claro-data-panel sapUiSmallMarginTop"
+                            visible="{= ${viewModel>/asignacionesCount} > 0 &amp;&amp; ${viewModel>/isPhone}}">
+                            <headerToolbar>
+                                <OverflowToolbar>
+                                    <core:Icon src="sap-icon://attachment" color="var(--claro-red, #DA291C)" class="sapUiTinyMarginEnd"/>
+                                    <Title text="Asignaciones" level="H5"/>
+                                    <ToolbarSpacer/>
+                                    <ObjectNumber
+                                        number="{path: 'viewModel>/totalAsignado', formatter: '.formatter.formatCurrency'}"
+                                        unit="PEN"
+                                        emphasized="true"
+                                        state="Success"/>
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <List
+                                id="asignacionesMobileList"
+                                items="{viewModel>/asignaciones}"
+                                showSeparators="Inner"
+                                noDataText="No hay asignaciones">
+                                <items>
+                                    <ObjectListItem
+                                        title="{viewModel>descripcion}"
+                                        intro="{= ${viewModel>_sourceDocType} + ' ' + ${viewModel>_sourceDoc} + ' · Pos. ' + ${viewModel>posicion}}"
+                                        number="{path: 'viewModel>importe', formatter: '.formatter.formatCurrency'}"
+                                        numberUnit="{viewModel>moneda}"
+                                        highlight="Success"
+                                        type="Active"
+                                        press=".onQuitarAsignacion">
+                                        <firstStatus>
+                                            <ObjectStatus text="Asignado" state="Success"/>
+                                        </firstStatus>
+                                        <attributes>
+                                            <ObjectAttribute text="{= 'Cant: ' + ${viewModel>cantidad} + ' ' + ${viewModel>unidadMedida}}"/>
+                                        </attributes>
+                                    </ObjectListItem>
+                                </items>
+                            </List>
+                        </Panel>
 
                     </VBox>
                 </WizardStep>
@@ -1047,7 +1325,7 @@
 
                                                 <VBox class="claro-field-cell">
                                                     <Label text="{i18n>documentoOrigen}" class="claro-field-label"/>
-                                                    <Text text="{= ${detalle>/tipoDocumentoDesc} + ' - ' + ${detalle>/numeroDocumento} }" class="claro-field-value"/>
+                                                    <Text text="{viewModel>/documentosOrigenResumen}" class="claro-field-value"/>
                                                 </VBox>
 
                                                 <VBox class="claro-field-cell">
