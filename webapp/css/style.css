@@ -157,15 +157,28 @@
     border-color: #b5200e !important;
 }
 
+/* Ocultar botón "Revisar" del último paso (generado internamente por el Wizard) */
+[id*="wizardStep4"] .sapMWizardNextButton {
+    display: none !important;
+}
+
 /* ── Wizard step content area ── */
 .claro-wiz-step-content {
     padding: 1.5rem 2rem 1rem;
     width: 100%;
     box-sizing: border-box;
 }
+/* Step 1: expandir el contenido para que el botón Siguiente quede en la parte inferior */
+.claro-wiz-step1-content {
+    flex: 1;
+    min-height: 55vh;
+}
 @media (max-width: 599px) {
     .claro-wiz-step-content {
         padding: 0.75rem 0.75rem 0.25rem;
+    }
+    .claro-wiz-step1-content {
+        min-height: 40vh;
     }
 }
 
@@ -272,6 +285,25 @@
     justify-content: center;
 }
 
+/* ── Link "N Órdenes de Compra" — siempre visible como link azul subrayado ── */
+.claro-field-value.sapMLnk,
+.claro-field-value.sapMLnk .sapMLnkText {
+    color: var(--sapLinkColor, #0070f2) !important;
+    text-decoration: underline !important;
+    cursor: pointer;
+}
+.claro-field-value.sapMLnk:hover,
+.claro-field-value.sapMLnk:hover .sapMLnkText {
+    color: var(--sapLink_Hover_Color, #0064d9) !important;
+}
+.claro-field-value.sapMLnk:focus,
+.claro-field-value.sapMLnk:focus-visible,
+.claro-field-value.sapMLnk:active {
+    background-color: transparent !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
 /* ── Paso 4: Banda financiera del resumen final ── */
 .claro-resumen-fin-strip {
     background: #f0faf3;
@@ -365,6 +397,24 @@
     border: 1px solid var(--sapList_BorderColor, #e4e4e4);
 }
 
+/* ── Group header rows (RE-FX pattern) ─────────────────────────────── */
+.claro-data-panel .claro-grid-table .sapMGHLI,
+.claro-group-header.sapMGHLI {
+    background-color: var(--sapList_GroupHeaderBackground, #f5f5f5) !important;
+    border-top: 2px solid var(--claro-red, #DA291C) !important;
+}
+.claro-data-panel .claro-grid-table .sapMGHLITitle,
+.claro-group-header .sapMGHLITitle {
+    font-weight: 600 !important;
+    font-size: 0.875rem !important;
+    color: var(--sapList_GroupHeaderTextColor, #32363a) !important;
+}
+.claro-data-panel .claro-grid-table .sapMGHLICount,
+.claro-group-header .sapMGHLICount {
+    color: var(--claro-red, #DA291C) !important;
+    font-weight: 600 !important;
+}
+
 #documentsTable .sapMListTbl th,
 #documentsTable .sapMListTbl td,
 .claro-grid-table .sapMListTbl th,
@@ -388,6 +438,17 @@
     padding: 0 !important;
     margin: 0 !important;
     border: none !important;
+}
+
+/* Highlight indicator cell — forzar ancho mínimo Fiori estándar en scroll wrapper
+   (border-collapse:separate rompe el ancho que fija el framework por defecto) */
+.claro-table-scroll-wrapper .sapMListTblHighlightCell {
+    width: 0.375rem !important;
+    min-width: 0.375rem !important;
+    max-width: 0.375rem !important;
+    padding: 0 !important;
+    border-right: none !important;
+    overflow: hidden !important;
 }
 
 /* ═══════════════════════════════════════════════════

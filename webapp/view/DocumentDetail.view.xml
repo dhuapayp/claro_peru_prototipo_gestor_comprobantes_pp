@@ -389,12 +389,12 @@
                                 class="claro-grid-table claro-full-width"
                                 noDataText="No hay comprobantes registrados">
                                 <columns>
-                                    <Column width="17%"><Text text="Serie-Número"/></Column>
-                                    <Column width="12%"><Text text="F. Emisión"/></Column>
-                                    <Column width="15%" hAlign="Right"><Text text="Monto Total"/></Column>
-                                    <Column width="11%"><Text text="Estado"/></Column>
-                                    <Column width="17%"><Text text="F. Registro"/></Column>
-                                    <Column width="25%" hAlign="Center" visible="false"><Text text="Acciones"/></Column>
+                                    <Column width="20%"><Text text="Serie-Número"/></Column>
+                                    <Column width="14%"><Text text="F. Emisión"/></Column>
+                                    <Column width="18%" hAlign="Right"><Text text="Monto Total"/></Column>
+                                    <Column width="13%"><Text text="Estado"/></Column>
+                                    <Column width="35%"><Text text="F. Registro"/></Column>
+                                    <Column width="0%" hAlign="Center" visible="false"><Text text="Acciones"/></Column>
                                 </columns>
                                 <items>
                                     <ColumnListItem

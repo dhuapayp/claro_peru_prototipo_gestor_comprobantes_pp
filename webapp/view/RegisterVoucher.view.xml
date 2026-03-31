@@ -63,7 +63,7 @@
                     title="Cargar Archivos"
                     icon="sap-icon://attachment"
                     validated="{viewModel>/step1Valid}">
-                    <VBox class="claro-wiz-step-content">
+                    <VBox class="claro-wiz-step-content claro-wiz-step1-content">
 
                         <MessageStrip
                             text="{i18n>instruccionesArchivos}"
@@ -719,376 +719,125 @@
                         </Panel>
 
                         <!-- ══════════════════════════════════════════════════════════════════ -->
-                        <!-- SECCIÓN B-ALT: CONTRATOS (concepto + programación + pendientes)  -->
+                        <!-- SECCIÓN B-ALT: CONTRATOS — Tabla agrupada por concepto (RE-FX)  -->
                         <!-- ══════════════════════════════════════════════════════════════════ -->
                                     <VBox id="contratoPanel" visible="{= ${viewModel>/documentSelected} &amp;&amp; ${detalle>/tipoDocumento} === 'CONTRATO' }">
-                                        <MessageStrip 
-                                            text="{i18n>instruccionesAsignacionContrato}"
+                                        <MessageStrip
+                                            text="Seleccione los períodos que desea incluir en este comprobante. Puede elegir registros de distintos conceptos."
                                             type="Information"
                                             showIcon="true"
                                             class="sapUiSmallMarginBottom"/>
-                                        
-                                        <!-- Selección de Concepto (responsivo) -->
-                                        <Panel headerText="{i18n>seleccionarConcepto}" class="claro-data-panel sapUiSmallMarginBottom"
+
+                                        <!-- Panel: Pendientes Agrupados por Concepto -->
+                                        <Panel class="claro-data-panel sapUiSmallMarginBottom"
                                             visible="{= !${viewModel>/readOnly}}">
-                                            <layout:Grid defaultSpan="XL3 L3 M6 S12" hSpacing="1" vSpacing="1" class="sapUiSmallMargin">
-                                                <VBox>
-                                                    <Label text="N° Contrato" class="claro-field-label"/>
-                                                    <Input value="{contrato>/numeroContrato}" editable="false" width="100%" class="claro-readonly-input"/>
-                                                </VBox>
-                                                <VBox>
-                                                    <Label text="Periodo" class="claro-field-label" labelFor="dpPeriodoAsig"/>
-                                                    <DatePicker
-                                                        id="dpPeriodoAsig"
-                                                        value="{viewModel>/periodoAsignacion}"
-                                                        valueFormat="dd/MM/yyyy"
-                                                        displayFormat="dd/MM/yyyy"
-                                                        enabled="false"
-                                                        width="100%"/>
-                                                </VBox>
-                                                <VBox>
-                                                    <Label text="{i18n>concepto}" class="claro-field-label" labelFor="selectConcepto"/>
-                                                    <Select
-                                                        id="selectConcepto"
-                                                        width="100%"
-                                                        items="{contrato>/conceptos}"
-                                                        selectedKey="{viewModel>/selectedConceptoId}"
-                                                        change=".onConceptoChange">
-                                                        <core:Item key="{contrato>id}" text="{= ${contrato>codigo} + ' - ' + ${contrato>concepto} }"/>
-                                                    </Select>
-                                                </VBox>
-                                                <VBox justifyContent="End">
-                                                    <Label text="" class="claro-field-label" visible="{= !${viewModel>/isPhone}}"/>
+                                            <headerToolbar>
+                                                <OverflowToolbar>
+                                                    <core:Icon src="sap-icon://business-objects-experience" color="var(--claro-red,#DA291C)" class="sapUiTinyMarginEnd"/>
+                                                    <Title text="{= 'Contrato ' + ${contrato>/numeroContrato} + '  —  Pendientes por Facturar'}" level="H5"/>
+                                                    <ToolbarSpacer/>
+                                                    <Text text="{= ${viewModel>/pendientesSelCount} + ' seleccionado(s)  ·  S/ ' + ${viewModel>/pendientesSelTotal}}"
+                                                        visible="{= ${viewModel>/pendientesSelCount} > 0}"
+                                                        class="claro-page-info sapUiSmallMarginEnd"/>
                                                     <Button
-                                                        id="btnAgregarConcepto"
-                                                        text="{i18n>agregarConceptoPago}"
-                                                        type="Emphasized"
-                                                        icon="sap-icon://add"
-                                                        press=".onAgregarConcepto"
-                                                        enabled="{= !!${viewModel>/selectedConceptoId} }"
-                                                        width="{= ${viewModel>/isPhone} ? '100%' : 'auto'}"/>
-                                                </VBox>
-                                            </layout:Grid>
-                                        </Panel>
-                                        
-                                        <!-- Tabla: Obligaciones de Pago - Programación (Desktop) -->
-                                        <Panel headerText="{= 'Obligaciones de Pago - Programación  (' + ${viewModel>/progDesktopTotal} + ' registros)'}" class="claro-data-panel sapUiSmallMarginBottom"
-                                            visible="{= !${viewModel>/isPhone}}">
-                                            <Table 
-                                                id="obligacionesTable"
-                                                items="{programacion>/}"
-                                                mode="None"
-                                                alternateRowColors="true"
-                                                noDataText="{i18n>seleccioneConcepto}"
+                                                        text="Limpiar selección"
+                                                        type="Transparent"
+                                                        icon="sap-icon://clear-all"
+                                                        press=".onLimpiarSeleccionContrato"
+                                                        visible="{= ${viewModel>/pendientesSelCount} > 0 &amp;&amp; !${viewModel>/readOnly}}"/>
+                                                    <Button
+                                                        id="btnDesasignarPendientes"
+                                                        text="Desasignar"
+                                                        type="Reject"
+                                                        icon="sap-icon://undo"
+                                                        press=".onDesasignarPendientesContrato"
+                                                        visible="{= ${viewModel>/pendientesSelCount} > 0 &amp;&amp; !${viewModel>/readOnly}}"/>
+                                                    <Button
+                                                        id="btnAsignarPendientes"
+                                                        text="Asignar"
+                                                        type="Accept"
+                                                        icon="sap-icon://accept"
+                                                        press=".onAsignarPendientesContrato"
+                                                        visible="{= ${viewModel>/pendientesSelCount} > 0 &amp;&amp; !${viewModel>/readOnly}}"/>
+                                                </OverflowToolbar>
+                                            </headerToolbar>
+                                            <Table
+                                                id="pendientesContratoTable"
+                                                items="{path: 'pendientesFact>/', sorter: {path: '_conceptoLabel', group: true, descending: false}}"
+                                                mode="MultiSelect"
+                                                selectionChange=".onPendientesContratoSelectionChange"
+                                                showSeparators="Inner"
+                                                alternateRowColors="false"
+                                                noDataText="No hay períodos pendientes de facturar para este contrato"
                                                 class="claro-grid-table">
                                                 <columns>
                                                     <Column width="14%">
-                                                        <Text text="Concepto Pago"/>
+                                                        <Text text="Mes"/>
                                                     </Column>
-                                                    <Column width="15%">
-                                                        <Text text="Tipo Und. Negocio"/>
-                                                    </Column>
-                                                    <Column width="10%">
-                                                        <Text text="Frecuencia"/>
-                                                    </Column>
-                                                    <Column width="10%" hAlign="Right">
+                                                    <Column width="11%" hAlign="Right">
                                                         <Text text="Fecha Inicio"/>
                                                     </Column>
-                                                    <Column width="10%" hAlign="Right">
+                                                    <Column width="11%" hAlign="Right">
                                                         <Text text="Fecha Fin"/>
                                                     </Column>
                                                     <Column width="7%" hAlign="Center">
-                                                        <Text text="Moneda Prog."/>
+                                                        <Text text="Mon."/>
                                                     </Column>
-                                                    <Column width="12%" hAlign="Right">
-                                                        <Text text="Importe Programado"/>
+                                                    <Column width="11%" hAlign="End">
+                                                        <Text text="Valor Venta"/>
                                                     </Column>
-                                                    <Column width="7%" hAlign="Center">
-                                                        <Text text="Moneda Pago"/>
+                                                    <Column width="10%" hAlign="End">
+                                                        <Text text="IGV"/>
                                                     </Column>
-                                                    <Column width="12%" hAlign="Right">
-                                                        <Text text="Importe Pagado"/>
+                                                    <Column width="11%" hAlign="End">
+                                                        <Text text="Total"/>
+                                                    </Column>
+                                                    <Column width="14%">
+                                                        <Text text="Cuenta Contable"/>
+                                                    </Column>
+                                                    <Column width="21%">
+                                                        <Text text="Glosa"/>
                                                     </Column>
                                                 </columns>
                                                 <items>
                                                     <ColumnListItem
-                                                        highlight="{parts: [{path: 'programacion>importeProgramado'}, {path: 'programacion>importePagado'}], formatter: '.formatter.formatProgramacionHighlightFull'}">
+                                                        highlight="{= ${pendientesFact>asignado} ? 'Success' : 'None'}">
                                                         <cells>
-                                                            <Text text="{programacion>conceptoPago}"/>
-                                                            <Text text="{programacion>tipoUndNegocio}"/>
-                                                            <Text text="{programacion>frecuencia}"/>
-                                                            <Text text="{path: 'programacion>fechaInicio', formatter: '.formatter.formatDate'}"/>
-                                                            <Text text="{path: 'programacion>fechaFin', formatter: '.formatter.formatDate'}"/>
-                                                            <Text text="{programacion>monedaProg}"/>
-                                                            <ObjectNumber 
-                                                                number="{path: 'programacion>importeProgramado', formatter: '.formatter.formatCurrency'}"
-                                                                unit="{programacion>monedaProg}"
-                                                                class="claro-amount-value"/>
-                                                            <Text text="{= ${programacion>monedaPago} || '—' }"/>
-                                                            <Text text="{path: 'programacion>importePagado', formatter: '.formatter.formatCurrencyNullable'}"/>
+                                                            <Text text="{pendientesFact>mesPago}"/>
+                                                            <Text text="{path: 'pendientesFact>fechaInicio', formatter: '.formatter.formatDate'}"/>
+                                                            <Text text="{path: 'pendientesFact>fechaFin', formatter: '.formatter.formatDate'}"/>
+                                                            <Text text="{pendientesFact>moneda}"/>
+                                                            <Input value="{pendientesFact>valorVenta}" textAlign="End" width="100%"
+                                                                class="claro-tbl-input" liveChange=".onPendienteContratoImporteChange"/>
+                                                            <Input value="{pendientesFact>igv}" textAlign="End" width="100%"
+                                                                class="claro-tbl-input" liveChange=".onPendienteContratoImporteChange"/>
+                                                            <Text text="{path: 'pendientesFact>total', formatter: '.formatter.formatCurrency'}"/>
+                                                            <Input value="{pendientesFact>cuentaContable}" showValueHelp="true"
+                                                                valueHelpRequest=".onCuentaContableValueHelpRequest"
+                                                                width="100%" class="claro-tbl-input"/>
+                                                            <Text text="{pendientesFact>glosaPago}" wrapping="false"/>
                                                         </cells>
                                                     </ColumnListItem>
                                                 </items>
                                             </Table>
-                                            <Toolbar class="claro-pagination-bar">
-                                                <Button text="«" tooltip="Primera página"
-                                                    press=".onProgDesktopFirstPage"
-                                                    enabled="{= ${viewModel>/progDesktopPage} > 1 }"
-                                                    class="claro-pagination-btn"/>
-                                                <Button icon="sap-icon://navigation-left-arrow" tooltip="Anterior"
-                                                    press=".onProgDesktopPrevPage"
-                                                    enabled="{= ${viewModel>/progDesktopPage} > 1 }"
-                                                    class="claro-pagination-btn"/>
-                                                <ToolbarSpacer/>
-                                                <Text
-                                                    text="{= 'Página ' + ${viewModel>/progDesktopPage} + ' de ' + ${viewModel>/progDesktopTotalPages} + ' | ' + ${viewModel>/progDesktopTotal} + ' registros' }"
-                                                    class="claro-page-info"/>
-                                                <ToolbarSpacer/>
-                                                <Button icon="sap-icon://navigation-right-arrow" tooltip="Siguiente"
-                                                    press=".onProgDesktopNextPage"
-                                                    enabled="{= ${viewModel>/progDesktopPage} &lt; ${viewModel>/progDesktopTotalPages} }"
-                                                    class="claro-pagination-btn"/>
-                                                <Button text="»" tooltip="Última página"
-                                                    press=".onProgDesktopLastPage"
-                                                    enabled="{= ${viewModel>/progDesktopPage} &lt; ${viewModel>/progDesktopTotalPages} }"
-                                                    class="claro-pagination-btn"/>
-                                            </Toolbar>
                                         </Panel>
 
-                                        <!-- Lista Mobile: Obligaciones de Pago - Programación -->
-                                        <Panel headerText="Obligaciones de Pago - Programación" class="claro-data-panel sapUiSmallMarginBottom"
-                                            visible="{viewModel>/isPhone}">
-                                            <List
-                                                id="programacionMobileList"
-                                                items="{programacionPaged>/}"
-                                                mode="None"
-                                                showSeparators="Inner"
-                                                noDataText="{i18n>seleccioneConcepto}">
+                                        <!-- Panel SOLO LECTURA: Asignaciones ya registradas (readOnly) -->
+                                        <Panel headerText="Períodos Asignados" class="claro-data-panel sapUiSmallMarginBottom"
+                                            visible="{= ${viewModel>/readOnly} &amp;&amp; ${viewModel>/asignacionesCount} > 0}">
+                                            <List items="{viewModel>/asignaciones}" mode="None" showSeparators="Inner">
                                                 <items>
                                                     <ObjectListItem
-                                                        title="{programacionPaged>conceptoPago}"
-                                                        intro="{= ${programacionPaged>frecuencia} + '  ·  ' + ${programacionPaged>tipoUndNegocio}}"
-                                                        number="{path: 'programacionPaged>importeProgramado', formatter: '.formatter.formatCurrency'}"
-                                                        numberUnit="{programacionPaged>monedaProg}"
-                                                        highlight="{parts: [{path: 'programacionPaged>importeProgramado'}, {path: 'programacionPaged>importePagado'}], formatter: '.formatter.formatProgramacionHighlightFull'}"
-                                                        type="Active"
-                                                        press=".onOpenProgramacionMobileDialog">
-                                                        <firstStatus>
-                                                            <ObjectStatus
-                                                                text="{= ${programacionPaged>importePagado} !== null &amp;&amp; ${programacionPaged>importePagado} !== undefined &amp;&amp; ${programacionPaged>importePagado} !== '' ? (parseFloat(${programacionPaged>importePagado}) >= parseFloat(${programacionPaged>importeProgramado}) ? 'Pagado' : 'Parcial') : 'Sin Pago'}"
-                                                                state="{parts: [{path: 'programacionPaged>importeProgramado'}, {path: 'programacionPaged>importePagado'}], formatter: '.formatter.formatProgramacionHighlightFull'}"/>
-                                                        </firstStatus>
+                                                        title="{= ${viewModel>conceptoPago} + '  ·  ' + ${viewModel>mesPago}}"
+                                                        number="{path: 'viewModel>total', formatter: '.formatter.formatCurrency'}"
+                                                        numberUnit="{viewModel>moneda}">
                                                         <attributes>
-                                                            <ObjectAttribute text="{= 'Inicio: ' + ${programacionPaged>fechaInicio}}"/>
-                                                            <ObjectAttribute text="{= 'Fin: ' + ${programacionPaged>fechaFin}}"/>
+                                                            <ObjectAttribute text="{= 'Inicio: ' + ${viewModel>fechaInicio} + '  —  Fin: ' + ${viewModel>fechaFin}}"/>
+                                                            <ObjectAttribute text="{= 'Glosa: ' + ${viewModel>glosaPago}}"/>
                                                         </attributes>
                                                     </ObjectListItem>
                                                 </items>
                                             </List>
-                                            <Toolbar class="claro-pagination-bar">
-                                                <Button text="«" tooltip="Primera página"
-                                                    press=".onProgMobileFirstPage" enabled="{viewModel>/progMobilePrevEnabled}" class="claro-pagination-btn"/>
-                                                <Button icon="sap-icon://navigation-left-arrow" tooltip="Anterior"
-                                                    press=".onProgMobilePrevPage" enabled="{viewModel>/progMobilePrevEnabled}" class="claro-pagination-btn"/>
-                                                <ToolbarSpacer/>
-                                                <Text text="{viewModel>/progMobilePageInfo}" class="claro-page-info"/>
-                                                <ToolbarSpacer/>
-                                                <Button icon="sap-icon://navigation-right-arrow" tooltip="Siguiente"
-                                                    press=".onProgMobileNextPage" enabled="{viewModel>/progMobileNextEnabled}" class="claro-pagination-btn"/>
-                                                <Button text="»" tooltip="Última página"
-                                                    press=".onProgMobileLastPage" enabled="{viewModel>/progMobileNextEnabled}" class="claro-pagination-btn"/>
-                                            </Toolbar>
-                                        </Panel>
-
-                                        <!-- Tabla: Pendientes por Facturar (Desktop) -->
-                                        <Panel headerText="{= 'Pendientes por Facturar  (' + ${viewModel>/pendDesktopTotal} + ' registros)'}" class="claro-data-panel sapUiSmallMarginTop"
-                                            visible="{= !${viewModel>/isPhone}}">
-                                            <t:Table
-                                                id="pendientesFactTable"
-                                                rows="{pendientesFact>/}"
-                                                selectionMode="{= ${viewModel>/readOnly} ? 'None' : 'MultiToggle' }"
-                                                rowSelectionChange=".onPendientesFactSelectionChange"
-                                                alternateRowColors="true"
-                                                visibleRowCount="5"
-                                                noDataText="Seleccione un concepto para ver los pendientes por facturar"
-                                                class="sapUiSizeCompact">
-                                                <t:extension>
-                                                    <OverflowToolbar>
-                                                        <ToolbarSpacer/>
-                                                        <Button
-                                                            id="btnDesasignarPendiente"
-                                                            text="Desasignar"
-                                                            type="Reject"
-                                                            icon="sap-icon://undo"
-                                                            press=".onDesasignarPendiente"
-                                                            visible="{= !${viewModel>/readOnly}}"
-                                                            enabled="{viewModel>/hasSelectedPendientes}"
-                                                            class="sapUiSmallMarginEnd"/>
-                                                        <Button
-                                                            id="btnRegistrarFactura"
-                                                            text="Asignar"
-                                                            type="Accept"
-                                                            icon="sap-icon://accept"
-                                                            press=".onRegistrarFacturaPendiente"
-                                                            visible="{= !${viewModel>/readOnly}}"
-                                                            enabled="{viewModel>/hasSelectedPendientes}"/>
-                                                    </OverflowToolbar>
-                                                </t:extension>
-                                                <t:columns>
-                                                    <t:Column width="80px">
-                                                        <Label text="Mes Pago"/>
-                                                        <t:template><Text text="{pendientesFact>mesPago}"/></t:template>
-                                                    </t:Column>
-                                                    <t:Column width="88px">
-                                                        <Label text="Fecha Inicio"/>
-                                                        <t:template><Text text="{path: 'pendientesFact>fechaInicio', formatter: '.formatter.formatDate'}"/></t:template>
-                                                    </t:Column>
-                                                    <t:Column width="88px">
-                                                        <Label text="Fecha Fin"/>
-                                                        <t:template><Text text="{path: 'pendientesFact>fechaFin', formatter: '.formatter.formatDate'}"/></t:template>
-                                                    </t:Column>
-                                                    <t:Column width="56px" hAlign="Center">
-                                                        <Label text="Mon."/>
-                                                        <t:template><Text text="{pendientesFact>moneda}"/></t:template>
-                                                    </t:Column>
-                                                    <t:Column width="100px" hAlign="End">
-                                                        <Label text="Valor Venta"/>
-                                                        <t:template><Input value="{pendientesFact>valorVenta}" textAlign="End" width="100%" class="claro-tbl-input" liveChange=".onPendienteImporteChange"/></t:template>
-                                                    </t:Column>
-                                                    <t:Column width="90px" hAlign="End">
-                                                        <Label text="IGV"/>
-                                                        <t:template><Input value="{pendientesFact>igv}" textAlign="End" width="100%" class="claro-tbl-input" liveChange=".onPendienteImporteChange"/></t:template>
-                                                    </t:Column>
-                                                    <t:Column width="90px" hAlign="End">
-                                                        <Label text="Inafecto"/>
-                                                        <t:template><Input value="{pendientesFact>inafecto}" textAlign="End" width="100%" class="claro-tbl-input"/></t:template>
-                                                    </t:Column>
-                                                    <t:Column width="100px" hAlign="End">
-                                                        <Label text="Total"/>
-                                                        <t:template><Input value="{pendientesFact>total}" textAlign="End" width="100%" class="claro-tbl-input"/></t:template>
-                                                    </t:Column>
-                                                    <t:Column width="130px">
-                                                        <Label text="Cuenta Contable"/>
-                                                        <t:template>
-                                                            <Input
-                                                                value="{pendientesFact>cuentaContable}"
-                                                                showValueHelp="true"
-                                                                valueHelpRequest=".onCuentaContableValueHelpRequest"
-                                                                width="100%"
-                                                                class="claro-tbl-input"/>
-                                                        </t:template>
-                                                    </t:Column>
-                                                    <t:Column width="180px">
-                                                        <Label text="Desc. Cta. Contable"/>
-                                                        <t:template><Text text="{pendientesFact>descripcionCtaContable}"/></t:template>
-                                                    </t:Column>
-                                                    <t:Column width="65px" hAlign="End">
-                                                        <Label text="Consumo"/>
-                                                        <t:template><Text text="{pendientesFact>consumo}"/></t:template>
-                                                    </t:Column>
-                                                    <t:Column width="200px">
-                                                        <Label text="Glosa Pago"/>
-                                                        <t:template><Text text="{pendientesFact>glosaPago}" wrapping="false"/></t:template>
-                                                    </t:Column>
-                                                    <t:Column width="110px">
-                                                        <Label text="Concepto Pago"/>
-                                                        <t:template><Text text="{pendientesFact>conceptoPago}"/></t:template>
-                                                    </t:Column>
-                                                    <t:Column width="90px">
-                                                        <Label text="Nro Factura"/>
-                                                        <t:template><Text text="{= ${pendientesFact>nroFactura} || '—' }"/></t:template>
-                                                    </t:Column>
-                                                </t:columns>
-                                            </t:Table>
-                                            <Toolbar class="claro-pagination-bar">
-                                                <Button text="«" tooltip="Primera página"
-                                                    press=".onPendDesktopFirstPage"
-                                                    enabled="{= ${viewModel>/pendDesktopPage} > 1 }"
-                                                    class="claro-pagination-btn"/>
-                                                <Button icon="sap-icon://navigation-left-arrow" tooltip="Anterior"
-                                                    press=".onPendDesktopPrevPage"
-                                                    enabled="{= ${viewModel>/pendDesktopPage} > 1 }"
-                                                    class="claro-pagination-btn"/>
-                                                <ToolbarSpacer/>
-                                                <Text
-                                                    text="{= 'Página ' + ${viewModel>/pendDesktopPage} + ' de ' + ${viewModel>/pendDesktopTotalPages} + ' | ' + ${viewModel>/pendDesktopTotal} + ' registros' }"
-                                                    class="claro-page-info"/>
-                                                <ToolbarSpacer/>
-                                                <Button icon="sap-icon://navigation-right-arrow" tooltip="Siguiente"
-                                                    press=".onPendDesktopNextPage"
-                                                    enabled="{= ${viewModel>/pendDesktopPage} &lt; ${viewModel>/pendDesktopTotalPages} }"
-                                                    class="claro-pagination-btn"/>
-                                                <Button text="»" tooltip="Última página"
-                                                    press=".onPendDesktopLastPage"
-                                                    enabled="{= ${viewModel>/pendDesktopPage} &lt; ${viewModel>/pendDesktopTotalPages} }"
-                                                    class="claro-pagination-btn"/>
-                                            </Toolbar>
-                                        </Panel>
-
-                                        <!-- Lista Mobile: Pendientes por Facturar -->
-                                        <Panel headerText="Pendientes por Facturar" class="claro-data-panel sapUiSmallMarginTop"
-                                            visible="{viewModel>/isPhone}">
-                                            <List
-                                                id="pendientesFactMobileList"
-                                                items="{pendientesFactPaged>/}"
-                                                mode="{= ${viewModel>/readOnly} ? 'None' : 'MultiSelect' }"
-                                                selectionChange=".onPendientesFactMobileSelectionChange"
-                                                showSeparators="Inner"
-                                                noDataText="Seleccione un concepto para ver los pendientes por facturar">
-                                                <headerToolbar>
-                                                    <OverflowToolbar>
-                                                        <ToolbarSpacer/>
-                                                        <Button
-                                                            text="Desasignar"
-                                                            type="Reject"
-                                                            icon="sap-icon://undo"
-                                                            press=".onDesasignarPendienteMobile"
-                                                            visible="{= !${viewModel>/readOnly}}"
-                                                            enabled="{viewModel>/hasSelectedPendientes}"
-                                                            class="sapUiSmallMarginEnd"/>
-                                                        <Button
-                                                            text="Asignar"
-                                                            type="Accept"
-                                                            icon="sap-icon://accept"
-                                                            press=".onRegistrarFacturaPendienteMobile"
-                                                            visible="{= !${viewModel>/readOnly}}"
-                                                            enabled="{viewModel>/hasSelectedPendientes}"/>
-                                                    </OverflowToolbar>
-                                                </headerToolbar>
-                                                <items>
-                                                    <ObjectListItem
-                                                        title="{pendientesFactPaged>conceptoPago}"
-                                                        intro="{= ${pendientesFactPaged>mesPago} + '  \u00b7  ' + ${pendientesFactPaged>moneda}}"
-                                                        number="{path: 'pendientesFactPaged>total', formatter: '.formatter.formatCurrency'}"
-                                                        numberUnit="{pendientesFactPaged>moneda}"
-                                                        highlight="{= ${pendientesFactPaged>asignado} ? 'Success' : 'None'}"
-                                                        type="{= ${viewModel>/readOnly} ? 'Inactive' : 'Active'}"
-                                                        press=".onOpenPendienteMobileDialog">
-                                                        <firstStatus>
-                                                            <ObjectStatus
-                                                                text="{= ${pendientesFactPaged>asignado} ? 'Asignado' : 'Pendiente'}"
-                                                                state="{= ${pendientesFactPaged>asignado} ? 'Success' : 'None'}"/>
-                                                        </firstStatus>
-                                                        <attributes>
-                                                            <ObjectAttribute text="{= 'Inicio: ' + ${pendientesFactPaged>fechaInicio}}"/>
-                                                            <ObjectAttribute text="{= 'Fin: ' + ${pendientesFactPaged>fechaFin}}"/>
-                                                        </attributes>
-                                                    </ObjectListItem>
-                                                </items>
-                                            </List>
-                                            <Toolbar class="claro-pagination-bar">
-                                                <Button text="«" tooltip="Primera página"
-                                                    press=".onPendMobileFirstPage" enabled="{viewModel>/pendMobilePrevEnabled}" class="claro-pagination-btn"/>
-                                                <Button icon="sap-icon://navigation-left-arrow" tooltip="Anterior"
-                                                    press=".onPendMobilePrevPage" enabled="{viewModel>/pendMobilePrevEnabled}" class="claro-pagination-btn"/>
-                                                <ToolbarSpacer/>
-                                                <Text text="{viewModel>/pendMobilePageInfo}" class="claro-page-info"/>
-                                                <ToolbarSpacer/>
-                                                <Button icon="sap-icon://navigation-right-arrow" tooltip="Siguiente"
-                                                    press=".onPendMobileNextPage" enabled="{viewModel>/pendMobileNextEnabled}" class="claro-pagination-btn"/>
-                                                <Button text="»" tooltip="Última página"
-                                                    press=".onPendMobileLastPage" enabled="{viewModel>/pendMobileNextEnabled}" class="claro-pagination-btn"/>
-                                            </Toolbar>
                                         </Panel>
                                     </VBox>
 
@@ -1318,105 +1067,15 @@
                                             class="sapUiSmallMarginTop"/>
                                     </Panel>
                                     
-                                    <!-- Resumen Final -->
-                                    <Panel id="resumenFinalPanel" headerText="{i18n>resumenFinal}" class="claro-data-panel sapUiSmallMarginTop">
-                                        <VBox>
-                                            <layout:Grid defaultSpan="XL4 L4 M6 S12" hSpacing="2" vSpacing="0" class="claro-data-grid sapUiSmallMargin">
-
-                                                <VBox class="claro-field-cell">
-                                                    <Label text="{i18n>documentoOrigen}" class="claro-field-label"/>
-                                                    <Text text="{viewModel>/documentosOrigenResumen}" class="claro-field-value"/>
-                                                </VBox>
-
-                                                <VBox class="claro-field-cell">
-                                                    <Label text="{i18n>comprobanteFactura}" class="claro-field-label"/>
-                                                    <Text text="{= ${comprobante>/serieDocumento} + '-' + ${comprobante>/numeroDocumento} }" class="claro-field-value"/>
-                                                </VBox>
-
-                                                <VBox class="claro-field-cell">
-                                                    <Label text="{i18n>periodoRegistro}" class="claro-field-label"/>
-                                                    <Text text="{= ${comprobante>/periodoMes} + '-' + ${comprobante>/periodoAnio} }" class="claro-field-value"/>
-                                                </VBox>
-
-                                                <VBox class="claro-field-cell">
-                                                    <Label text="{i18n>fechaEmision}" class="claro-field-label"/>
-                                                    <Text text="{path: 'comprobante>/fechaEmision', formatter: '.formatter.formatDate'}" class="claro-field-value"/>
-                                                </VBox>
-
-                                                <VBox class="claro-field-cell">
-                                                    <Label text="{i18n>fechaRecepcion}" class="claro-field-label"/>
-                                                    <Text text="{path: 'comprobante>/fechaRecepcion', formatter: '.formatter.formatDate'}" class="claro-field-value"/>
-                                                </VBox>
-
-                                                <VBox class="claro-field-cell">
-                                                    <Label text="{i18n>cantidadAsignaciones}" class="claro-field-label"/>
-                                                    <Text text="{viewModel>/asignaciones/length}" class="claro-field-value"/>
-                                                </VBox>
-
-                                            </layout:Grid>
-
-                                            <!-- Banda financiera resumen (Desktop) -->
-                                            <HBox alignItems="Center" justifyContent="End" class="claro-resumen-fin-strip"
-                                                visible="{= !${viewModel>/isPhone}}">
-                                                <VBox class="claro-resumen-fin-block sapUiMediumMarginEnd">
-                                                    <Label text="{i18n>montoTotal}" class="claro-field-label"/>
-                                                    <ObjectNumber
-                                                        number="{path: 'comprobante>/montoTotal', formatter: '.formatter.formatCurrency'}"
-                                                        unit="{comprobante>/moneda}"
-                                                        emphasized="true"
-                                                        class="claro-amount-value"/>
-                                                </VBox>
-                                                <VBox class="claro-resumen-fin-block claro-resumen-neto-block">
-                                                    <Label text="{i18n>importeNeto}" class="claro-field-label claro-importe-neto-label"/>
-                                                    <ObjectNumber
-                                                        number="{path: 'comprobante>/importeNeto', formatter: '.formatter.formatCurrency'}"
-                                                        unit="{comprobante>/moneda}"
-                                                        emphasized="true"
-                                                        state="Success"
-                                                        class="claro-importe-neto-number"/>
-                                                </VBox>
-                                            </HBox>
-
-                                            <!-- Banda financiera resumen (Mobile) -->
-                                            <HBox justifyContent="SpaceBetween" class="claro-resumen-fin-strip-mobile"
-                                                visible="{viewModel>/isPhone}">
-                                                <VBox class="claro-resumen-fin-mobile-block" width="48%">
-                                                    <Label text="{i18n>montoTotal}" class="claro-comp-card-label"/>
-                                                    <ObjectNumber
-                                                        number="{path: 'comprobante>/montoTotal', formatter: '.formatter.formatCurrency'}"
-                                                        unit="{comprobante>/moneda}"
-                                                        emphasized="true"/>
-                                                </VBox>
-                                                <VBox class="claro-resumen-fin-mobile-block claro-resumen-fin-mobile-neto" width="48%">
-                                                    <Label text="{i18n>importeNeto}" class="claro-comp-card-label"/>
-                                                    <ObjectNumber
-                                                        number="{path: 'comprobante>/importeNeto', formatter: '.formatter.formatCurrency'}"
-                                                        unit="{comprobante>/moneda}"
-                                                        emphasized="true"
-                                                        state="Success"/>
-                                                </VBox>
-                                            </HBox>
-                                        </VBox>
-                                    </Panel>
-
-                        <!-- Acciones finales -->
+                                    <!-- Acciones finales -->
                         <HBox justifyContent="End" class="sapUiMediumMarginTop sapUiMediumMarginBottom">
                             <Button
-                                id="btnRegistrar"
-                                text="{i18n>registrar}"
-                                type="Default"
-                                icon="sap-icon://save"
-                                press=".onRegistrar"
-                                enabled="{viewModel>/canRegister}"
-                                visible="{= !${viewModel>/readOnly}}"
-                                class="sapUiSmallMarginEnd"/>
-                            <Button
-                                id="btnRegistrarEnviar"
-                                text="{i18n>registrarYEnviar}"
+                                id="btnFinalizarRegistro"
+                                text="Revisar y Confirmar Registro"
                                 type="Emphasized"
-                                icon="sap-icon://paper-plane"
-                                press=".onRegistrarYEnviar"
-                                enabled="{viewModel>/canSubmit}"
+                                icon="sap-icon://complete"
+                                press=".onFinalizarRegistro"
+                                enabled="{viewModel>/canRegister}"
                                 visible="{= !${viewModel>/readOnly}}"/>
                             <Button
                                 id="btnCerrar"

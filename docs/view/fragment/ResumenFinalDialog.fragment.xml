@@ -1,0 +1,156 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns:l="sap.ui.layout">
+    <Dialog
+        id="resumenFinalDialog"
+        title="Confirmar Registro del Comprobante"
+        contentWidth="680px"
+        draggable="false"
+        resizable="false"
+        verticalScrolling="true"
+        state="None">
+        <content>
+            <VBox class="sapUiSmallMarginTopBottom sapUiSmallMarginBeginEnd">
+
+                <!-- Mensaje informativo -->
+                <MessageStrip
+                    text="Revise el resumen antes de confirmar. Una vez enviado, el comprobante pasará al proceso de contabilización."
+                    type="Information"
+                    showIcon="true"
+                    class="sapUiSmallMarginBottom"/>
+
+                <!-- Datos del comprobante -->
+                <Panel headerText="Resumen del Comprobante" class="claro-data-panel sapUiSmallMarginBottom">
+                    <layout:Grid defaultSpan="XL6 L6 M6 S12" hSpacing="2" vSpacing="0" class="claro-data-grid sapUiSmallMargin">
+
+                        <VBox class="claro-field-cell">
+                            <Label text="Documento Origen" class="claro-field-label"/>
+                            <!-- Caso: 1–3 docs → texto plano -->
+                            <Text
+                                text="{viewModel>/documentosOrigenResumen}"
+                                class="claro-field-value"
+                                visible="{= !${viewModel>/documentosOrigenEsLink}}"/>
+                            <!-- Caso: 4+ docs → link que abre popover -->
+                            <Link
+                                id="lnkOrigenDocs"
+                                text="{viewModel>/documentosOrigenResumen}"
+                                visible="{viewModel>/documentosOrigenEsLink}"
+                                press=".onOrigenDocsLinkPress"
+                                class="claro-field-value"/>
+                            <!-- Popover con lista completa -->
+                            <Popover
+                                id="popOrigenDocs"
+                                title="Documentos Origen"
+                                placement="Bottom"
+                                showHeader="true">
+                                <List
+                                    items="{viewModel>/documentosOrigenLista}"
+                                    showSeparators="Inner"
+                                    mode="None">
+                                    <StandardListItem
+                                        title="{viewModel>numero}"
+                                        description="{viewModel>descripcion}"
+                                        icon="sap-icon://document"
+                                        iconInset="false"/>
+                                </List>
+                            </Popover>
+                        </VBox>
+
+                        <VBox class="claro-field-cell">
+                            <Label text="Comprobante / Factura" class="claro-field-label"/>
+                            <Text text="{= ${comprobante>/serieDocumento} + '-' + ${comprobante>/numeroDocumento}}" class="claro-field-value"/>
+                        </VBox>
+
+                        <VBox class="claro-field-cell">
+                            <Label text="Periodo de Registro" class="claro-field-label"/>
+                            <Text text="{= ${comprobante>/periodoMes} + '-' + ${comprobante>/periodoAnio}}" class="claro-field-value"/>
+                        </VBox>
+
+                        <VBox class="claro-field-cell">
+                            <Label text="Fecha de Emisión" class="claro-field-label"/>
+                            <Text text="{path: 'comprobante>/fechaEmision', formatter: '.formatter.formatDate'}" class="claro-field-value"/>
+                        </VBox>
+
+                        <VBox class="claro-field-cell">
+                            <Label text="Fecha de Recepción" class="claro-field-label"/>
+                            <Text text="{path: 'comprobante>/fechaRecepcion', formatter: '.formatter.formatDate'}" class="claro-field-value"/>
+                        </VBox>
+
+                        <!-- Banda de agregados de asignaciones (Opción A) -->
+                        <VBox class="claro-field-cell">
+                            <layoutData>
+                                <layout:GridData span="XL12 L12 M12 S12"/>
+                            </layoutData>
+                            <Label text="Asignaciones al Comprobante" class="claro-field-label"/>
+                            <HBox alignItems="Center" wrap="Wrap" class="sapUiTinyMarginTop">
+                                <ObjectStatus
+                                    title="Documentos origen"
+                                    text="{viewModel>/resumenDocsCount}"
+                                    icon="sap-icon://document"
+                                    state="Information"
+                                    class="sapUiSmallMarginEnd"/>
+                                <ObjectStatus
+                                    title="Posiciones"
+                                    text="{viewModel>/resumenPosCount}"
+                                    icon="sap-icon://list"
+                                    state="None"
+                                    class="sapUiSmallMarginEnd"/>
+                                <ObjectStatus
+                                    title="Monto asignado"
+                                    text="{= 'S/ ' + ${viewModel>/resumenMontoAsignado}}"
+                                    icon="sap-icon://currency"
+                                    state="Success"/>
+                            </HBox>
+                        </VBox>
+
+                    </layout:Grid>
+
+                    <!-- Banda financiera -->
+                    <HBox alignItems="Center" justifyContent="End" class="claro-resumen-fin-strip">
+                        <VBox class="claro-resumen-fin-block sapUiMediumMarginEnd">
+                            <Label text="Monto Total" class="claro-field-label"/>
+                            <ObjectNumber
+                                number="{path: 'comprobante>/montoTotal', formatter: '.formatter.formatCurrency'}"
+                                unit="{comprobante>/moneda}"
+                                emphasized="true"
+                                class="claro-amount-value"/>
+                        </VBox>
+                        <VBox class="claro-resumen-fin-block claro-resumen-neto-block">
+                            <Label text="Importe Neto a Pagar" class="claro-field-label claro-importe-neto-label"/>
+                            <ObjectNumber
+                                number="{path: 'comprobante>/importeNeto', formatter: '.formatter.formatCurrency'}"
+                                unit="{comprobante>/moneda}"
+                                emphasized="true"
+                                state="Success"
+                                class="claro-importe-neto-number"/>
+                        </VBox>
+                    </HBox>
+                </Panel>
+
+            </VBox>
+        </content>
+        <buttons>
+            <Button
+                id="btnDialogCancelar"
+                text="Cancelar"
+                type="Transparent"
+                press=".onResumenDialogCancelar"/>
+            <Button
+                id="btnDialogRegistrar"
+                text="Solo Registrar"
+                type="Default"
+                icon="sap-icon://save"
+                press=".onResumenDialogRegistrar"
+                enabled="{viewModel>/canRegister}"/>
+            <Button
+                id="btnDialogRegistrarEnviar"
+                text="Registrar y Enviar"
+                type="Emphasized"
+                icon="sap-icon://paper-plane"
+                press=".onResumenDialogRegistrarYEnviar"
+                enabled="{viewModel>/canSubmit}"/>
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

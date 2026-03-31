@@ -1705,6 +1705,19 @@
                                                "moneda":  "PEN",
                                                "estado":  "PENDIENTE",
                                                "estadoDesc":  "Pendiente"
+                                           },
+                                           {
+                                               "id":  "PPOS-200",
+                                               "polizaId":  "POL-2025-005",
+                                               "posicion":  "30",
+                                               "descripcion":  "Prima adicional - Cobertura de robo y hurto",
+                                               "cantidad":  1,
+                                               "unidadMedida":  "GLB",
+                                               "precioUnitario":  1000,
+                                               "importe":  1000,
+                                               "moneda":  "PEN",
+                                               "estado":  "PENDIENTE",
+                                               "estadoDesc":  "Pendiente"
                                            }
                                        ],
                         "condicionesPago":  "Pago contra entrega",

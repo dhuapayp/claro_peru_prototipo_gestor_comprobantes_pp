@@ -234,28 +234,28 @@ sap.ui.define([
                 if (window.DemoTour) { window.DemoTour.onUserAction("xmlCargado"); }
             };
 
-            // Selecciona el primer concepto en el selector del Paso 3 (CONTRATO)
+            // Paso 3 CONTRATO: los pendientes se cargan automáticamente al seleccionar el documento,
+            // por lo que no se necesita selección de concepto manualmente
             window.DemoTourSelectFirstConcepto = function () {
-                var oSelectEl = document.querySelector('[id$="--selectConcepto"]');
-                if (!oSelectEl) { return; }
-                var oSelect = sap.ui.getCore().byId(oSelectEl.id);
-                if (!oSelect) { return; }
-                var aItems = oSelect.getItems ? oSelect.getItems() : [];
-                if (aItems.length > 0) {
-                    oSelect.setSelectedItem(aItems[0]);
-                    oSelect.fireChange({ selectedItem: aItems[0] });
-                }
+                // No-op: los pendientes ya están cargados automáticamente (tabla RE-FX)
             };
 
-            // Selecciona solo la primera fila de la tabla de Pendientes (CONTRATO)
+            // Selecciona la primera fila de la tabla agrupada de Pendientes (CONTRATO RE-FX)
             window.DemoTourSelectAllPendientes = function () {
-                var oTable = that2.byId("pendientesFactTable");
-                if (oTable && typeof oTable.getRows === "function") {
-                    var nRows = oTable.getRows().length;
-                    if (nRows > 0) {
-                        oTable.addSelectionInterval(0, 0); // primera fila = un periodo
+                var oTable = that2.byId("pendientesContratoTable");
+                if (!oTable) { return; }
+                var aItems = oTable.getItems ? oTable.getItems() : [];
+                // Seleccionar el primer ColumnListItem (omitir GroupHeaderListItem)
+                var oFirstRow = null;
+                for (var i = 0; i < aItems.length; i++) {
+                    if (aItems[i].isA && aItems[i].isA("sap.m.ColumnListItem")) {
+                        oFirstRow = aItems[i];
+                        break;
                     }
-                    that2.getView().getModel("viewModel").setProperty("/hasSelectedPendientes", nRows > 0);
+                }
+                if (oFirstRow) {
+                    oTable.setSelectedItem(oFirstRow, true);
+                    that2.onPendientesContratoSelectionChange();
                 }
             };
 
@@ -372,6 +372,8 @@ sap.ui.define([
                 searchResultsCount: 0,
                 asignacionesResumen: "",
                 documentosOrigenResumen: "",
+                documentosOrigenEsLink: false,
+                documentosOrigenLista: [],
                 searchPage: 1,
                 searchTotalPages: 1,
                 documentSelected: false,
@@ -399,7 +401,9 @@ sap.ui.define([
                 progDesktopTotal: 0,
                 pendDesktopPage: 1,
                 pendDesktopTotalPages: 1,
-                pendDesktopTotal: 0
+                pendDesktopTotal: 0,
+                pendientesSelCount: 0,
+                pendientesSelTotal: "0.00"
             });
 
             // Reset datos auxiliares
@@ -490,7 +494,45 @@ sap.ui.define([
             var oContrato = this._oMockDataService.getContratoByNumero(sNumeroContrato);
             if (oContrato) {
                 this.getView().getModel("contrato").setData(oContrato);
+                this._loadAllPendientesContrato(oContrato);
             }
+        },
+
+        _loadAllPendientesContrato: function (oContrato) {
+            var that = this;
+            // Pre-compute totals per concept for the group header label
+            var oConceptMap = {};
+            (oContrato.conceptos || []).forEach(function (oCon) {
+                var aPend = that._oMockDataService.getPendientesFact(oContrato.id, oCon.id);
+                var fTotal = aPend.filter(function (p) { return !p.asignado; })
+                    .reduce(function (acc, p) { return acc + (parseFloat(p.total) || 0); }, 0);
+                oConceptMap[oCon.id] = {
+                    codigo: oCon.codigo,
+                    nombre: oCon.concepto,
+                    total: fTotal,
+                    // Label used as sorter group key so the GroupHeaderListItem shows meaningful text
+                    label: oCon.codigo + "  \u2014  " + oCon.concepto + "   \u00b7   S/ " + fTotal.toFixed(2)
+                };
+            });
+            // Build flat row array (no group-header placeholders; SAPUI5 Sorter handles grouping)
+            var aPendAll = [];
+            (oContrato.conceptos || []).forEach(function (oCon) {
+                var aPend = that._oMockDataService.getPendientesFact(oContrato.id, oCon.id);
+                aPend.forEach(function (p) {
+                    var oCopy = Object.assign({}, p);
+                    oCopy._conceptoCodigo = oCon.codigo;
+                    oCopy._conceptoNombre = oCon.concepto;
+                    oCopy._conceptoLabel  = oConceptMap[oCon.id].label;
+                    oCopy._sourceDoc      = oContrato.numeroContrato;
+                    oCopy._sourceDocType  = "Contrato";
+                    aPendAll.push(oCopy);
+                });
+            });
+            this._allPendientesData = aPendAll;
+            this.getView().getModel("pendientesFact").setData(aPendAll);
+            var oViewModel = this.getView().getModel("viewModel");
+            oViewModel.setProperty("/pendientesSelCount", 0);
+            oViewModel.setProperty("/pendientesSelTotal", "0.00");
         },
         
         _loadOrdenCompraData: function (sNumeroOC) {
@@ -665,6 +707,50 @@ sap.ui.define([
         },
 
         _selectDocument: function (oDoc) {
+            var that = this;
+
+            // ── Validación SAP estándar: un contrato por comprobante ─────────
+            // Si el nuevo documento es un CONTRATO, y ya hay asignaciones de un
+            // contrato DISTINTO, avisar al usuario antes de continuar.
+            if (oDoc.tipoDocumento === "CONTRATO") {
+                var oViewModel0 = this.getView().getModel("viewModel");
+                var aAsig0 = oViewModel0.getProperty("/asignaciones") || [];
+                var aContratoAsig = aAsig0.filter(function (o) { return !!o._sourceDoc; });
+                // Detectar si ya existe un contrato diferente asignado
+                var sContratoActual = aContratoAsig.length > 0 ? aContratoAsig[0]._sourceDoc : null;
+                var sNuevoContrato = oDoc.numeroDocumento;
+                if (sContratoActual && sContratoActual !== sNuevoContrato) {
+                    MessageBox.warning(
+                        "Este comprobante ya tiene obligaciones asignadas del contrato " + sContratoActual + ".\n\n" +
+                        "Un comprobante solo puede referir un único contrato (estándar SAP).\n\n" +
+                        "Si continúa con el contrato " + sNuevoContrato + ", las asignaciones actuales serán eliminadas.",
+                        {
+                            title: "Cambio de contrato",
+                            actions: ["Continuar con " + sNuevoContrato, MessageBox.Action.CANCEL],
+                            emphasizedAction: "Continuar con " + sNuevoContrato,
+                            onClose: function (sAction) {
+                                if (sAction === "Continuar con " + sNuevoContrato) {
+                                    // Limpiar asignaciones del contrato anterior y cargar el nuevo
+                                    oViewModel0.setProperty("/asignaciones", []);
+                                    oViewModel0.setProperty("/asignacionesCount", 0);
+                                    oViewModel0.setProperty("/totalAsignado", 0);
+                                    oViewModel0.setProperty("/step3Valid", false);
+                                    that._realizarValidacionImportes();
+                                    that._doSelectDocument(oDoc);
+                                }
+                                // Si cancela: no hace nada, mantiene el contrato actual
+                            }
+                        }
+                    );
+                    return; // Esperar respuesta del usuario
+                }
+            }
+
+            this._doSelectDocument(oDoc);
+        },
+
+        _doSelectDocument: function (oDoc) {
+            var that = this;
             this._sDocumentId = oDoc.id;
             this._sTipoDocumento = oDoc.tipoDocumento;
             this._sNumeroDocumento = oDoc.numeroDocumento;
@@ -697,7 +783,6 @@ sap.ui.define([
             MessageToast.show("Documento seleccionado: " + oDoc.tipoDocumentoDesc + " - " + oDoc.numeroDocumento);
 
             // Auto-scroll a la sección de posiciones/contrato
-            var that = this;
             setTimeout(function () {
                 var sPanelId = oDoc.tipoDocumento === "CONTRATO" ? "contratoPanel" : "posicionesPanel";
                 var oPanel = that.byId(sPanelId);
@@ -1303,19 +1388,10 @@ sap.ui.define([
                 }
 
             } else if (sTipoDoc === "CONTRATO") {
-                // Poblar tabla de Pendientes por Facturar con las obligaciones ya asignadas
-                var aObligaciones = oComprobante.obligacionesAsignadas || [];
-                this._allPendientesData = aObligaciones.length > 0 ? aObligaciones : [];
-                this._applyPendDesktopPage(1);
-
-                // Cargar la programación del primer concepto del contrato
-                var oContrato = this.getView().getModel("contrato").getData();
-                if (oContrato && oContrato.id && oContrato.conceptos && oContrato.conceptos.length > 0) {
-                    var sConceptoId   = oContrato.conceptos[0].id;
-                    var aProgramacion = this._oMockDataService.getObligacionesProgramacion(oContrato.id, sConceptoId);
-                    this._allProgramacionData = aProgramacion;
-                    this._applyProgDesktopPage(1);
-                    this.getView().getModel("viewModel").setProperty("/selectedConceptoId", sConceptoId);
+                // En modo vista/edición: cargar toda la tabla RE-FX con el estado actual del contrato
+                var oContratoRO = this.getView().getModel("contrato").getData();
+                if (oContratoRO && oContratoRO.id) {
+                    this._loadAllPendientesContrato(oContratoRO);
                 }
             }
         },
@@ -1488,61 +1564,28 @@ sap.ui.define([
             return bValid;
         },
         
-        onConceptoChange: function (oEvent) {
-            var sConceptoId = oEvent.getSource().getSelectedKey();
+        onPendientesContratoSelectionChange: function () {
+            var oTable = this.byId("pendientesContratoTable");
+            if (!oTable) { return; }
+            var aItems = oTable.getSelectedItems() || [];
+            var fTotal = 0;
+            aItems.forEach(function (oItem) {
+                var oCtx = oItem.getBindingContext("pendientesFact");
+                if (oCtx) {
+                    fTotal += parseFloat(oCtx.getProperty("total")) || 0;
+                }
+            });
             var oViewModel = this.getView().getModel("viewModel");
-            oViewModel.setProperty("/selectedConceptoId", sConceptoId);
-        },
-        
-        onAgregarConcepto: function () {
-            var oViewModel = this.getView().getModel("viewModel");
-            var sConceptoId = oViewModel.getProperty("/selectedConceptoId");
-            
-            if (!sConceptoId) {
-                MessageToast.show("Seleccione un concepto");
-                return;
-            }
-            
-            // Obtener contrato del modelo
-            var oContrato = this.getView().getModel("contrato").getData();
-
-            // Tabla 1: Cargar programación de obligaciones
-            var aProgramacion = this._oMockDataService.getObligacionesProgramacion(oContrato.id, sConceptoId);
-            this._allProgramacionData = aProgramacion;
-            this._applyProgDesktopPage(1);
-
-            // Tabla 2: Cargar pendientes por facturar
-            var aPendientes = this._oMockDataService.getPendientesFact(oContrato.id, sConceptoId);
-            this._allPendientesData = aPendientes;
-            this._applyPendDesktopPage(1);
-            oViewModel.setProperty("/hasSelectedPendientes", false);
-
-            if (aProgramacion.length === 0 && aPendientes.length === 0) {
-                MessageToast.show("No hay datos para el concepto seleccionado");
-            }
-        },
-        
-        onObligacionesSelectionChange: function (oEvent) {
-            var oTable = this.byId("obligacionesTable");
-            var aSelectedItems = oTable ? oTable.getSelectedItems() : [];
-            var oViewModel = this.getView().getModel("viewModel");
-            oViewModel.setProperty("/hasSelectedObligaciones", aSelectedItems.length > 0);
+            oViewModel.setProperty("/pendientesSelCount", aItems.length);
+            oViewModel.setProperty("/pendientesSelTotal", fTotal.toFixed(2));
         },
 
-        onPendientesFactSelectionChange: function () {
-            var oTable = this.byId("pendientesFactTable");
-            var aIndices = oTable ? oTable.getSelectedIndices() : [];
-            this.getView().getModel("viewModel").setProperty("/hasSelectedPendientes", aIndices.length > 0);
-        },
-
-        onPendienteImporteChange: function (oEvent) {
+        onPendienteContratoImporteChange: function (oEvent) {
             var oInput = oEvent.getSource();
             var sLiveValue = oEvent.getParameter("value") || "";
             var oCtx = oInput.getBindingContext("pendientesFact");
             if (!oCtx) { return; }
             var oModel = this.getView().getModel("pendientesFact");
-            // liveChange fires before two-way binding updates the model,
-            // so we read the live value from the event and the OTHER field from model.
             var sBindingPath = oInput.getBinding("value") ? oInput.getBinding("value").getPath() : "";
             var fValorVenta, fIGV;
             if (sBindingPath === "valorVenta") {
@@ -1555,261 +1598,131 @@ sap.ui.define([
             oModel.setProperty(oCtx.getPath() + "/total", parseFloat((fValorVenta + fIGV).toFixed(2)));
         },
 
-        // ── Mobile Pendientes (Option B: List + Edit Dialog) ─────────────────────
-
-        onPendientesFactMobileSelectionChange: function () {
-            var oList = this.byId("pendientesFactMobileList");
-            var aSelected = oList ? oList.getSelectedItems() : [];
-            this.getView().getModel("viewModel").setProperty("/hasSelectedPendientes", aSelected.length > 0);
-        },
-
-        onOpenPendienteMobileDialog: function (oEvent) {
+        onAsignarPendientesContrato: function () {
             var that = this;
-            var oItem = oEvent.getSource();
-            var oCtx = oItem.getBindingContext("pendientesFactPaged");
-            if (!oCtx) { return; }
-            var oPagedObj = oCtx.getObject();
-            this._sPendienteMobileEditPath = "/" + oPagedObj._origIdx;
-            // Deep copy into edit model so original is not touched until Confirm
-            var oData = JSON.parse(JSON.stringify(oPagedObj));
-            if (!this.getView().getModel("pendienteMobileEdit")) {
-                this.getView().setModel(new JSONModel(oData), "pendienteMobileEdit");
-            } else {
-                this.getView().getModel("pendienteMobileEdit").setData(oData);
-            }
-            if (!this._oPendienteMobileDialog) {
-                sap.ui.core.Fragment.load({
-                    id: this.getView().getId(),
-                    name: "claro.com.clarocomprobantes.view.fragment.PendienteMobileEditDialog",
-                    controller: this
-                }).then(function (oDialog) {
-                    that._oPendienteMobileDialog = oDialog;
-                    that.getView().addDependent(oDialog);
-                    oDialog.open();
-                });
-            } else {
-                this._oPendienteMobileDialog.open();
-            }
-        },
-
-        onConfirmPendienteMobileDialog: function () {
-            var oEditModel = this.getView().getModel("pendienteMobileEdit");
-            var oModel    = this.getView().getModel("pendientesFact");
-            var sPath     = this._sPendienteMobileEditPath;
-            var oData     = oEditModel.getData();
-            ["valorVenta", "igv", "inafecto", "total", "cuentaContable", "descripcionCtaContable"].forEach(function (sField) {
-                oModel.setProperty(sPath + "/" + sField, oData[sField]);
-            });
-            this._oPendienteMobileDialog.close();
-            // Refrescar la página paginada para reflejar cambios
-            this._applyPendMobilePage(this.getView().getModel("viewModel").getProperty("/pendMobilePage"));
-            MessageToast.show("Datos actualizados");
-        },
-
-        onCancelPendienteMobileDialog: function () {
-            this._oPendienteMobileDialog.close();
-        },
-
-        onPendienteMobileImporteChange: function (oEvent) {
-            var oInput     = oEvent.getSource();
-            var sLiveValue = oEvent.getParameter("value") || "";
-            var oEditModel = this.getView().getModel("pendienteMobileEdit");
-            var sPath      = oInput.getBinding("value") ? oInput.getBinding("value").getPath() : "";
-            var fValorVenta, fIGV;
-            if (sPath === "/valorVenta") {
-                fValorVenta = parseFloat(sLiveValue) || 0;
-                fIGV        = parseFloat(oEditModel.getProperty("/igv")) || 0;
-            } else {
-                fValorVenta = parseFloat(oEditModel.getProperty("/valorVenta")) || 0;
-                fIGV        = parseFloat(sLiveValue) || 0;
-            }
-            oEditModel.setProperty("/total", parseFloat((fValorVenta + fIGV).toFixed(2)));
-        },
-
-        // ── Mobile Programación Dialog (solo lectura) ─────────────────────────
-
-        onOpenProgramacionMobileDialog: function (oEvent) {
-            var that = this;
-            var oCtx = oEvent.getSource().getBindingContext("programacionPaged");
-            if (!oCtx) { return; }
-            var oData = JSON.parse(JSON.stringify(oCtx.getObject()));
-            if (!this.getView().getModel("programacionMobileDetail")) {
-                this.getView().setModel(new JSONModel(oData), "programacionMobileDetail");
-            } else {
-                this.getView().getModel("programacionMobileDetail").setData(oData);
-            }
-            if (!this._oProgramacionMobileDialog) {
-                sap.ui.core.Fragment.load({
-                    id: this.getView().getId(),
-                    name: "claro.com.clarocomprobantes.view.fragment.ProgramacionMobileDialog",
-                    controller: this
-                }).then(function (oDialog) {
-                    that._oProgramacionMobileDialog = oDialog;
-                    that.getView().addDependent(oDialog);
-                    oDialog.open();
-                });
-            } else {
-                this._oProgramacionMobileDialog.open();
-            }
-        },
-
-        onCloseProgramacionMobileDialog: function () {
-            this._oProgramacionMobileDialog.close();
-        },
-
-        onRegistrarFacturaPendienteMobile: function () {
-            var that = this;
-            var oList = this.byId("pendientesFactMobileList");
-            var aSelected = oList ? oList.getSelectedItems() : [];
-            if (aSelected.length === 0) {
-                MessageToast.show("Seleccione al menos un registro pendiente");
+            var oTable = this.byId("pendientesContratoTable");
+            var aItems = oTable ? oTable.getSelectedItems() : [];
+            if (aItems.length === 0) {
+                MessageToast.show("Seleccione al menos un período pendiente");
                 return;
             }
-            aSelected.forEach(function (oItem) {
-                var oCtx = oItem.getBindingContext("pendientesFactPaged");
+            var oModel = this.getView().getModel("pendientesFact");
+            aItems.forEach(function (oItem) {
+                var oCtx = oItem.getBindingContext("pendientesFact");
                 if (oCtx) {
-                    var iOrigIdx = oCtx.getObject()._origIdx;
-                    if (that._allPendientesData[iOrigIdx]) {
-                        that._allPendientesData[iOrigIdx].asignado = true;
+                    oModel.setProperty(oCtx.getPath() + "/asignado", true);
+                    // Sync back to master array
+                    var sPath = oCtx.getPath(); // e.g. "/5"
+                    var iIdx = parseInt(sPath.replace("/", ""), 10);
+                    if (!isNaN(iIdx) && that._allPendientesData[iIdx]) {
+                        that._allPendientesData[iIdx].asignado = true;
                     }
                 }
             });
-            oList.removeSelections();
+            oTable.removeSelections(true);
             var aAsig = this._allPendientesData.filter(function (o) { return !!o.asignado; });
             var oViewModel = this.getView().getModel("viewModel");
-            oViewModel.setProperty("/hasSelectedPendientes", false);
+            oViewModel.setProperty("/pendientesSelCount", 0);
+            oViewModel.setProperty("/pendientesSelTotal", "0.00");
             oViewModel.setProperty("/asignaciones", aAsig);
             oViewModel.setProperty("/step3Valid", true);
-            this._applyPendDesktopPage(oViewModel.getProperty("/pendDesktopPage"));
-            this._applyPendMobilePage(oViewModel.getProperty("/pendMobilePage"));
             setTimeout(function () {
                 that._realizarValidacionImportes();
                 that._navigateToStep4();
             }, 150);
             MessageToast.show(aAsig.length + " registro(s) asignado(s)");
-        },
-
-        onDesasignarPendienteMobile: function () {
-            var that = this;
-            var oList = this.byId("pendientesFactMobileList");
-            var aSelected = oList ? oList.getSelectedItems() : [];
-            if (aSelected.length === 0) {
-                MessageToast.show("Seleccione los registros a desasignar");
-                return;
-            }
-            aSelected.forEach(function (oItem) {
-                var oCtx = oItem.getBindingContext("pendientesFactPaged");
-                if (oCtx) {
-                    var iOrigIdx = oCtx.getObject()._origIdx;
-                    if (that._allPendientesData[iOrigIdx]) {
-                        that._allPendientesData[iOrigIdx].asignado = false;
-                    }
-                }
-            });
-            oList.removeSelections();
-            var aAsig = this._allPendientesData.filter(function (o) { return !!o.asignado; });
-            var oViewModel = this.getView().getModel("viewModel");
-            oViewModel.setProperty("/hasSelectedPendientes", false);
-            oViewModel.setProperty("/asignaciones", aAsig);
-            oViewModel.setProperty("/step3Valid", aAsig.length > 0);
-            this._applyPendDesktopPage(oViewModel.getProperty("/pendDesktopPage"));
-            this._applyPendMobilePage(oViewModel.getProperty("/pendMobilePage"));
-            setTimeout(function () {
-                that._realizarValidacionImportes();
-                that._navigateToStep4();
-            }, 150);
-            MessageToast.show(aSelected.length + " registro(s) desasignado(s)");
-        },
-
-        onRegistrarFacturaPendiente: function () {
-            var that = this;
-            // Sync current page edits (Input fields) back to master data
-            this._syncPendDesktopBack();
-            var oTable = this.byId("pendientesFactTable");
-            var aIndices = oTable ? oTable.getSelectedIndices() : [];
-            if (aIndices.length === 0) {
-                MessageToast.show("Seleccione al menos un registro pendiente");
-                return;
-            }
-
-            // Mark rows as assigned in the paged model
-            var oModel = this.getView().getModel("pendientesFact");
-            var oViewModel = this.getView().getModel("viewModel");
-            var iDesktopPage = oViewModel.getProperty("/pendDesktopPage");
-            var iPageSize = 10;
-            var iOffset = (iDesktopPage - 1) * iPageSize;
-
-            aIndices.forEach(function (iIdx) {
-                var oCtx = oTable.getContextByIndex(iIdx);
-                if (oCtx) {
-                    oModel.setProperty(oCtx.getPath() + "/asignado", true);
-                    // Sync back to full data array
-                    var iGlobalIdx = iOffset + iIdx;
-                    if (that._allPendientesData[iGlobalIdx]) {
-                        that._allPendientesData[iGlobalIdx].asignado = true;
-                    }
-                }
-            });
-
-            // Accumulate ALL assigned rows from full dataset
-            var aAsignaciones = this._allPendientesData.filter(function (o) { return !!o.asignado; });
-
-            oTable.clearSelection();
-            oViewModel.setProperty("/hasSelectedPendientes", false);
-            oViewModel.setProperty("/asignaciones", aAsignaciones);
-            oViewModel.setProperty("/step3Valid", true);
-
-            setTimeout(function () {
-                that._refreshPendientesHighlight();
-                that._realizarValidacionImportes();
-                that._navigateToStep4();
-            }, 150);
-
-            MessageToast.show(aAsignaciones.length + " registro(s) asignado(s)");
             if (window.DemoTour) { window.DemoTour.onUserAction("obligacionesAsignadas"); }
         },
 
-        onDesasignarPendiente: function () {
+        onLimpiarSeleccionContrato: function () {
+            var oTable = this.byId("pendientesContratoTable");
+            if (oTable) { oTable.removeSelections(true); }
+            var oViewModel = this.getView().getModel("viewModel");
+            oViewModel.setProperty("/pendientesSelCount", 0);
+            oViewModel.setProperty("/pendientesSelTotal", "0.00");
+        },
+
+        onDesasignarPendientesContrato: function () {
             var that = this;
-            this._syncPendDesktopBack();
-            var oTable = this.byId("pendientesFactTable");
-            var aIndices = oTable ? oTable.getSelectedIndices() : [];
-            if (aIndices.length === 0) {
-                MessageToast.show("Seleccione los registros a desasignar");
+            var oTable = this.byId("pendientesContratoTable");
+            var aItems = oTable ? oTable.getSelectedItems() : [];
+            if (aItems.length === 0) {
+                MessageToast.show("Seleccione los períodos a desasignar");
                 return;
             }
             var oModel = this.getView().getModel("pendientesFact");
-            var oViewModel = this.getView().getModel("viewModel");
-            var iDesktopPage = oViewModel.getProperty("/pendDesktopPage");
-            var iPageSize = 10;
-            var iOffset = (iDesktopPage - 1) * iPageSize;
-
-            aIndices.forEach(function (iIdx) {
-                var oCtx = oTable.getContextByIndex(iIdx);
+            aItems.forEach(function (oItem) {
+                var oCtx = oItem.getBindingContext("pendientesFact");
                 if (oCtx) {
                     oModel.setProperty(oCtx.getPath() + "/asignado", false);
-                    // Sync back to full data array
-                    var iGlobalIdx = iOffset + iIdx;
-                    if (that._allPendientesData[iGlobalIdx]) {
-                        that._allPendientesData[iGlobalIdx].asignado = false;
+                    var iIdx = parseInt(oCtx.getPath().replace("/", ""), 10);
+                    if (!isNaN(iIdx) && that._allPendientesData[iIdx]) {
+                        that._allPendientesData[iIdx].asignado = false;
                     }
                 }
             });
-            oTable.clearSelection();
-            oViewModel.setProperty("/hasSelectedPendientes", false);
-
-            // Recalculate asignaciones from full dataset
+            oTable.removeSelections(true);
             var aAsig = this._allPendientesData.filter(function (o) { return !!o.asignado; });
+            var oViewModel = this.getView().getModel("viewModel");
+            oViewModel.setProperty("/pendientesSelCount", 0);
+            oViewModel.setProperty("/pendientesSelTotal", "0.00");
             oViewModel.setProperty("/asignaciones", aAsig);
             oViewModel.setProperty("/step3Valid", aAsig.length > 0);
+            this._updateAsignacionesResumen();
+            this._realizarValidacionImportes();
+            MessageToast.show(aItems.length + " período(s) desasignado(s)");
+        },
 
-            setTimeout(function () {
-                that._refreshPendientesHighlight();
-                that._realizarValidacionImportes();
-                that._navigateToStep4();
-            }, 150);
+        onConceptoChange: function (oEvent) {
+            // Legacy — mantenido para compatibilidad pero ya no tiene efecto
+        },
 
-            MessageToast.show(aIndices.length + " registro(s) desasignado(s)");
+        onAgregarConcepto: function () {
+            // Legacy — mantenido para compatibilidad pero ya no tiene efecto
+        },
+
+        onObligacionesSelectionChange: function (oEvent) {
+            var oTable = this.byId("obligacionesTable");
+            var aSelectedItems = oTable ? oTable.getSelectedItems() : [];
+            var oViewModel = this.getView().getModel("viewModel");
+            oViewModel.setProperty("/hasSelectedObligaciones", aSelectedItems.length > 0);
+        },
+
+        onPendientesFactSelectionChange: function () {
+            // Legacy — tabla t:Table reemplazada por sap.m.Table
+        },
+
+        onPendienteImporteChange: function (oEvent) {
+            this.onPendienteContratoImporteChange(oEvent);
+        },
+
+        // ── Mobile Pendientes (Option B: List + Edit Dialog) ─────────────────────
+
+        onPendientesFactMobileSelectionChange: function () {
+            // Legacy — sección mobile eliminada
+        },
+
+        onOpenPendienteMobileDialog: function () { /* Legacy */ },
+        onConfirmPendienteMobileDialog: function () { /* Legacy */ },
+        onCancelPendienteMobileDialog: function () { /* Legacy */ },
+        onPendienteMobileImporteChange: function () { /* Legacy */ },
+        onOpenProgramacionMobileDialog: function () { /* Legacy */ },
+        onCloseProgramacionMobileDialog: function () { /* Legacy */ },
+
+        onRegistrarFacturaPendienteMobile: function () {
+            this.onAsignarPendientesContrato();
+        },
+
+        onDesasignarPendienteMobile: function () {
+            // Legacy — acción de desasignar desde lista mobile
+        },
+
+        onRegistrarFacturaPendiente: function () {
+            this.onAsignarPendientesContrato();
+        },
+
+        onDesasignarPendiente: function () {
+            // Legacy — acción mantenida por compatibilidad
         },
 
         _refreshPosicionesHighlight: function () {
@@ -2275,63 +2188,116 @@ sap.ui.define([
         onWizardComplete: function () {
             MessageToast.show("Wizard completado");
         },
-        
-        onRegistrar: function () {
+
+        // ── Popup Resumen Final ────────────────────────────────────────────────
+        onFinalizarRegistro: function () {
             var that = this;
             var oViewModel = this.getView().getModel("viewModel");
-            var oComprobante = this.getView().getModel("comprobante").getData();
             var aAsignaciones = oViewModel.getProperty("/asignaciones") || [];
-            var sPeriodo = (oComprobante.periodoMes || "") + "-" + (oComprobante.periodoAnio || "");
-            var sLineas = aAsignaciones.map(function (o) {
-                return "\u2022 " + (o.mesPago || o.descripcion || o.id || "") +
-                       "  |  Total: " + parseFloat(o.total || o.importe || 0).toFixed(2);
-            }).join("\n");
-            var sMensaje =
-                "Se registrará la factura " +
-                (oComprobante.serieDocumento || "") + "-" + (oComprobante.numeroDocumento || "") +
-                " con estado \u201CREGISTRADO\u201D.\n\n" +
-                "Periodo asociado: " + sPeriodo + "\n" +
-                "Asignaciones (" + aAsignaciones.length + "):\n" + sLineas +
-                "\n\nLa factura quedará guardada en el sistema con esta información.\n¿Desea continuar?";
-            MessageBox.confirm(sMensaje, {
-                title: "Confirmar Registro",
-                actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
-                emphasizedAction: MessageBox.Action.OK,
-                onClose: function (oAction) {
-                    if (oAction === MessageBox.Action.OK) {
-                        that._guardarComprobante("REGISTRADO");
-                    }
+
+            // Calcular agregados
+            var oDistinctDocs = {}; // { numeroOC: { numero, descripcion } }
+            var fMontoAsignado = 0;
+            aAsignaciones.forEach(function (oAsig) {
+                var sKey = oAsig._sourceDoc || "Sin documento";
+                if (!oDistinctDocs[sKey]) {
+                    // Buscar la descripción real de la OC para evitar redundancia en el popover
+                    var oOCData = that._oMockDataService.getOrdenCompraByNumero(sKey);
+                    oDistinctDocs[sKey] = {
+                        numero: sKey,
+                        descripcion: oOCData ? oOCData.descripcion : (oAsig._sourceDocType || "Orden de Compra")
+                    };
                 }
+                fMontoAsignado += (oAsig.montoTotal || oAsig.importe || oAsig.total || 0);
             });
+
+            var aDocsList = Object.values(oDistinctDocs);
+            var nDocs = aDocsList.length;
+
+            // Smart Truncation: ≤3 → texto plano, 4+ → link con popover
+            var bEsLink = nDocs > 3;
+            var sResumenLabel = bEsLink
+                ? nDocs + " Órdenes de Compra"
+                : aDocsList.map(function (d) { return d.numero; }).join(", ");
+
+            oViewModel.setProperty("/resumenDocsCount", nDocs);
+            oViewModel.setProperty("/resumenPosCount", aAsignaciones.length);
+            oViewModel.setProperty("/resumenMontoAsignado",
+                fMontoAsignado.toLocaleString("es-PE", { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+            oViewModel.setProperty("/documentosOrigenResumen", sResumenLabel);
+            oViewModel.setProperty("/documentosOrigenEsLink", bEsLink);
+            oViewModel.setProperty("/documentosOrigenLista", aDocsList);
+
+            if (!this._oResumenFinalDialog) {
+                sap.ui.core.Fragment.load({
+                    id: this.getView().getId(),
+                    name: "claro.com.clarocomprobantes.view.fragment.ResumenFinalDialog",
+                    controller: this
+                }).then(function (oDialog) {
+                    that._oResumenFinalDialog = oDialog;
+                    that.getView().addDependent(oDialog);
+                    oDialog.open();
+                });
+            } else {
+                this._oResumenFinalDialog.open();
+            }
+        },
+
+        onOrigenDocsLinkPress: function (oEvent) {
+            var oLink = oEvent.getSource();
+            var oView = this.getView();
+            // Buscar el popover dentro del dialog (dependents del dialog)
+            var oPopover = oView.byId("popOrigenDocs") ||
+                (this._oResumenFinalDialog && this._oResumenFinalDialog.byId &&
+                    sap.ui.getCore().byId(oView.getId() + "--popOrigenDocs"));
+            if (oPopover) {
+                // Bindear la lista al modelo viewModel del owner component
+                oPopover.setModel(oView.getModel("viewModel"), "viewModel");
+                oPopover.openBy(oLink);
+            }
+        },
+
+        onResumenDialogCancelar: function () {
+            if (this._oResumenFinalDialog) {
+                this._oResumenFinalDialog.close();
+            }
+        },
+
+        onResumenDialogRegistrar: function () {
+            if (this._oResumenFinalDialog) {
+                this._oResumenFinalDialog.close();
+            }
+            this.onRegistrar();
+        },
+
+        onResumenDialogRegistrarYEnviar: function () {
+            if (this._oResumenFinalDialog) {
+                this._oResumenFinalDialog.close();
+            }
+            this.onRegistrarYEnviar();
+        },
+
+        onRegistrar: function () {
+            this._guardarComprobante("REGISTRADO");
         },
 
         onRegistrarYEnviar: function () {
             var that = this;
-            var oViewModel = this.getView().getModel("viewModel");
             var oComprobante = this.getView().getModel("comprobante").getData();
-            var aAsignaciones = oViewModel.getProperty("/asignaciones") || [];
-            var sPeriodo = (oComprobante.periodoMes || "") + "-" + (oComprobante.periodoAnio || "");
-            var sLineas = aAsignaciones.map(function (o) {
-                return "\u2022 " + (o.mesPago || o.descripcion || o.id || "") +
-                       "  |  Total: " + parseFloat(o.total || o.importe || 0).toFixed(2);
-            }).join("\n");
-            var sMensaje =
-                "Se registrará la factura " +
-                (oComprobante.serieDocumento || "") + "-" + (oComprobante.numeroDocumento || "") +
-                " con estado \u201CENVIADO\u201D y será remitida a la bandeja de contabilización.\n\n" +
-                "Periodo asociado: " + sPeriodo + "\n" +
-                "Asignaciones (" + aAsignaciones.length + "):\n" + sLineas +
-                "\n\nEsta acción no se puede deshacer. ¿Desea continuar?";
-            MessageBox.confirm(sMensaje, {
-                title: "Confirmar Registro y Envío",
-                actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
-                emphasizedAction: MessageBox.Action.OK,
-                onClose: function (oAction) {
-                    if (oAction === MessageBox.Action.OK) {
-                        that._guardarComprobante("ENVIADO");
+            var sFactura = (oComprobante.serieDocumento || "") + "-" + (oComprobante.numeroDocumento || "");
+            MessageBox.warning(
+                "La factura " + sFactura + " será enviada a la bandeja de contabilización.\n\nEsta acción no se puede deshacer. ¿Desea continuar?",
+                {
+                    title: "Confirmar Envío a Contabilización",
+                    actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
+                    emphasizedAction: MessageBox.Action.OK,
+                    onClose: function (oAction) {
+                        if (oAction === MessageBox.Action.OK) {
+                            that._guardarComprobante("ENVIADO");
+                        }
                     }
                 }
-            });
+            );
         },
         
         _guardarComprobante: function (sEstado) {
